@@ -1,0 +1,40 @@
+            <!-- START FORM USER -->
+            <div class="box-label green" 
+                data-boxid="user" 
+                ng-click="showTabWrapper($event)" 
+                ng-bind-template="{{ headertitle.user }} / {{ wrapperstatus.user | dialogText }}">
+            </div> 
+            <div class="wrapper-box green-light">
+                <form name="userForm" ng-submit="addUser()" novalidate >
+                    <p>
+                        <input ng-model="user.firstname"
+                            ng-maxlength="30"
+                            required
+                            type="text"
+                            name="firstname" />
+                        <label>Vorname</label>
+                    </p>
+                    <p>
+                        <input ng-model='user.secondname'
+                            ng-maxlength="30"
+                            required
+                            type="text"
+                            name="secondname" />
+                        <label>Nachname</label>
+                    </p>
+                    <p>
+                        <input ng-model='user.nickname'
+                            ng-maxlength="30"
+                            required
+                            type="text"
+                            name="nickname" />
+                        <label>Nickname</label>
+                    </p>
+                    <p>
+                        <input type="submit" value="speichern" />&nbsp;
+                        <span class="formmsg" ng-bind="formmsg.user"></span>
+                    </p>
+                </form>
+                <div class="gridStyle" ng-grid="gridOptionsUser"></div>
+            </div>
+            <!-- END FORM USER -->

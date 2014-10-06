@@ -1,0 +1,39 @@
+            <!-- START FORM TEAM -->
+            <div class="box-label green" 
+                data-boxid="team" 
+                ng-click="showTabWrapper($event)" 
+                ng-bind-template="{{ headertitle.team }} / {{ wrapperstatus.team | dialogText }}">
+            </div> 
+            <div class="wrapper-box green-light">
+                <form name="teamForm" ng-submit="addTeam()" novalidate>
+                    <p>
+                        <select ng-model='team.player_1'
+                                ng-required="true"
+                                ng-options="teamuser.nickname for teamuser in userData"
+                                name="player_1"><option ng-selected="selected" value="">-- Auswahl Spieler 1 --</option></select>
+                        <label>Spieler 1</label>
+                    </p>
+                    <p>
+                        <select ng-model='team.player_2'
+                                ng-required="true"
+                                ng-options="teamuser.nickname for teamuser in userData"
+                                name="player_2"><option ng-selected="selected" value="">-- Auswahl Spieler 2 --</option></select>
+                        <label>Spieler 2</label>
+                    </p>
+                    <p>
+                        <input ng-model='team.teamname'
+                            ng-required="true"
+                            ng-maxlength="30"
+                            required
+                            type="text"
+                            name="teamname" />
+                        <label>Teamname</label>
+                    </p>
+                    <p>
+                        <input type="submit" value="speichern" />&nbsp;
+                        <span class="formmsg" ng-bind="formmsg.team"></span>
+                    </p>
+                </form>
+                <div class="gridStyle" ng-grid="gridOptionsTeam"></div>
+            </div>
+            <!-- END FORM TEAM -->

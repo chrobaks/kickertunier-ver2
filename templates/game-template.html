@@ -1,0 +1,51 @@
+            <!-- START FORM GAME -->
+            <div class="box-label blue" ng-bind="headertitle.game"></div> 
+            <div class="wrapper-box active blue-light">
+                <form name="gameForm" ng-submit="startGame()" novalidate>
+                    <p>
+                        
+                        <select ng-model='game.team_1'
+                                ng-required="true"
+                                ng-options="gameteam.teamname for gameteam in teamData"
+                                name="team_1"><option ng-selected="selected" value="">-- Auswahl Team 1 --</option></select>
+                        <label>Team 1</label>
+                    </p>
+                    <p>
+                        <select ng-model='game.team_2'
+                                ng-required="true"
+                                ng-options="gameteam.teamname for gameteam in teamData"
+                                name="team_2"><option ng-selected="selected" value="">-- Auswahl Team 2 --</option></select>
+                        <label>Team 2</label>
+                    </p>
+                    <p>
+                        <input type="submit" value="Spiel starten" />&nbsp;
+                        <span class="formmsg" ng-bind="formmsg.game"></span>
+                    </p>
+                    <div class="wrapper-score-display-label">
+                        <ul class="score-display-label">
+                            <li class="score-display-label-titel">Team 1</li>
+                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_1}}"></li>
+                            <li class="score-display-label-space"></li>
+                            <li class="score-display-label-titel">Tore</li>
+                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_1_scores}}"></li>
+                            <li class="score-display-label-space"></li>
+                        </ul>
+                        <score-display index="0" class="goal-display"></score-display>
+                    </div>
+                    <div class="wrapper-score-display-label">
+                        <ul class="score-display-label">
+                            <li class="score-display-label-titel">Team 2</li>
+                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_2}}"></li>
+                            <li class="score-display-label-space"></li>
+                            <li class="score-display-label-titel">Tore</li>
+                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_2_scores}}"></li>
+                            <li class="score-display-label-space"></li>
+                        </ul>
+                        <score-display index="1" class="goal-display"></score-display>
+                    </div>
+                </form>
+            </div>
+            <div class="gridStyle" ng-grid="gridOptionsGame"></div>
+            <div class="box-label blue">Spiel-Tabelle</div> 
+            <div class="gridStyle" ng-grid="gridOptionsGameScore"></div>
+            <!-- END FORM GAME -->

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html class="ng-scope" ng-app="mainApp">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Kickertunier</title>
+<link rel="stylesheet" type="text/css" href="css/ng-grid.css"/>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+<body>
+   <div class="ng-scope" ng-controller="gameController">     
+        <div style="width: 400px;">
+            <module>
+            <div ui-view="viewUser"></div>
+            
+           <div ui-view="viewTeam"></div>
+            
+            <div ui-view="viewGame"></div>
+            </module>
+        </div>
+    </div>
+    
+<style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{display:none;}ng\:form{display:block;}</style>
+<script type="text/javascript" src="js/global/global.vars.js"></script>
+<script type="text/javascript" src="js/lib/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="js/lib/angular.js"></script>
+<script type="text/javascript" src="js/lib/angular-ui-router.js"></script>
+<script type="text/javascript" src="js/lib/ng-grid.js"></script>
+<script type="text/javascript" src="js/app/mainApp.js"></script>
+<script type="text/javascript" src="js/app/filter/mainAppFilter.js"></script>
+<script type="text/javascript" src="js/app/controller/gameController.js"></script>
+<script type="text/javascript" src="js/app/factory/appFactory.js"></script>
+<script type="text/javascript" src="js/app/factory/gameFactory.js"></script>
+<script type="text/javascript" src="js/app/directive/scoreDisplayDirective.js"></script>
+<!--
+<script type="text/javascript" src="js/app/controller/userController.js"></script>
+<script type="text/javascript" src="js/app/controller/teamController.js"></script>
+<script type="text/javascript" src="js/app/factory/userFactory.js"></script>
+<script type="text/javascript" src="js/app/factory/teamFactory.js"></script>
+
+-->
+</body>
+</html>
