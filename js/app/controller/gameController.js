@@ -29,25 +29,20 @@
             team: 0,
             game: 1
         }
-        // SCOPE VAR selectData stores all select data
-        $scope.selectData = {
-            user: [],
-            team: []
-        }
-        // SCOPE VAR gamescoredata stores games score list
+        // SCOPE VAR gamescoredata stores GridOptions Data
         $scope.gameScoreData = [];
-        // SCOPE VAR scoreColumnsDef stores Columns Definition
+        // SCOPE VAR scoreColumnsDef stores GridOptions Columns Definition
         $scope.scoreColumnsDef = [
             {field: 'teamname', displayName: 'Teamname'},
             {field: 'gamecounts', displayName: 'Anzahl Spiele'},
             {field: 'totalpoints', displayName: 'Punkte'}
         ];
-        // SCOPE VAR gamedata stores all games
+        // SCOPE VAR gamedata stores  GridOptions Data
         $scope.gameData = [
             {team_win: 'Ateam',team_1: 'Ateam', team_2: 'Vollenergie', result: '7 : 1', id: 1},
             {team_win: 'Vollenergie',team_1: 'Ateam', team_2: 'Vollenergie', result: '3 : 7', id: 2}
         ];
-        // SCOPE VAR gameColumnsDef stores Columns Definition
+        // SCOPE VAR gameColumnsDef stores GridOptions Columns Definition
         $scope.gameColumnsDef = [
             {field: 'team_1', displayName: 'Team 1'},
             {field: 'team_2', displayName: 'Team 2'},
@@ -57,12 +52,12 @@
                 cellTemplate: 'templates/grid-options-game-template.html'
             }
         ];
-        // SCOPE VAR teamdata stores all teams
+        // SCOPE VAR teamdata stores GridOptions Data
         $scope.teamData = [
             {teamname: 'Ateam', player_1: 'SChrobak', player_2: 'MChrobak', id: 1},
             {teamname: 'Vollenergie', player_1: 'PaulM', player_2: 'PaulaM', id: 2}
         ];
-        // SCOPE VAR teamColumnsDef stores Columns Definition
+        // SCOPE VAR teamColumnsDef stores GridOptions Columns Definition
         $scope.teamColumnsDef = [
             {field: 'teamname', displayName: 'Team-Name'},
             {field: 'player_1', displayName: 'Spieler 1'},
