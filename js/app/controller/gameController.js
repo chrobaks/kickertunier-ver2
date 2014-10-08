@@ -115,6 +115,18 @@
         $scope.setGoal = setGoal;
         // SHOW TAB WRAPER
         $scope.showTabWrapper = showTabWrapper;
+        /*
+        $scope.$on('$viewContentLoaded', 
+            function(event, viewConfig){ 
+                console.log('#c : ---------------------------- ');
+                for(var e in event.targetScope){
+                    if(e.match(/^(userForm|teamForm|gameForm)$/)){
+                        //$scope[e] = event.targetScope[e];
+                        console.log('#E : '+e+" / "+event.targetScope[e])
+                    }
+                }
+        });
+        */
         // INIT Game SCOPE
         init();
         //FUNCTIONS
