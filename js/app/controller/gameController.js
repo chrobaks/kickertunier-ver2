@@ -1,15 +1,15 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp').controller('gameController', GameController);
+    angular.module('mainApp').controller('gameCtrl', GameCtrl);
 
-    GameController.$inject = [
+    GameCtrl.$inject = [
         '$scope',
         'GameFactory',
         'MessageFactory'
     ];
 
-    function GameController($scope, GameFactory, MessageFactory) {
+    function GameCtrl($scope, GameFactory, MessageFactory) {
         
         // SCOPE VAR headertitle  show controller header titel
         $scope.headertitle = {
@@ -115,18 +115,6 @@
         $scope.setGoal = setGoal;
         // SHOW TAB WRAPER
         $scope.showTabWrapper = showTabWrapper;
-        /*
-        $scope.$on('$viewContentLoaded', 
-            function(event, viewConfig){ 
-                console.log('#c : ---------------------------- ');
-                for(var e in event.targetScope){
-                    if(e.match(/^(userForm|teamForm|gameForm)$/)){
-                        //$scope[e] = event.targetScope[e];
-                        console.log('#E : '+e+" / "+event.targetScope[e])
-                    }
-                }
-        });
-        */
         // INIT Game SCOPE
         init();
         //FUNCTIONS

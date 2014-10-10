@@ -11,18 +11,8 @@
             $stateProvider
             .state('index', {
                 url: "",
-                controller: 'gameController',
-                views: {
-                    "viewUser": { 
-                        templateUrl: "templates/user-template.html" 
-                    },
-                    "viewTeam": { 
-                        templateUrl: "templates/team-template.html" 
-                    },
-                    "viewGame": { 
-                        templateUrl: "templates/game-template.html" 
-                    }
-                }
+                controller: 'gameCtrl',
+                templateUrl: "templates/game-template.html"
             });
         }
     );
