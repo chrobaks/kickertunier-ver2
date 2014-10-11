@@ -3,6 +3,8 @@ Kickertunier-UI with Angular.js
 
 LearningByDoing-Application with Angular for Beginners
 
+Udated : 11.10.2014
+
 used libarys
 
 - angular.js 1.7
@@ -16,18 +18,21 @@ a kickertunier-ui where you can add/delete user, teams and games and set a activ
 two teams and some click-events.
 
 basicly build with one module:
-- ng-mainApp
+- mainApp
 
 basicly build with one controller:
-- ng-gameController
+- gameCtrl
 
-basicly build with one controller-factory:
-- ng-gameFactory
+basicly build with factorys:
+- userFactory
+- teamFactory
+- gamestorageFactory
+- gameFactory
 
 basicly build with one module-factory:
-- ng-appFactory -> MessageFactory
+- appFactory -> MessageFactory
 
 basicly build with one gameController-directive:
-- ng-scoreDisplayDirective
+- scoreDisplayDirective
 
 

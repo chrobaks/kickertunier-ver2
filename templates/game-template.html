@@ -2,12 +2,12 @@
             <div class="box-label green" 
                 data-boxid="user" 
                 ng-click="showTabWrapper($event)" 
-                ng-bind-template="{{ headertitle.user }} / {{ wrapperstatus.user | dialogText }}">
+                ng-bind-template="{{ tpl.headertitle.user }} / {{ tpl.wrapperstatus.user | dialogText }}">
             </div> 
             <div class="wrapper-box green-light">
                 <form name="userForm" ng-submit="addUser()" novalidate >
                     <p>
-                        <input ng-model="user.firstname"
+                        <input ng-model="users.user.firstname"
                             ng-maxlength="30"
                             required
                             type="text"
@@ -15,7 +15,7 @@
                         <label>Vorname</label>
                     </p>
                     <p>
-                        <input ng-model='user.secondname'
+                        <input ng-model='users.user.secondname'
                             ng-maxlength="30"
                             required
                             type="text"
@@ -23,7 +23,7 @@
                         <label>Nachname</label>
                     </p>
                     <p>
-                        <input ng-model='user.nickname'
+                        <input ng-model='users.user.nickname'
                             ng-maxlength="30"
                             required
                             type="text"
@@ -32,7 +32,7 @@
                     </p>
                     <p>
                         <input type="submit" value="speichern" />&nbsp;
-                        <span class="formmsg" ng-bind="formmsg.user"></span>
+                        <span class="formmsg" ng-bind="tpl.formmsg.user"></span>
                     </p>
                 </form>
                 <div class="gridStyle" ng-grid="gridOptionsUser"></div>
@@ -42,26 +42,26 @@
             <div class="box-label green" 
                 data-boxid="team" 
                 ng-click="showTabWrapper($event)" 
-                ng-bind-template="{{ headertitle.team }} / {{ wrapperstatus.team | dialogText }}">
+                ng-bind-template="{{ tpl.headertitle.team }} / {{ tpl.wrapperstatus.team | dialogText }}">
             </div> 
             <div class="wrapper-box green-light">
                 <form name="teamForm" ng-submit="addTeam()" novalidate>
                     <p>
-                        <select ng-model='team.player_1'
+                        <select ng-model='teams.team.player_1'
                                 ng-required="true"
-                                ng-options="teamuser.nickname for teamuser in userData"
+                                ng-options="teamuser.nickname for teamuser in users.userData"
                                 name="player_1"><option ng-selected="selected" value="">-- Auswahl Spieler 1 --</option></select>
                         <label>Spieler 1</label>
                     </p>
                     <p>
-                        <select ng-model='team.player_2'
+                        <select ng-model='teams.team.player_2'
                                 ng-required="true"
-                                ng-options="teamuser.nickname for teamuser in userData"
+                                ng-options="teamuser.nickname for teamuser in users.userData"
                                 name="player_2"><option ng-selected="selected" value="">-- Auswahl Spieler 2 --</option></select>
                         <label>Spieler 2</label>
                     </p>
                     <p>
-                        <input ng-model='team.teamname'
+                        <input ng-model='teams.team.teamname'
                             ng-required="true"
                             ng-maxlength="30"
                             required
@@ -71,42 +71,42 @@
                     </p>
                     <p>
                         <input type="submit" value="speichern" />&nbsp;
-                        <span class="formmsg" ng-bind="formmsg.team"></span>
+                        <span class="formmsg" ng-bind="tpl.formmsg.team"></span>
                     </p>
                 </form>
                 <div class="gridStyle" ng-grid="gridOptionsTeam"></div>
             </div>
             <!-- END FORM TEAM -->
             <!-- START FORM GAME -->
-            <div class="box-label blue" ng-bind="headertitle.game"></div> 
+            <div class="box-label blue" ng-bind="tpl.headertitle.game"></div> 
             <div class="wrapper-box active blue-light">
                 <form name="gameForm" ng-submit="startGame()" novalidate>
                     <p>
                         
-                        <select ng-model='game.team_1'
+                        <select ng-model='games.game.team_1'
                                 ng-required="true"
-                                ng-options="gameteam.teamname for gameteam in teamData"
+                                ng-options="gameteam.teamname for gameteam in teams.teamData"
                                 name="team_1"><option ng-selected="selected" value="">-- Auswahl Team 1 --</option></select>
                         <label>Team 1</label>
                     </p>
                     <p>
-                        <select ng-model='game.team_2'
+                        <select ng-model='games.game.team_2'
                                 ng-required="true"
-                                ng-options="gameteam.teamname for gameteam in teamData"
+                                ng-options="gameteam.teamname for gameteam in teams.teamData"
                                 name="team_2"><option ng-selected="selected" value="">-- Auswahl Team 2 --</option></select>
                         <label>Team 2</label>
                     </p>
                     <p>
                         <input type="submit" value="Spiel starten" />&nbsp;
-                        <span class="formmsg" ng-bind="formmsg.game"></span>
+                        <span class="formmsg" ng-bind="tpl.formmsg.game"></span>
                     </p>
                     <div class="wrapper-score-display-label">
                         <ul class="score-display-label">
                             <li class="score-display-label-titel">Team 1</li>
-                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_1}}"></li>
+                            <li class="score-display-label-value" ng-bind-template=" : {{games.gameActualTeamData.team_1}}"></li>
                             <li class="score-display-label-space"></li>
                             <li class="score-display-label-titel">Tore</li>
-                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_1_scores}}"></li>
+                            <li class="score-display-label-value" ng-bind-template=" : {{games.gameActualTeamData.team_1_scores}}"></li>
                             <li class="score-display-label-space"></li>
                         </ul>
                         <score-display index="0" class="goal-display"></score-display>
@@ -114,10 +114,10 @@
                     <div class="wrapper-score-display-label">
                         <ul class="score-display-label">
                             <li class="score-display-label-titel">Team 2</li>
-                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_2}}"></li>
+                            <li class="score-display-label-value" ng-bind-template=" : {{games.gameActualTeamData.team_2}}"></li>
                             <li class="score-display-label-space"></li>
                             <li class="score-display-label-titel">Tore</li>
-                            <li class="score-display-label-value" ng-bind-template=" : {{gameActualTeamData.team_2_scores}}"></li>
+                            <li class="score-display-label-value" ng-bind-template=" : {{games.gameActualTeamData.team_2_scores}}"></li>
                             <li class="score-display-label-space"></li>
                         </ul>
                         <score-display index="1" class="goal-display"></score-display>
