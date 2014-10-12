@@ -27,7 +27,9 @@
                     cellTemplate: 'templates/grid-options-team-template.html'
                 }
             ],
-            teamAutoId : null
+            teamAutoId : null,
+            getTeamnames : getTeamnames,
+            getIdByTeamname : getIdByTeamname
         }
         /**
         * private get_checkTeamnameUnique
@@ -59,12 +61,33 @@
             return isin;
         }
         /**
-        * public get
+        * protect getTeamnames
         *
-        * @returns object
+        * @description get teamnames
+        * @returns array
         */
-        function get () {
-            return teams;
+        function getTeamnames() {
+            var r = [];
+            for(var e in teams.teamData){
+                r.push(teams.teamData[e].teamname);
+            }
+            return r;
+        }
+        /**
+        * protect getIdByTeamname
+        *
+        * @description get teamid by teamname
+        * @returns number
+        */
+        function getIdByTeamname(teamname) {
+            var r = null;
+            for(var e in teams.teamData){
+                if(teams.teamData[e].teamname==teamname){
+                    r=teams.teamData[e].id;
+                    break;
+                }
+            }
+            return r;
         }
         /**
         * private addTeamData
@@ -127,6 +150,14 @@
 
             if( ! actionOk)
             MessageFactory.set_alert('error');
+        }
+        /**
+        * public get
+        *
+        * @returns object
+        */
+        function get () {
+            return teams;
         }
         return {
             addTeam       : addTeam,

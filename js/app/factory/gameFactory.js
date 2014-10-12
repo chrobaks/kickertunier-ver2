@@ -12,59 +12,12 @@
     function GameFactory(GridFactory, AutoIdFactory, MessageFactory) {
         var scopeStorage = {};
         /**
-        * public get_gameIsRunning
-        *
-        * @returns boolean
-        */
-        function get_gameIsRunning() {
-           return scopeStorage.games.gameIsRunning;
-        }
-        /**
-        * public get_teamname
-        *
-        * @description get teamname by id or flag
-        * @returns string
-        */
-        function get_teamname(id) {
-            var r = (arguments.length>1) ? [] : '';
-            var flag = (arguments.length>1) ? arguments[1] : '';
-            for(var e in scopeStorage.teams.teamData){
-                if(flag == ''){
-                    if(scopeStorage.teams.teamData[e].id==id){
-                        r=scopeStorage.teams.teamData[e].teamname;
-                        break;
-                    }
-                }else{
-                    if(flag == '-a'){
-                        r.push(scopeStorage.teams.teamData[e].teamname);
-                    }
-                }
-            }
-            return r;
-        }
-        /**
-        * public get_teamid
-        *
-        * @description get teamid by teamname
-        * @returns number
-        */
-        var get_teamid = function (teamname) {
-            var r = "";
-            for(var e in scopeStorage.teams.teamData){
-                if(scopeStorage.teams.teamData[e].teamname==teamname){
-                    r=scopeStorage.teams.teamData[e].id;
-                    break;
-                }
-            }
-            return r;
-        }
-        /**
         * private set_gameScoreDisplay
         *
         * @description set scoreDisplay CSS
         * @returns void
         */
-        var set_gameScoreDisplayStyle = function(domelement,isactive){
+        function setGameScoreDisplayStyle(domelement,isactive){
             if(domelement!==""){
                 if(isactive){
                     domelement.attributes.class.value += " active";
@@ -76,36 +29,18 @@
             }
         }
         /**
-        * private set_defaultGameActualTeamData
+        * private setGameActualTeamData
         *
         * @description set default scope GameActualTeamData
         * @returns void
         */
-        var set_defaultGameActualTeamData = function(){
+        function setGameActualTeamData(){
             scopeStorage.games.gameActualTeamData = {
-                team_1: 'Kein Team',
-                team_2: 'Kein Team',
+                team_1: ((typeof scopeStorage.games.game.team_1 == 'object') ? scopeStorage.games.game.team_1.teamname :'Kein Team'),
+                team_2: ((typeof scopeStorage.games.game.team_2 == 'object') ? scopeStorage.games.game.team_2.teamname :'Kein Team'),
                 team_1_scores: 0,
                 team_2_scores: 0
             };
-        }
-        /**
-        * private set_startGameData
-        *
-        * @description set new game data
-        * @returns void
-        */
-        var set_newGameActualTeamData = function () {
-            var newgame = {
-                team_1: scopeStorage.games.game.team_1.teamname,
-                team_2: scopeStorage.games.game.team_2.teamname,
-                team_1_scores: 0,
-                team_2_scores: 0
-            };
-            scopeStorage.games.gameActualTeamData = angular.copy(newgame);
-            scopeStorage.games.game = {team_1: '', team_2: ''};
-            scopeStorage.games.gameIsRunning = true;
-            set_gameScoreDisplayStyle("",false);
         }
         /**
         * public set_startGame
@@ -113,56 +48,57 @@
         * @description valided gameform and if ok run add func
         * @returns boolean if form not valid than false
         */
-        var set_startGame = function () {
-            var actionOk = true;
+        function setStartGame() {
             if ( ! scopeStorage.gameForm.$valid) {
                 MessageFactory.set_error("fields_need_content");
-                actionOk = false;
-            }
-
-            if(actionOk){
-                set_newGameActualTeamData();
-            }else{
                 scopeStorage.tpl.formmsg.game = MessageFactory.get_error();
+            }else{
+                setGameActualTeamData();
+                scopeStorage.games.game = {team_1: '', team_2: ''};
+                scopeStorage.games.gameIsRunning = true;
+                setGameScoreDisplayStyle("",false);
             }
         }
         /**
-        * private set_gameScoreList
+        * private fillScoreList
+        *
+        * @description fill scoreList Objects
+        * @returns void
+        */
+        function fillScoreList(fill, list, teamid, teamkey){
+            if(typeof fill[teamid] !== 'undefined'){
+                fill[teamid].gamecounts += 1;
+            }else if(typeof fill[teamid] === 'undefined'){
+                fill[teamid] = {teamname: list[teamkey], gamecounts: 1, totalpoints: 0};
+            }
+            if(list[teamkey]===list.team_win){
+                fill[teamid].totalpoints += 1;
+            }
+            return fill;
+        }
+        /**
+        * private setGameScoreList
         *
         * @description set scoreList Data
         * @returns void
         */
-        var set_gameScoreList = function(){
+        function setGameScoreList(){
             var list = [];
             var teamid_1 = '';
             var teamid_2 = '';
             scopeStorage.games.gameScoreData = [];
+            console.log("setGameScoreList")
             if(scopeStorage.games.gameData.length){
                 for(var e in scopeStorage.games.gameData){
-                    teamid_1 = get_teamid(scopeStorage.games.gameData[e].team_1);
-                    teamid_2 = get_teamid(scopeStorage.games.gameData[e].team_2);
-                    // SET FIRST TEAM
-                    if(typeof list[teamid_1] !== 'undefined'){
-                        list[teamid_1].gamecounts += 1;
-                    }else if(typeof list[teamid_1] === 'undefined'){
-                        list[teamid_1] = {teamname: scopeStorage.games.gameData[e].team_1, gamecounts: 1, totalpoints: 0};
+                    teamid_1 = scopeStorage.teams.getIdByTeamname(scopeStorage.games.gameData[e].team_1);
+                    teamid_2 = scopeStorage.teams.getIdByTeamname(scopeStorage.games.gameData[e].team_2);
+                    if(teamid_1 !== null && teamid_2 !== null ){
+                        list = fillScoreList(list, scopeStorage.games.gameData[e], "teamid"+teamid_1, 'team_1');
+                        list = fillScoreList(list, scopeStorage.games.gameData[e], "teamid"+teamid_2, 'team_2');
                     }
-                    if(scopeStorage.games.gameData[e].team_1===scopeStorage.games.gameData[e].team_win){
-                        list[teamid_1].totalpoints += 1;
-                    }
-                    // SET SECOND TEAM
-                    if(typeof list[teamid_2] !== 'undefined'){
-                        list[teamid_2].gamecounts += 1;
-                    }else if(typeof list[teamid_2] === 'undefined'){
-                        list[teamid_2] = {teamname: scopeStorage.games.gameData[e].team_2, gamecounts: 1, totalpoints: 0};
-                    }
-                    if(scopeStorage.games.gameData[e].team_2===scopeStorage.games.gameData[e].team_win){
-                        list[teamid_2].totalpoints += 1;
-                    }
-
                 }
-                for(var n in list){
-                    scopeStorage.games.gameScoreData.push(list[n]);
+                for(var m in list){
+                    scopeStorage.games.gameScoreData.push(list[m]);
                 }
             }
         }
@@ -172,7 +108,7 @@
         * @description set goal value
         * @returns void
         */
-        var set_gameActualTeamData = function(domelement,obj){
+        function setGameActualTeamData(domelement,obj){
             if(scopeStorage.games.activeDirectiveId !== "" && scopeStorage.games.gameIsRunning === true){
                 var teamnumber = scopeStorage.games.activeDirectiveId*1+1;
                 var goalid = obj.goal_index*1;
@@ -181,21 +117,21 @@
                 var gameHasWinner = false;
                 if(teamscore+1 === goalval){
                     scopeStorage.games.gameActualTeamData["team_"+teamnumber+"_scores"] = goalval;
-                    set_gameScoreDisplayStyle(domelement,true);
+                    setGameScoreDisplayStyle(domelement,true);
                     if(goalval===scopeStorage.games.goalsItemConf.length){
                        gameHasWinner = true;
                     }
                 }else if(teamscore === goalval){
                     scopeStorage.games.gameActualTeamData["team_"+teamnumber+"_scores"] -= 1;
-                    set_gameScoreDisplayStyle(domelement,false);
+                    setGameScoreDisplayStyle(domelement,false);
                 }
 
                 if(gameHasWinner){
                     if(MessageFactory.get_confirm("game_has_winner",scopeStorage.games.gameActualTeamData["team_"+teamnumber])){
-                        set_gameWinner();
+                        setGameWinner();
                     }else{
                         scopeStorage.games.gameActualTeamData["team_"+teamnumber+"_scores"] -= 1;
-                        set_gameScoreDisplayStyle(domelement,false);
+                        setGameScoreDisplayStyle(domelement,false);
                     }
                 }
             }
@@ -206,7 +142,7 @@
         * @description set game winner to gameData
         * @returns void
         */
-        var set_gameWinner = function(){
+        function setGameWinner(){
             var gamelist_arg = {
                 team_win:(scopeStorage.games.gameActualTeamData.team_1_scores>scopeStorage.games.gameActualTeamData.team_2_scores)? scopeStorage.games.gameActualTeamData.team_1:scopeStorage.games.gameActualTeamData.team_2,
                 team_1: scopeStorage.games.gameActualTeamData.team_1,
@@ -215,8 +151,8 @@
                 id: scopeStorage.games.gameAutoId()
             }
             scopeStorage.games.gameData.push(gamelist_arg);
-            set_defaultGameActualTeamData();
-            set_gameScoreDisplayStyle("",false);
+            setGameActualTeamData();
+            setGameScoreDisplayStyle("",false);
             scopeStorage.games.gameIsRunning = false;
         }
         /**
@@ -225,8 +161,8 @@
         * @description set check gamedata to gameteamdata
         * @returns void
         */
-        var set_gameDataHasTeamCeck = function(){
-            var teams = get_teamname(0,'-a');
+        function setGameDataHasTeamCeck(){
+            var teams = scopeStorage.teams.getTeamnames();
             var gamedata_new = [];
             for( var n in scopeStorage.games.gameData){
                 if(teams.indexOf(scopeStorage.games.gameData[n].team_1) !== -1  && teams.indexOf(scopeStorage.games.gameData[n].team_2) !== -1 ){
@@ -243,16 +179,16 @@
         * @description set scope watcher
         * @returns void
         */
-        var set_scopeWatcher = function(){
+        function setScopeWatcher(){
             scopeStorage.$watch('games.gameData',
                 function(){
-                    set_gameScoreList();
+                    setGameScoreList();
                 },
                 true
             );
             scopeStorage.$watch('teams.teamData',
                 function(){
-                    set_gameDataHasTeamCeck();
+                    setGameDataHasTeamCeck();
                 },
                 true
             );
@@ -299,18 +235,18 @@
         * @description set default scope data
         * @returns void
         */
-        function set_initialze( scope){
+        function setInitialze( scope){
             scopeStorage = scope;
             scopeStorage.users.userAutoId = AutoIdFactory.getFuncautoId(scope.users.userData);
             scopeStorage.teams.teamAutoId = AutoIdFactory.getFuncautoId(scope.teams.teamData);
             scopeStorage.games.gameAutoId = AutoIdFactory.getFuncautoId(scope.games.gameData);
+            setScopeWatcher();
             GridFactory.setGridOptons(scope);
-            set_scopeWatcher();
         }
         return {
-            set_initialze: set_initialze,
-            set_startGame: set_startGame,
-            set_gameActualTeamData: set_gameActualTeamData
+            setInitialze: setInitialze,
+            setStartGame: setStartGame,
+            setGameActualTeamData: setGameActualTeamData
         }
     }
     

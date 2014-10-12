@@ -37,11 +37,16 @@
         $scope.setGoal = setGoal;
         // SHOW TAB WRAPER
         $scope.showTabWrapper = showTabWrapper;
+        var testid = 1;
+        $scope.$on('$viewContentLoaded',function(event){
+            console.log("Contents load."+testid);
+            testid+=1;
+        });
         // INIT Game SCOPE
         init();
         //FUNCTIONS
         function init() {
-            GameFactory.set_initialze($scope);
+            GameFactory.setInitialze($scope);
         }
         function addUser() {
             UserFactory.addUser($scope);
@@ -59,10 +64,10 @@
             GameStorageFactory.deleteGame(id);
         }
         function startGame() {
-            GameFactory.set_startGame();
+            GameFactory.setStartGame();
         }
         function setGoal(obj, $event) {
-            GameFactory.set_gameActualTeamData($event.target,obj);
+            GameFactory.setGameActualTeamData($event.target,obj);
         }
         function showTabWrapper($event){
             TplFactory.showTabWrapper($event);

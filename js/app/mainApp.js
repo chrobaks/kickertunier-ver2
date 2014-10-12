@@ -2,7 +2,7 @@
     "use strict";
 
     angular.module('mainApp', ['ui.router', 'ngGrid', 'mainAppFilter', 'mainAppFactory']);
-    /**/
+    
     angular.module('mainApp').config(
         function($stateProvider, $urlRouterProvider){
             
