@@ -7,23 +7,35 @@
         
         var config = {
             headertitle: {
-                user: "Control Spieler",
-                team: "Control Team",
-                game: "Control Game"
+                user : "Control Spieler",
+                team : "Control Team",
+                game : "Control Game"
             },
             formmsg : {
-                user: "Neuen Spieler speichern",
-                team: "Neues Team speichern",
-                game: "Neues Spiel starten"
+                user : "Neuen Spieler speichern",
+                team : "Neues Team speichern",
+                game : "Neues Spiel starten"
             },
-            wrapperstatus : {
-                user: 0,
-                team: 0,
-                game: 1
-            }
+            wrapperstatus : {},
+            showScoreDisplay : showScoreDisplay,
+            showTabWrapper   : showTabWrapper
         }
-        function get(){
-            return config;
+        /**
+        * protect set_gameScoreDisplay
+        *
+        * @description set scoreDisplay CSS
+        * @returns void
+        */
+        function showScoreDisplay(domelement,isactive){
+            if(domelement!==""){
+                if(isactive){
+                    domelement.attributes.class.value += " active";
+                }else{
+                    domelement.attributes.class.value = domelement.attributes.class.value.replace(" active",'');
+                }
+            }else{
+                angular.element("score-display").find("div.item").removeClass("active");
+            }
         }
         /**
         * public showTabWrapper
@@ -38,9 +50,16 @@
             var show = (wrapper.hasClass('active')) ? wrapper.removeClass('active'):wrapper.addClass('active');
             config.wrapperstatus[boxid] = (wrapper.hasClass('active')) ? 1:0;
         }
+        /**
+        * public get
+        *
+        * @returns object
+        */
+        function get(){
+            return config;
+        }
         return {
-            get              : get,
-            showTabWrapper   : showTabWrapper
+            get : get
         }
     }    
 })();

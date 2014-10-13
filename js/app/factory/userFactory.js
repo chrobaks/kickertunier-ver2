@@ -51,8 +51,8 @@
         function checkUserIsInTeam(id,scope) {
             var isin = false;
             var ncknm = users.userData.filter(function(obj){if(obj.id == id ){ return obj;}})[0].nickname;
-            if(scope.teamData.length){
-                if(scope.teamData.filter(function(obj){if(obj.player_1==ncknm || obj.player_2 == ncknm ){ return obj;}}).length){
+            if(scope.teams.teamData.length){
+                if(scope.teams.teamData.filter(function(obj){if(obj.player_1==ncknm || obj.player_2 == ncknm ){ return obj;}}).length){
                     isin = true;
                 }
             }
