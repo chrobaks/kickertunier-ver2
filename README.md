@@ -20,7 +20,7 @@ two teams and some click-events.
 
 app structure:
 - js / app
-    - mainApp
+    - mainApp.js
     - controller
     - directive
     - factory
