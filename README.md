@@ -3,11 +3,12 @@ Kickertunier-UI with Angular.js
 
 LearningByDoing-Application with Angular for Beginners
 
-Udated : 11.10.2014
+Update : 15.10.2014
 
 used libarys
 
-- angular.js 1.7
+- angular.js 1.0.7
+- angular-ui-router.js
 - jquery.js 1.7
 - ng-grid.js
 
@@ -17,20 +18,17 @@ This is a developByLearning-project with first steps in angular. The application
 a kickertunier-ui where you can add/delete user, teams and games and set a active game with
 two teams and some click-events.
 
-basicly build with one module:
-- mainApp
+app structure:
+- js / app
+    - mainApp
+    - controller
+    - directive
+    - factory
+    - filter
+- templates
+    - game-template.html
+    - directive-score-display-template.html
+    - grid-options-game-template.html
+    - grid-options-team-template.html
+    - grid-options-user-template.html
 
-basicly build with one controller:
-- gameCtrl
-
-basicly build with factorys:
-- userFactory
-- teamFactory
-- gamestorageFactory
-- gameFactory
-
-basicly build with one module-factory:
-- appFactory -> MessageFactory
-
-basicly build with one gameController-directive:
-- scoreDisplayDirective
