@@ -7,8 +7,8 @@
         /**
         * public setGridOptions
         *
-        * @description get back next autoid for each scope list data
-        * @returns integer
+        * @description
+        * @returns void
         */
         function setGridOptons (scope) {
             scope.gridOptionsUser = {

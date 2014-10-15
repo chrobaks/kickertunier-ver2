@@ -151,6 +151,12 @@
             scopeStorage.games.gameAutoId = AutoIdFactory.getFuncautoId(scope.games.gameData);
             GridFactory.setGridOptons(scope);
             WatchFactory.set(scope, callbacks);
+            /* Test OUTPUT VIEW LOADED */
+            var testid = 1;
+            scope.$on('$viewContentLoaded',function(event){
+                console.log("Contents load."+testid);
+                testid+=1;
+            });
         }
         return {
             init         : init,
@@ -159,4 +165,4 @@
         }
     }
     
-})()
+})();

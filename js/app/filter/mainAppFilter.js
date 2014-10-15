@@ -11,4 +11,4 @@
         return show ? "Daten schliessen":"Dialog zeigen";
     }
     
-})()
+})();

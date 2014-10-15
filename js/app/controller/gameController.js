@@ -4,6 +4,7 @@
     angular.module('mainApp').controller('gameCtrl', GameCtrl);
 
     GameCtrl.$inject = [
+        '$rootScope',
         '$scope',
         'TplFactory',
         'UserFactory',
@@ -12,7 +13,7 @@
         'GameActionFactory'
     ];
 
-    function GameCtrl($scope, TplFactory, UserFactory, TeamFactory, GameFactory, GameActionFactory) {
+    function GameCtrl($rootScope, $scope, TplFactory, UserFactory, TeamFactory, GameFactory, GameActionFactory) {
         // SCOPE VAR tpl
         $scope.tpl = TplFactory.get();
         // SCOPE VAR users
@@ -36,12 +37,7 @@
         // SET GOAL
         $scope.setGoal = setGoal;
         
-        /* Test OUTPUT VIEW LOADED */
-        var testid = 1;
-        $scope.$on('$viewContentLoaded',function(event){
-            console.log("Contents load."+testid);
-            testid+=1;
-        });
+        
         
         // INIT Game SCOPE
         init();
@@ -71,4 +67,4 @@
             GameFactory.deleteGame(id);
         }
     }
-})()
+})();

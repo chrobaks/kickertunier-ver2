@@ -34,5 +34,3 @@ basicly build with one module-factory:
 
 basicly build with one gameController-directive:
 - scoreDisplayDirective
-
-

@@ -10,9 +10,10 @@
     function UserFactory (MessageFactory) {
         var users = {
             user : {
-                firstname : "",
+                firstname  : "",
                 secondname : "",
-                nickname : ""
+                nickname   : "",
+                id         : null
             },
             userData : [
                 {nickname: 'SChrobak', firstname: 'Stefan', secondname: 'Chrobak', id: 1},
@@ -29,34 +30,29 @@
             userAutoId : null
         }
         /**
-        * private get_checkNicknameUnique
+        * private nicknameExist
         *
-        * @returns boolean if nickname not unique than false
+        * @description check nickname exist
+        * @returns integer
         */
-        function checkNicknameUnique(){
-            var isUnique = true;
+        function nicknameExist(){
             if(users.userData.length){
-                if(users.userData.filter(function(obj){if(obj.nickname==users.user.nickname ){ return obj;}}).length){
-                    isUnique = false;
-                }
+                return users.userData.filter(function(obj){if(obj.nickname==users.user.nickname ){ return obj;}}).length;
             }
-            return isUnique;
+            return 0;
         }
         /**
-        * private get_checkUserIsInTeam
+        * private userIsInTeam
         *
-        * @description check if team contains user by userid
-        * @returns boolean
+        * @description check user in team
+        * @returns integer
         */
-        function checkUserIsInTeam(id,scope) {
-            var isin = false;
+        function userIsInTeam(id,scope) {
             var ncknm = users.userData.filter(function(obj){if(obj.id == id ){ return obj;}})[0].nickname;
             if(scope.teams.teamData.length){
-                if(scope.teams.teamData.filter(function(obj){if(obj.player_1==ncknm || obj.player_2 == ncknm ){ return obj;}}).length){
-                    isin = true;
-                }
+                return scope.teams.teamData.filter(function(obj){if(obj.player_1==ncknm || obj.player_2 == ncknm ){ return obj;}}).length
             }
-            return isin;
+            return 0;
         }
         /**
         * public get
@@ -89,7 +85,7 @@
                 MessageFactory.set_error("fields_need_content");
                 actionOk = false;
             }
-            if( ! checkNicknameUnique()){
+            if(nicknameExist()){
                 MessageFactory.set_error("nickname_exist");
                 actionOk = false;
             }
@@ -100,19 +96,13 @@
             }
         }
         /**
-        * public set_deleteGame
-        *
-        * @description
-        * @returns boolean
-        */
-        /**
         * public set_deleteUser
         *
         * @description valided user not in a team and if ok delete
         * @returns void
         */
         function deleteUser(id, scope) {
-            if( checkUserIsInTeam(id, scope) ){
+            if( userIsInTeam(id, scope) ){
                 MessageFactory.set_error("player_is_in_team");
                 MessageFactory.set_alert('error');
             }else{
