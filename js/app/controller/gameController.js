@@ -4,7 +4,6 @@
     angular.module('mainApp').controller('gameCtrl', GameCtrl);
 
     GameCtrl.$inject = [
-        '$rootScope',
         '$scope',
         'TplFactory',
         'UserFactory',
@@ -13,7 +12,7 @@
         'GameActionFactory'
     ];
 
-    function GameCtrl($rootScope, $scope, TplFactory, UserFactory, TeamFactory, GameFactory, GameActionFactory) {
+    function GameCtrl( $scope, TplFactory, UserFactory, TeamFactory, GameFactory, GameActionFactory) {
         // SCOPE VAR tpl
         $scope.tpl = TplFactory.get();
         // SCOPE VAR users
