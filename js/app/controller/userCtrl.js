@@ -6,38 +6,29 @@
     UserCtrl.$inject = [
         '$scope',
         'UserFactory',
-        'AutoIdFactory',
-        'GridFactory',
-        'notificationFactory'
+        'AutoIdFactory'
     ];
 
-    function UserCtrl ( $scope, UserFactory, AutoIdFactory, GridFactory, notificationFactory) {
+    function UserCtrl ( $scope, UserFactory, AutoIdFactory) {
 
         // SCOPE VAR users
         $scope.users = UserFactory.get();
         $scope.userAutoId = AutoIdFactory.getFuncautoId($scope.users.userData);
-
-        GridFactory.setGridOptonsUser($scope);
+        $scope.gridOptionsUser = {
+            data: 'users.userData',
+            columnDefs: 'users.userColumnsDef'
+        };
 
         // ADD USER
         $scope.addUser = addUser;
         // DELETE USER
         $scope.deleteUser = deleteUser;
 
-        notificationFactory.on('addUser', function() {
-
-        });
-
-        notificationFactory.on('deleteUser', function(id) {
-
-        });
-
-        /**/
         function addUser() {
-            $scope.userData.push( $scope.user);
+            $scope.users.userData.push( $scope.user);
         }
         function deleteUser(id) {
-            $scope.userData.splice( $scope.userData.indexOf(id), 1);
+            $scope.users.userData.splice( $scope.userData.indexOf(id), 1);
         }
 
     }

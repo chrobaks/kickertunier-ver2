@@ -3,12 +3,12 @@
     "use strict";
     
     angular.module('mainAppFilter', [])
-    .filter('dialogText', function(){
-        return dialogText;
+    .filter('tabText', function(){
+        return tabText;
     });
     
-    function dialogText(show){
-        return show ? "Daten schliessen":"Dialog zeigen";
+    function tabText(show){
+        return show ? "Daten schliessen":"Daten zeigen";
     }
     
 })();

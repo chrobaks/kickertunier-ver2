@@ -34,9 +34,9 @@
         }
 
         return {
-            on: on,
-            off: off,
-            trigger: trigger
+            on      : on,
+            off     : off,
+            trigger : trigger
         }
 
     }

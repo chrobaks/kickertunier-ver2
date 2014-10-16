@@ -6,17 +6,23 @@
     GameCtrl.$inject = [
         '$scope',
         'AutoIdFactory',
-        'GridFactory',
         'GameFactory',
         'GameActionFactory'
     ];
 
-    function GameCtrl( $scope, AutoIdFactory, GridFactory, GameFactory, GameActionFactory) {
+    function GameCtrl( $scope, AutoIdFactory, GameFactory, GameActionFactory) {
         // SCOPE VAR games
         $scope.games = GameFactory.get();
         $scope.games.gameAutoId = AutoIdFactory.getFuncautoId($scope.games.gameData);
-
-        GridFactory.setGridOptonsGame($scope);
+        $scope.gridOptionsGame = {
+            data: 'games.gameData',
+            columnDefs: 'games.gameColumnsDef'
+        };
+        $scope.gridOptionsGameScore = {
+            data: 'games.gameScoreData',
+            columnDefs: 'games.scoreColumnsDef',
+            sortInfo: { fields: ['totalpoints'], directions: ['desc']}
+        };
 
         // START GAME
         $scope.startGame = startGame;
