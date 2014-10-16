@@ -7,14 +7,15 @@
         '$scope',
         'UserFactory',
         'AutoIdFactory',
-        'GridFactory'
+        'GridFactory',
+        'notificationFactory'
     ];
 
-    function UserCtrl ( $scope, UserFactory, AutoIdFactory, GridFactory) {
+    function UserCtrl ( $scope, UserFactory, AutoIdFactory, GridFactory, notificationFactory) {
 
         // SCOPE VAR users
         $scope.users = UserFactory.get();
-        $scope.users.userAutoId = AutoIdFactory.getFuncautoId($scope.users.userData);
+        $scope.userAutoId = AutoIdFactory.getFuncautoId($scope.users.userData);
 
         GridFactory.setGridOptonsUser($scope);
 
@@ -23,11 +24,21 @@
         // DELETE USER
         $scope.deleteUser = deleteUser;
 
+        notificationFactory.on('addUser', function() {
+
+        });
+
+        notificationFactory.on('deleteUser', function(id) {
+
+        });
+
+        /**/
         function addUser() {
-            UserFactory.addUser($scope);
+            $scope.userData.push( $scope.user);
         }
         function deleteUser(id) {
-            UserFactory.deleteUser(id, $scope);
+            $scope.userData.splice( $scope.userData.indexOf(id), 1);
         }
+
     }
 })();

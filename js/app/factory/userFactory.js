@@ -28,8 +28,8 @@
                 {displayName: 'Aktion', cellTemplate: 'templates/grid-options-user-template.html'}
             ],
             headertitle : 'Control Spieler',
-            formmsg : '',
-            userAutoId : null
+            formmsg     : '',
+            userAutoId  : null
         }
         /**
         * private nicknameExist

@@ -1,15 +1,13 @@
             <!-- START FORM USER -->
             <div class="ng-scope" ng-controller="userCtrl">
                 <div class="box-label green"
-                    data-boxid="user"
-                    ng-click="$parent.showTabWrapper($event)"
-
-                    ng-bind-template="{{ users.headertitle }} / {{ $parent.tpl.wrapperstatus.user | dialogText }}">
+                    ng-click="$parent.toggleTab('user')">
+                    {{headertitle}} / {{ $parent.tpl.wrapperstatus.user | dialogText }}
                 </div>
-                <div class="wrapper-box green-light">
+                <div class="green-light wrapper-box" ng-show="$parent.show.user">
                     <form name="userForm" ng-submit="addUser()" novalidate >
                         <p>
-                            <input ng-model="users.user.firstname"
+                            <input ng-model="user.firstname"
                                 ng-maxlength="30"
                                 required
                                 type="text"
@@ -17,7 +15,7 @@
                             <label>Vorname</label>
                         </p>
                         <p>
-                            <input ng-model='users.user.secondname'
+                            <input ng-model='user.secondname'
                                 ng-maxlength="30"
                                 required
                                 type="text"
@@ -25,7 +23,7 @@
                             <label>Nachname</label>
                         </p>
                         <p>
-                            <input ng-model='users.user.nickname'
+                            <input ng-model='user.nickname'
                                 ng-maxlength="30"
                                 required
                                 type="text"
@@ -34,7 +32,7 @@
                         </p>
                         <p>
                             <input type="submit" value="speichern" />&nbsp;
-                            <span class="formmsg" ng-bind="tpl.formmsg.user"></span>
+                            <span class="formmsg" ng-bind="formmsg"></span>
                         </p>
                     </form>
                     <div class="gridStyle" ng-grid="gridOptionsUser"></div>
@@ -45,10 +43,10 @@
             <div class="ng-scope" ng-controller="teamCtrl">
                 <div class="box-label green"
                     data-boxid="team"
-                    ng-click="$parent.showTabWrapper($event)"
-                    ng-bind-template="{{ teams.headertitle }} / {{ $parent.wrapperstatus.team | dialogText }}">
+                    ng-click="$parent.toggleTab('team')">
+                    {{ teams.headertitle }} / {{ $parent.wrapperstatus.team | dialogText }}
                 </div>
-                <div class="wrapper-box green-light">
+                <div class="green-light wrapper-box" ng-show="$parent.show.team">
                     <form name="teamForm" ng-submit="addTeam()" novalidate>
                         <p>
                             <select ng-model='teams.team.player_1'

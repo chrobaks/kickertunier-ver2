@@ -4,17 +4,19 @@
     angular.module('mainApp').controller('mainAppCtrl', MainAppCtrl);
 
     MainAppCtrl.$inject = [
-        '$scope',
-        'TplFactory',
+        '$scope'
     ];
 
-    function MainAppCtrl( $scope, TplFactory) {
+    function MainAppCtrl( $scope) {
 
-        $scope.tpl = TplFactory.get();
-        $scope.showTabWrapper = showTabWrapper;
+        $scope.show = {
+            user: false,
+            team: false
+        };
 
-        function showTabWrapper ($event){
-            TplFactory.showTabWrapper($event);
-        }
+        $scope.toggleTab = function (tab) {
+            $scope.show[tab] = !$scope.show[tab];
+        };
+
     }
 })();
