@@ -4,13 +4,10 @@
     angular.module('mainApp').factory('GameActionFactory', GameActionFactory );
 
     GameActionFactory.$inject = [
-        'GridFactory',
-        'WatchFactory',
-        'AutoIdFactory',
         'MessageFactory'
     ];
 
-    function GameActionFactory( GridFactory, WatchFactory, AutoIdFactory, MessageFactory ) {
+    function GameActionFactory( MessageFactory ) {
         var scopeStorage = {};
         var callbacks = {
             setGameDataHasTeamCeck : setGameDataHasTeamCeck,
@@ -146,11 +143,7 @@
         */
         function init( scope){
             scopeStorage = scope;
-            scopeStorage.users.userAutoId = AutoIdFactory.getFuncautoId(scope.users.userData);
-            scopeStorage.teams.teamAutoId = AutoIdFactory.getFuncautoId(scope.teams.teamData);
-            scopeStorage.games.gameAutoId = AutoIdFactory.getFuncautoId(scope.games.gameData);
-            GridFactory.setGridOptons(scope);
-            WatchFactory.set(scope, callbacks);
+
             /* Test OUTPUT VIEW LOADED */
             var testid = 1;
             scope.$on('$viewContentLoaded',function(event){

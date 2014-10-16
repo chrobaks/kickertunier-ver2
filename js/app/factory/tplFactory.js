@@ -6,19 +6,7 @@
     function TplFactory () {
         
         var config = {
-            headertitle: {
-                user : "Control Spieler",
-                team : "Control Team",
-                game : "Control Game"
-            },
-            formmsg : {
-                user : "Neuen Spieler speichern",
-                team : "Neues Team speichern",
-                game : "Neues Spiel starten"
-            },
-            wrapperstatus : {},
-            showScoreDisplay : showScoreDisplay,
-            showTabWrapper   : showTabWrapper
+            wrapperstatus : {}
         }
         /**
         * protect set_gameScoreDisplay
@@ -59,7 +47,8 @@
             return config;
         }
         return {
-            get : get
+            get            : get,
+            showTabWrapper : showTabWrapper
         }
     }    
 })();

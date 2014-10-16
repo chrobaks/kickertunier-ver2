@@ -10,15 +10,19 @@
         * @description
         * @returns void
         */
-        function setGridOptons (scope) {
+        function setGridOptonsUser (scope) {
             scope.gridOptionsUser = {
                 data: 'users.userData',
                 columnDefs: 'users.userColumnsDef'
             };
+        }
+        function setGridOptonsTeam (scope) {
             scope.gridOptionsTeam = {
                 data: 'teams.teamData',
                 columnDefs: 'teams.teamColumnsDef'
             };
+        }
+        function setGridOptonsGame (scope) {
             scope.gridOptionsGame = {
                 data: 'games.gameData',
                 columnDefs: 'games.gameColumnsDef'
@@ -30,7 +34,9 @@
             };
         }
         return {
-            setGridOptons : setGridOptons
+            setGridOptonsUser : setGridOptonsUser,
+            setGridOptonsTeam : setGridOptonsTeam,
+            setGridOptonsGame : setGridOptonsGame
         }
     }    
 })();

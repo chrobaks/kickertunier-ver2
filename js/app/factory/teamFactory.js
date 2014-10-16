@@ -28,6 +28,8 @@
                     cellTemplate: 'templates/grid-options-team-template.html'
                 }
             ],
+            headertitle : 'Control Team',
+            formmsg : '',
             teamAutoId : null,
             getTeamnames : getTeamnames,
             getIdByTeamname : getIdByTeamname
@@ -116,7 +118,7 @@
                 actionOk = false;
             }
             if( ! actionOk){
-                scope.tpl.formmsg.team = MessageFactory.get_error();
+                scope.formmsg.team = MessageFactory.get_error();
             }else{
                 addTeamData();
             }

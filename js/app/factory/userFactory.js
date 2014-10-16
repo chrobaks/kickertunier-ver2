@@ -27,6 +27,8 @@
                 {field: 'secondname', displayName: 'Nachname'},
                 {displayName: 'Aktion', cellTemplate: 'templates/grid-options-user-template.html'}
             ],
+            headertitle : 'Control Spieler',
+            formmsg : '',
             userAutoId : null
         }
         /**
@@ -92,7 +94,7 @@
             if(actionOk){
                 addUserData();
             }else{
-                scope.tpl.formmsg.user = MessageFactory.get_error();
+                scope.formmsg.user = MessageFactory.get_error();
             }
         }
         /**

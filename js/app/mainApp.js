@@ -11,7 +11,7 @@
             $stateProvider
             .state('index', {
                 url: "",
-                controller: 'gameCtrl',
+                controller: 'mainAppCtrl',
                 templateUrl: "templates/game-template.html"
             });
         }

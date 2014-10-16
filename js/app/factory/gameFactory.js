@@ -47,6 +47,8 @@
                 team_1_scores : 0,
                 team_2_scores : 0
             },
+            headertitle : 'Control Game',
+            formmsg : '',
             gameAutoId : null,
             gameIsRunning         : false,
             activeDirectiveId     : '',
@@ -98,7 +100,7 @@
         *
         * @returns object
         */
-        function get () {
+        function get() {
             return games;
         }
         return {
