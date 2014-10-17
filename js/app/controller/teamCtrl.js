@@ -6,10 +6,11 @@
     TeamCtrl.$inject = [
         '$scope',
         'TeamFactory',
-        'AutoIdFactory'
+        'AutoIdFactory',
+        'notificationFactory'
     ];
 
-    function TeamCtrl( $scope, TeamFactory, AutoIdFactory) {
+    function TeamCtrl( $scope, TeamFactory, AutoIdFactory, notificationFactory) {
 
         // SCOPE VAR teams
         $scope.teams = TeamFactory.get();
@@ -30,5 +31,7 @@
         function deleteTeam(id) {
             TeamFactory.deleteTeam(id, $scope);
         }
+
+        notificationFactory.on('addUser',function(user){$scope.teams.teamData.push(user)});
     }
 })();

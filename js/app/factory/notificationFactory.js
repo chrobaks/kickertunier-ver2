@@ -17,15 +17,17 @@
 
         function trigger(evt, data) {
             if (events.hasOwnProperty(evt) && events[evt].length > 0) {
-                events.forEach(function(cb) {
+
+                events[evt].forEach(function(cb) {
                     cb.apply(this, data);
                 });
+
             }
         }
 
         function off(evt, cb) {
             if (events.hasOwnProperty(evt) && events[evt].length > 0) {
-                events.forEach(function(value, index) {
+                events[evt].forEach(function(value, index) {
                     if (value === cb) {
                         events[evt].splice(index, 1);
                     }

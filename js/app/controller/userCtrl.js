@@ -6,10 +6,11 @@
     UserCtrl.$inject = [
         '$scope',
         'UserFactory',
-        'AutoIdFactory'
+        'AutoIdFactory',
+        'notificationFactory'
     ];
 
-    function UserCtrl ( $scope, UserFactory, AutoIdFactory) {
+    function UserCtrl ( $scope, UserFactory, AutoIdFactory, notificationFactory) {
 
         // SCOPE VAR users
         $scope.users = UserFactory.get();
@@ -26,10 +27,12 @@
 
         function addUser() {
             $scope.users.userData.push( $scope.user);
+            notificationFactory.trigger('addUser',$scope.user);
         }
         function deleteUser(id) {
             $scope.users.userData.splice( $scope.userData.indexOf(id), 1);
         }
+
 
     }
 })();
