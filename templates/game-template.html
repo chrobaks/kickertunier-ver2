@@ -2,7 +2,7 @@
             <div class="ng-scope" ng-controller="userCtrl">
                 <div class="box-label green"
                     ng-click="$parent.toggleTab('user')">
-                    {{headertitle}} / {{ $parent.tpl.wrapperstatus.user | dialogText }}
+                    {{users.headertitle}} / {{ $parent.show.user | tabText }}
                 </div>
                 <div class="green-light wrapper-box" ng-show="$parent.show.user">
                     <form name="userForm" ng-submit="addUser()" novalidate >
@@ -44,7 +44,7 @@
                 <div class="box-label green"
                     data-boxid="team"
                     ng-click="$parent.toggleTab('team')">
-                    {{ teams.headertitle }} / {{ $parent.wrapperstatus.team | dialogText }}
+                    {{ teams.headertitle }} / {{ $parent.show.team | tabText }}
                 </div>
                 <div class="green-light wrapper-box" ng-show="$parent.show.team">
                     <form name="teamForm" ng-submit="addTeam()" novalidate>

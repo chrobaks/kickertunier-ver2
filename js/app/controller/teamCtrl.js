@@ -6,17 +6,18 @@
     TeamCtrl.$inject = [
         '$scope',
         'TeamFactory',
-        'AutoIdFactory',
-        'GridFactory'
+        'AutoIdFactory'
     ];
 
-    function TeamCtrl( $scope, TeamFactory, AutoIdFactory, GridFactory) {
+    function TeamCtrl( $scope, TeamFactory, AutoIdFactory) {
 
         // SCOPE VAR teams
         $scope.teams = TeamFactory.get();
         $scope.teams.teamAutoId = AutoIdFactory.getFuncautoId($scope.teams.teamData);
-
-        GridFactory.setGridOptonsTeam($scope);
+        $scope.gridOptionsTeam = {
+            data: 'teams.teamData',
+            columnDefs: 'teams.teamColumnsDef'
+        };
 
         // ADD TEAM
         $scope.addTeam = addTeam;

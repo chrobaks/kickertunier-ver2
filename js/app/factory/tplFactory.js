@@ -2,8 +2,12 @@
     "use strict";
 
     angular.module('mainApp').factory('TplFactory', TplFactory);
-
-    function TplFactory () {
+    
+    TplFactory.$inject = [
+        'notificationFactory'
+    ];
+    
+    function TplFactory (notificationFactory) {
         
         var config = {
             wrapperstatus : {}
@@ -38,6 +42,9 @@
             var show = (wrapper.hasClass('active')) ? wrapper.removeClass('active'):wrapper.addClass('active');
             config.wrapperstatus[boxid] = (wrapper.hasClass('active')) ? 1:0;
         }
+        
+        
+        
         /**
         * public get
         *
