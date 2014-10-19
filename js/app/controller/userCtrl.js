@@ -1,38 +1,35 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp').controller('userCtrl', UserCtrl);
+    angular.module('mainApp').controller('userCtrl', userCtrl);
 
-    UserCtrl.$inject = [
+    userCtrl.$inject = [
         '$scope',
-        'UserFactory',
-        'AutoIdFactory',
-        'notificationFactory'
+        'userFactory',
+        'AutoIdFactory'
     ];
 
-    function UserCtrl ( $scope, UserFactory, AutoIdFactory, notificationFactory) {
-
-        // SCOPE VAR users
-        $scope.users = UserFactory.get();
-        $scope.userAutoId = AutoIdFactory.getFuncautoId($scope.users.userData);
+    function userCtrl ( $scope, userFactory, AutoIdFactory) {
+        console.log("userCtrl")
+        // scope users
+        $scope.users = userFactory.get();
+        // scope users userAutoId
+        $scope.users.userAutoId = AutoIdFactory.getFuncautoId($scope.users.userData);
+        // scope gridOptions
         $scope.gridOptionsUser = {
             data: 'users.userData',
             columnDefs: 'users.userColumnsDef'
         };
-
-        // ADD USER
+        // add user
         $scope.addUser = addUser;
-        // DELETE USER
+        // delete user
         $scope.deleteUser = deleteUser;
-
+        // func
         function addUser() {
-            $scope.users.userData.push( $scope.user);
-            notificationFactory.trigger('addUser',$scope.user);
+            userFactory.addUser($scope.userForm);
         }
         function deleteUser(id) {
-            $scope.users.userData.splice( $scope.userData.indexOf(id), 1);
+            userFactory.deleteUser(id);
         }
-
-
     }
 })();

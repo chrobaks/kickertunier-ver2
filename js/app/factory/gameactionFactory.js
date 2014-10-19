@@ -144,12 +144,6 @@
         function init( scope){
             scopeStorage = scope;
 
-            /* Test OUTPUT VIEW LOADED */
-            var testid = 1;
-            scope.$on('$viewContentLoaded',function(event){
-                console.log("Contents load."+testid);
-                testid+=1;
-            });
         }
         return {
             init         : init,

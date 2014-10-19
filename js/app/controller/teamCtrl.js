@@ -6,32 +6,30 @@
     TeamCtrl.$inject = [
         '$scope',
         'TeamFactory',
-        'AutoIdFactory',
-        'notificationFactory'
+        'AutoIdFactory'
     ];
 
-    function TeamCtrl( $scope, TeamFactory, AutoIdFactory, notificationFactory) {
-
-        // SCOPE VAR teams
+    function TeamCtrl( $scope, TeamFactory, AutoIdFactory) {
+        // scope teams
         $scope.teams = TeamFactory.get();
+        // scope teams teamAutoId
         $scope.teams.teamAutoId = AutoIdFactory.getFuncautoId($scope.teams.teamData);
+        // scope gridOptions
         $scope.gridOptionsTeam = {
             data: 'teams.teamData',
             columnDefs: 'teams.teamColumnsDef'
         };
-
-        // ADD TEAM
+        // add team
         $scope.addTeam = addTeam;
-        // DELETE TEAM
+        // delete tesm
         $scope.deleteTeam = deleteTeam;
-
+        // func
         function addTeam() {
-            TeamFactory.addTeam($scope);
+            TeamFactory.addTeam($scope.teamForm);
         }
         function deleteTeam(id) {
-            TeamFactory.deleteTeam(id, $scope);
+            TeamFactory.deleteTeam(id);
         }
-
-        notificationFactory.on('addUser',function(user){$scope.teams.teamData.push(user)});
+        
     }
 })();

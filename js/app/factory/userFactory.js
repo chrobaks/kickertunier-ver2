@@ -1,13 +1,15 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp').factory('UserFactory', UserFactory);
+    angular.module('mainApp').factory('userFactory', userFactory);
     
-    UserFactory.$inject = [
+    userFactory.$inject = [
+        'notificationFactory',
         'MessageFactory'
     ];
     
-    function UserFactory (MessageFactory) {
+    function userFactory (notificationFactory, MessageFactory) {
+        var init = 0;
         var users = {
             user : {
                 firstname  : "",
@@ -27,94 +29,72 @@
                 {field: 'secondname', displayName: 'Nachname'},
                 {displayName: 'Aktion', cellTemplate: 'templates/grid-options-user-template.html'}
             ],
-            headertitle : 'Control Spieler',
-            formmsg     : '',
+            teamData    : [],
+            headertitle : 'Spieler',
+            formmsg     : 'Neuen Spieler speichern',
             userAutoId  : null
-        }
-        /**
-        * private nicknameExist
-        *
-        * @description check nickname exist
-        * @returns integer
-        */
-        function nicknameExist(){
-            if(users.userData.length){
-                return users.userData.filter(function(obj){if(obj.nickname==users.user.nickname ){ return obj;}}).length;
+        };
+        var returns = {
+            addUser    : addUser,
+            deleteUser : deleteUser,
+            get        : get
+        };
+        notificationFactory.on('init',function(){
+            if(!init){
+                notificationFactory.trigger('userData',[users.userData]);
+                init=1;
+                console.log("user init");
             }
-            return 0;
-        }
+        });
+        notificationFactory.on('teamData',function(){
+            users.teamData = arguments[0];
+        });
+        
         /**
-        * private userIsInTeam
-        *
-        * @description check user in team
-        * @returns integer
-        */
-        function userIsInTeam(id,scope) {
-            var ncknm = users.userData.filter(function(obj){if(obj.id == id ){ return obj;}})[0].nickname;
-            if(scope.teams.teamData.length){
-                return scope.teams.teamData.filter(function(obj){if(obj.player_1==ncknm || obj.player_2 == ncknm ){ return obj;}}).length
-            }
-            return 0;
-        }
-        /**
-        * public get
-        *
-        * @returns object
-        */
-        function get () {
-            return users;
-        }
-        /**
-        * private set_addUserData
-        *
-        * @description set new user
-        * @returns void
-        */
-        function addUserData() {
-            users.user.id = users.userAutoId();
-            users.userData.push(angular.copy(users.user));
-            users.user = {nickname: '', firstname: '', secondname: '', id: 0};
-        }
-        /**
-        * public addUser
+        * public function addUser
         *
         * @description valided userform and if ok run add func
-        * @returns boolean if form not valid than false
+        * @returns void
         */
-        function addUser(scope) {
+        function addUser(form) {
             var actionOk = true;
-            if ( ! scope.userForm.$valid) {
+            if ( ! form.$valid) {
                 MessageFactory.set_error("fields_need_content");
                 actionOk = false;
             }
-            if(nicknameExist()){
+            if(users.userData.filter(function(obj){if(obj.nickname==users.user.nickname ){ return obj;}}).length){
                 MessageFactory.set_error("nickname_exist");
                 actionOk = false;
             }
             if(actionOk){
-                addUserData();
+                users.user.id = users.userAutoId();
+                users.userData.push(angular.copy(users.user));
+                users.user = {nickname: '', firstname: '', secondname: '', id: 0};
             }else{
-                scope.formmsg.user = MessageFactory.get_error();
+                users.formmsg = MessageFactory.get_error();
             }
         }
         /**
-        * public set_deleteUser
+        * public function set_deleteUser
         *
-        * @description valided user not in a team and if ok delete
         * @returns void
         */
-        function deleteUser(id, scope) {
-            if( userIsInTeam(id, scope) ){
+        function deleteUser(id) {
+            var ncknm = users.userData.filter(function(obj){if(obj.id == id ){ return obj;}})[0].nickname;
+            if(users.teamData.filter(function(obj){if(obj.player_1==ncknm || obj.player_2 == ncknm ){ return obj;}}).length){
                 MessageFactory.set_error("player_is_in_team");
                 MessageFactory.set_alert('error');
             }else{
                 users.userData = users.userData.filter(function(obj){if(obj.id != id ){ return obj;}})
+                notificationFactory.trigger('deleteUser',[users.userData]);
             }
         }
-        return {
-            addUser       : addUser,
-            deleteUser    : deleteUser,
-            get           : get
-        }
+        /**
+        * public function get
+        *
+        * @returns object
+        */
+        function get () { return users; }
+        return returns;
     }    
 })();

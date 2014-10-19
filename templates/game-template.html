@@ -4,35 +4,35 @@
                     ng-click="$parent.toggleTab('user')">
                     {{users.headertitle}} / {{ $parent.show.user | tabText }}
                 </div>
-                <div class="green-light wrapper-box" ng-show="$parent.show.user">
+                <div class="wrapper-box green-light" ng-show="$parent.show.user">
                     <form name="userForm" ng-submit="addUser()" novalidate >
                         <p>
-                            <input ng-model="user.firstname"
-                                ng-maxlength="30"
-                                required
+                            <input name="firstname"
                                 type="text"
-                                name="firstname" />
+                                ng-model="users.user.firstname"
+                                ng-maxlength="30"
+                                required/>
                             <label>Vorname</label>
                         </p>
                         <p>
-                            <input ng-model='user.secondname'
-                                ng-maxlength="30"
-                                required
+                            <input name="secondname"
                                 type="text"
-                                name="secondname" />
+                                ng-model='users.user.secondname'
+                                ng-maxlength="30"
+                                required/>
                             <label>Nachname</label>
                         </p>
                         <p>
-                            <input ng-model='user.nickname'
-                                ng-maxlength="30"
-                                required
+                            <input name="nickname"
                                 type="text"
-                                name="nickname" />
+                                ng-model='users.user.nickname'
+                                ng-maxlength="30"
+                                required/>
                             <label>Nickname</label>
                         </p>
                         <p>
                             <input type="submit" value="speichern" />&nbsp;
-                            <span class="formmsg" ng-bind="formmsg"></span>
+                            <span class="formmsg" ng-bind="users.formmsg"></span>
                         </p>
                     </form>
                     <div class="gridStyle" ng-grid="gridOptionsUser"></div>
@@ -42,38 +42,41 @@
             <!-- START FORM TEAM -->
             <div class="ng-scope" ng-controller="teamCtrl">
                 <div class="box-label green"
-                    data-boxid="team"
                     ng-click="$parent.toggleTab('team')">
                     {{ teams.headertitle }} / {{ $parent.show.team | tabText }}
                 </div>
-                <div class="green-light wrapper-box" ng-show="$parent.show.team">
+                <div class="wrapper-box green-light" ng-show="$parent.show.team">
                     <form name="teamForm" ng-submit="addTeam()" novalidate>
                         <p>
-                            <select ng-model='teams.team.player_1'
-                                    ng-required="true"
-                                    ng-options="teamuser.nickname for teamuser in users.userData"
-                                    name="player_1"><option ng-selected="selected" value="">-- Auswahl Spieler 1 --</option></select>
+                            <select name="player_1"
+                                ng-model='teams.team.player_1'
+                                ng-required="true"
+                                ng-options="teamuser.nickname for teamuser in teams.userData">
+                                <option ng-selected="selected" value="">-- Auswahl Spieler 1 --</option>
+                            </select>
                             <label>Spieler 1</label>
                         </p>
                         <p>
-                            <select ng-model='teams.team.player_2'
-                                    ng-required="true"
-                                    ng-options="teamuser.nickname for teamuser in users.userData"
-                                    name="player_2"><option ng-selected="selected" value="">-- Auswahl Spieler 2 --</option></select>
+                            <select name="player_2"
+                                ng-model='teams.team.player_2'
+                                ng-required="true"
+                                ng-options="teamuser.nickname for teamuser in teams.userData">
+                                <option ng-selected="selected" value="">-- Auswahl Spieler 2 --</option>
+                            </select>
                             <label>Spieler 2</label>
                         </p>
                         <p>
-                            <input ng-model='teams.team.teamname'
+                            <input name="teamname"
+                                type="text"
+                                ng-model='teams.team.teamname'
                                 ng-required="true"
                                 ng-maxlength="30"
-                                required
-                                type="text"
-                                name="teamname" />
+                                required/>
                             <label>Teamname</label>
                         </p>
                         <p>
                             <input type="submit" value="speichern" />&nbsp;
-                            <span class="formmsg" ng-bind="tpl.formmsg.team"></span>
+                            <span class="formmsg" ng-bind="teams.formmsg"></span>
                         </p>
                     </form>
                     <div class="gridStyle" ng-grid="gridOptionsTeam"></div>
@@ -89,14 +92,14 @@
 
                             <select ng-model='games.game.team_1'
                                     ng-required="true"
-                                    ng-options="gameteam.teamname for gameteam in teams.teamData"
+                                    ng-options="gameteam.teamname for gameteam in games.teamData"
                                     name="team_1"><option ng-selected="selected" value="">-- Auswahl Team 1 --</option></select>
                             <label>Team 1</label>
                         </p>
                         <p>
                             <select ng-model='games.game.team_2'
                                     ng-required="true"
-                                    ng-options="gameteam.teamname for gameteam in teams.teamData"
+                                    ng-options="gameteam.teamname for gameteam in games.teamData"
                                     name="team_2"><option ng-selected="selected" value="">-- Auswahl Team 2 --</option></select>
                             <label>Team 2</label>
                         </p>

@@ -19,7 +19,9 @@
             if (events.hasOwnProperty(evt) && events[evt].length > 0) {
 
                 events[evt].forEach(function(cb) {
+                    
                     cb.apply(this, data);
+                    
                 });
 
             }

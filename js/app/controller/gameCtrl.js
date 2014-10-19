@@ -19,7 +19,7 @@
             columnDefs: 'games.gameColumnsDef'
         };
         $scope.gridOptionsGameScore = {
-            data: 'games.gameScoreData',
+            data: 'games.scoreData',
             columnDefs: 'games.scoreColumnsDef',
             sortInfo: { fields: ['totalpoints'], directions: ['desc']}
         };

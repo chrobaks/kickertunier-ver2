@@ -4,15 +4,20 @@
     angular.module('mainApp').controller('mainAppCtrl', MainAppCtrl);
 
     MainAppCtrl.$inject = [
-        '$scope'
+        '$scope',
+        'notificationFactory'
     ];
 
-    function MainAppCtrl( $scope ) {
+    function MainAppCtrl( $scope, notificationFactory ) {
         
         $scope.show = {};
         
         $scope.toggleTab = function (tab) {
             $scope.show[tab] = !$scope.show[tab];
         };
+        
+        $scope.$on('$viewContentLoaded',function(){
+            notificationFactory.trigger('init',[]);
+        });
     }
 })();

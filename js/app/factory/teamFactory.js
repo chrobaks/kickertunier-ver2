@@ -4,10 +4,12 @@
     angular.module('mainApp').factory('TeamFactory', TeamFactory);
 
     TeamFactory.$inject = [
+        'notificationFactory',
         'MessageFactory'
     ];
     
-    function TeamFactory (MessageFactory) {
+    function TeamFactory (notificationFactory, MessageFactory) {
+        var init = 0;
         var teams = {
             team : {
                 player_1 : null,
@@ -28,24 +30,30 @@
                     cellTemplate: 'templates/grid-options-team-template.html'
                 }
             ],
-            headertitle : 'Control Team',
-            formmsg : '',
-            teamAutoId : null,
-            getTeamnames : getTeamnames,
-            getIdByTeamname : getIdByTeamname
+            userData : [],
+            headertitle : 'Teams',
+            formmsg : 'Neues Team speichern',
+            teamAutoId : null
         }
-        /**
-        * private teamnameExist
-        *
-        * @description check teamname exist
-        * @returns integer
-        */
-        function teamnameExist(){
-            if(teams.teamData.length){
-                return teams.teamData.filter(function(obj){if(obj.teamname == teams.team.teamname ){ return obj;}}).length;
+        var returns = {
+            addTeam       : addTeam,
+            deleteTeam    : deleteTeam,
+            get           : get
+        }
+        
+        notificationFactory.on('init',function(){
+            if(!init){
+                notificationFactory.trigger('teamData',[teams.teamData]);
+                init=1;
+                console.log("team init");
             }
-            return 0;
-        }
+        });
+        notificationFactory.on('userData',function(){
+            teams.userData = arguments[0];
+        });
+        notificationFactory.on('deleteUser',function(){
+            teams.userData = arguments[0];
+        });
         /**
         * public teamPlays
         *
@@ -86,41 +94,33 @@
             return r;
         }
         /**
-        * private addTeamData
-        *
-        * @description set new team
-        * @returns void
-        */
-        function addTeamData() {
-            var newteam = {
-                teamname: teams.team.teamname,
-                player_1: teams.team.player_1.nickname,
-                player_2: teams.team.player_2.nickname,
-                id: teams.teamAutoId()
-            };
-            teams.teamData.push(angular.copy(newteam));
-            teams.team = {teamname: '', player_1: '', player_2: '', id: 0};
-        }
-        /**
         * public addTeam
         *
         * @description valided teamform and if ok run add func
         * @returns void
         */
-         function addTeam(scope) {
+         function addTeam(form) {
             var actionOk = true;
-            if ( ! scope.teamForm.$valid) {
+            if ( ! form.teamForm.$valid) {
                 MessageFactory.set_error("fields_need_content");
                 actionOk = false;
             }
-            if(teamnameExist()){
+            if(teams.teamData.filter(function(obj){if(obj.teamname == teams.team.teamname ){ return obj;}}).length){
                 MessageFactory.set_error("teamname_exist");
                 actionOk = false;
             }
             if( ! actionOk){
-                scope.formmsg.team = MessageFactory.get_error();
+                teams.formmsg = MessageFactory.get_error();
             }else{
-                addTeamData();
+                var newteam = {
+                    teamname: teams.team.teamname,
+                    player_1: teams.team.player_1.nickname,
+                    player_2: teams.team.player_2.nickname,
+                    id: teams.teamAutoId()
+                };
+                teams.teamData.push(angular.copy(newteam));
+                teams.team = {teamname: '', player_1: '', player_2: '', id: 0};
+                notificationFactory.trigger('teamData',[teams.teamData]);
             }
         }
         /**
@@ -130,6 +130,9 @@
         * @returns void
         */
         function deleteTeam(id, scope) {
+            teams.teamData = teams.teamData.filter(function(obj){if(obj.id != id ){ return obj;}});
+            notificationFactory.trigger('teamData',[teams.teamData]);
+            /*
             if(teamPlays(id, scope)){
                 MessageFactory.set_error("team_is_in_active_game");
                 MessageFactory.set_alert('error');
@@ -138,19 +141,15 @@
                     teams.teamData = teams.teamData.filter(function(obj){if(obj.id != id ){ return obj;}});
                 }
             }
+            */
         }
         /**
         * public get
         *
         * @returns object
         */
-        function get () {
-            return teams;
-        }
-        return {
-            addTeam       : addTeam,
-            deleteTeam    : deleteTeam,
-            get           : get
-        }
+        function get () { return teams; }
+        
+        return returns;
     }    
 })();
