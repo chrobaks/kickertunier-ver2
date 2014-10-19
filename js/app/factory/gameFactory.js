@@ -34,6 +34,12 @@
                 {field: 'gamecounts', displayName: 'Anzahl Spiele'},
                 {field: 'totalpoints', displayName: 'Punkte'}
             ],
+            actualGameData : {
+                team_1        : 'Kein Team',
+                team_2        : 'Kein Team',
+                team_1_scores : 0,
+                team_2_scores : 0
+            },
             goalsItemConf : [
                 {val:'1'},
                 {val:'2'},
@@ -44,26 +50,17 @@
                 {val:'7'}
             ],
             teamData : [],
-            gameActualTeamData : {
-                team_1        : 'Kein Team',
-                team_2        : 'Kein Team',
-                team_1_scores : 0,
-                team_2_scores : 0
-            },
             headertitle           : 'Control Game',
             formmsg               : 'Neues Spiel starten',
             gameAutoId            : null,
-            gameIsRunning         : false,
-            activeDirectiveId     : '',
-            setGameActualTeamData : setGameActualTeamData,
-            addGame               : addGame
+            gameIsRunning         : false
         }
         
         notificationFactory.on('init',function(){
             if(!init){
-                notificationFactory.trigger('gameActualTeamData',[games.gameActualTeamData]);
+                notificationFactory.trigger('actualGameData',[games.actualGameData]);
                 notificationFactory.trigger('gameIsRunning',[games.gameIsRunning]);
-                setGameScoreData();
+                setScoreData();
                 init=1;
                 console.log("game init");
             }
@@ -71,7 +68,53 @@
         notificationFactory.on('teamData',function(){
             games.teamData = arguments[0];
         });
-        
+        notificationFactory.on('scoreConfig',function(){
+            if(arguments.length)
+            setGoal(arguments[0]);
+        });
+        /**
+        * public setGoal
+        *
+        * @description set goal value
+        * @returns void
+        */
+        function setGoal(goalConf){
+            if(games.gameIsRunning && goalConf.teamid !== ""){
+                goalConf.teamid = goalConf.teamid*1+1;
+                var teamscore = games.actualGameData["team_"+goalConf.teamid+"_scores"]*1;
+                var goalval = games.goalsItemConf[goalConf.goalid].val*1;
+                var gameHasWinner = false;
+                if(goalConf.goalid == goalConf.actulascore){
+                    games.actualGameData["team_"+goalConf.teamid+"_scores"] += 1;
+                    if(games.actualGameData["team_"+goalConf.teamid+"_scores"]==games.goalsItemConf.length){
+                        gameHasWinner = true;
+                    }
+                }else if(goalConf.goalid*1 > goalConf.actulascore*1){
+                    games.actualGameData["team_"+goalConf.teamid+"_scores"] -= 1;
+                }
+                if(gameHasWinner){
+                    if(MessageFactory.get_confirm("game_has_winner",games.actualGameData["team_"+goalConf.teamid])){
+                        setGameWinner();
+                    }else{
+                        games.actualGameData["team_"+goalConf.teamid+"_scores"] -= 1;
+                    }
+                }
+            }
+        }
+        /**
+        * private set_gameWinner
+        *
+        * @description set game winner to gameData
+        * @returns void
+        */
+        function setGameWinner(){
+            addGame();
+            setScoreData();
+            setActiveGameData();
+            games.gameIsRunning = false;
+            notificationFactory.trigger('scoreConfigStatus',["stop"]);
+            notificationFactory.trigger('actualGameData',[games.actualGameData]);
+        }
         /**
         * private fillScoreList
         *
@@ -90,12 +133,12 @@
             return fill;
         }
         /**
-        * private setGameScoreData
+        * private setScoreData
         *
         * @description set scoreList Data
         * @returns void
         */
-        function setGameScoreData(){
+        function setScoreData(){
             var team_1 = {};
             var team_2 = {};
             var list = [];
@@ -107,7 +150,6 @@
                     if(team_1.length && team_2.length ){
                         list = fillScoreList(list, games.gameData[e], "teamid"+team_1[0].id, 'team_1');
                         list = fillScoreList(list, games.gameData[e], "teamid"+team_2[0].id, 'team_2');
-                        //console.log(teamid_1[0],)
                     }
                 }
                 for(var m in list){
@@ -121,13 +163,14 @@
         * @description set default scope GameActualTeamData
         * @returns void
         */
-        function setGameActualTeamData(){
-            games.gameActualTeamData = {
+        function setActiveGameData(){
+            games.actualGameData = {
                 team_1        : ((typeof games.game.team_1 == 'object') ? games.game.team_1.teamname :'Kein Team'),
                 team_2        : ((typeof games.game.team_2 == 'object') ? games.game.team_2.teamname :'Kein Team'),
                 team_1_scores : 0,
                 team_2_scores : 0
             };
+            console.log(games.actualGameData)
         }
         /**
         * protect addGame
@@ -137,14 +180,13 @@
         */
         function addGame() {
             var arg = {
-                team_win : (games.gameActualTeamData.team_1_scores>games.gameActualTeamData.team_2_scores)? games.gameActualTeamData.team_1:games.gameActualTeamData.team_2,
-                team_1   : games.gameActualTeamData.team_1,
-                team_2   : games.gameActualTeamData.team_2,
-                result   : games.gameActualTeamData.team_1_scores+' : '+games.gameActualTeamData.team_2_scores,
+                team_win : (games.actualGameData.team_1_scores>games.actualGameData.team_2_scores)? games.actualGameData.team_1:games.actualGameData.team_2,
+                team_1   : games.actualGameData.team_1,
+                team_2   : games.actualGameData.team_2,
+                result   : games.actualGameData.team_1_scores+' : '+games.actualGameData.team_2_scores,
                 id       : games.gameAutoId()
             }
             games.gameData.push(arg);
-            games.setGameActualTeamData();
         }
         /**
         * public deleteGame
@@ -154,35 +196,38 @@
         */
         function deleteGame(id) {
             games.gameData = games.gameData.filter(function(obj){if(obj.id != id){return obj}});
+            setScoreData();
         }
-        /**
-        * public get
-        *
-        * @returns object
-        */
         /**
         * public set_startGame
         *
         * @description valided gameform and if ok run add func
         * @returns boolean if form not valid than false
         */
-        function setStartGame(form) {
+        function startGame(form) {
             if ( ! form.$valid) {
                 MessageFactory.set_error("fields_need_content");
                 game.formmsg = MessageFactory.get_error();
             }else{
-                games.setGameActualTeamData();
+                setActiveGameData();
                 games.game = {team_1: '', team_2: ''};
                 games.gameIsRunning = true;
-                scopeStorage.tpl.showScoreDisplay("",false);
+                notificationFactory.trigger('scoreConfigStatus',["start"]);
+                notificationFactory.trigger('actualGameData',[games.actualGameData]);
             }
         }
+        /**
+        * public get
+        *
+        * @returns object
+        */
         function get() {
             return games;
         }
         return {
             get        : get,
-            deleteGame : deleteGame
+            deleteGame : deleteGame,
+            startGame : startGame
         }
     }    
 })();

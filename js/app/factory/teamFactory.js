@@ -26,14 +26,15 @@
                 {field: 'player_1', displayName: 'Spieler 1'},
                 {field: 'player_2', displayName: 'Spieler 2'},
                 {
-                    displayName: 'Aktion',
-                    cellTemplate: 'templates/grid-options-team-template.html'
+                    displayName  : 'Aktion',
+                    cellTemplate : 'templates/grid-options-team-template.html'
                 }
             ],
-            userData : [],
-            headertitle : 'Teams',
-            formmsg : 'Neues Team speichern',
-            teamAutoId : null
+            userData       : [],
+            actualGameData : {},
+            headertitle    : 'Teams',
+            formmsg        : 'Neues Team speichern',
+            teamAutoId     : null
         }
         var returns = {
             addTeam       : addTeam,
@@ -53,6 +54,9 @@
         });
         notificationFactory.on('deleteUser',function(){
             teams.userData = arguments[0];
+        });
+        notificationFactory.on('actualGameData',function(){
+            teams.actualGameData = arguments[0];
         });
         /**
         * public teamPlays
@@ -130,18 +134,17 @@
         * @returns void
         */
         function deleteTeam(id, scope) {
-            teams.teamData = teams.teamData.filter(function(obj){if(obj.id != id ){ return obj;}});
-            notificationFactory.trigger('teamData',[teams.teamData]);
-            /*
-            if(teamPlays(id, scope)){
+            console.log(teams.actualGameData)
+            var teamDelt = teams.teamData.filter(function(obj){if(obj.id == id ){ return obj;}})[0];
+            if(teams.actualGameData.team_1 == teamDelt.teamname || teams.actualGameData.team_2 == teamDelt.teamname ){
                 MessageFactory.set_error("team_is_in_active_game");
                 MessageFactory.set_alert('error');
             }else{
                 if(MessageFactory.get_confirm("team_delete")){
                     teams.teamData = teams.teamData.filter(function(obj){if(obj.id != id ){ return obj;}});
+                    notificationFactory.trigger('teamData',[teams.teamData]);
                 }
             }
-            */
         }
         /**
         * public get
