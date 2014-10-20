@@ -1,14 +1,14 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp').factory('GameFactory', GameFactory);
+    angular.module('mainApp').factory('gameFactory', gameFactory);
 
-    GameFactory.$inject = [
+    gameFactory.$inject = [
         'notificationFactory',
-        'MessageFactory'
+        'messageFactory'
     ];
     
-    function GameFactory (notificationFactory, MessageFactory) {
+    function gameFactory (notificationFactory, messageFactory) {
         var init = 0;
         var games = {
             game : {
@@ -49,13 +49,13 @@
                 {val:'6'},
                 {val:'7'}
             ],
-            teamData : [],
-            headertitle           : 'Control Game',
-            formmsg               : 'Neues Spiel starten',
-            gameAutoId            : null,
-            gameIsRunning         : false
+            teamData       : [],
+            headertitle    : 'Control Game',
+            formmsg        : 'Neues Spiel starten',
+            gameAutoId     : null,
+            gameIsRunning  : false
         }
-        
+        /* notifications listener */
         notificationFactory.on('init',function(){
             if(!init){
                 notificationFactory.trigger('actualGameData',[games.actualGameData]);
@@ -68,12 +68,34 @@
         notificationFactory.on('teamData',function(){
             games.teamData = arguments[0];
         });
+        notificationFactory.on('deleteTeamData',function(){
+            games.teamData = arguments[0];
+            updateGameData();
+        });
         notificationFactory.on('scoreConfig',function(){
-            if(arguments.length)
             setGoal(arguments[0]);
         });
         /**
-        * public setGoal
+        * private updateGameData
+        *
+        * @description set check gamedata to gameteamdata
+        * @returns void
+        */
+        function updateGameData(){
+            var teams = games.teamData.map(function(obj){return obj.teamname;});
+            var gamedata_new = [];
+            for( var n in games.gameData){
+                if(teams.indexOf(games.gameData[n].team_1) !== -1  && teams.indexOf(games.gameData[n].team_2) !== -1 ){
+                    gamedata_new.push(games.gameData[n]);
+                }
+            }
+            if(gamedata_new.length < games.gameData.length){
+                games.gameData = gamedata_new;
+                setScoreData();
+            }
+        }
+        /**
+        * private setGoal
         *
         * @description set goal value
         * @returns void
@@ -93,7 +115,7 @@
                     games.actualGameData["team_"+goalConf.teamid+"_scores"] -= 1;
                 }
                 if(gameHasWinner){
-                    if(MessageFactory.get_confirm("game_has_winner",games.actualGameData["team_"+goalConf.teamid])){
+                    if(messageFactory.get_confirm("game_has_winner",games.actualGameData["team_"+goalConf.teamid])){
                         setGameWinner();
                     }else{
                         games.actualGameData["team_"+goalConf.teamid+"_scores"] -= 1;
@@ -102,7 +124,7 @@
             }
         }
         /**
-        * private set_gameWinner
+        * private setGameWinner
         *
         * @description set game winner to gameData
         * @returns void
@@ -158,7 +180,7 @@
             }
         }
         /**
-        * protect setGameActualTeamData
+        * private setGameActualTeamData
         *
         * @description set default scope GameActualTeamData
         * @returns void
@@ -170,10 +192,9 @@
                 team_1_scores : 0,
                 team_2_scores : 0
             };
-            console.log(games.actualGameData)
         }
         /**
-        * protect addGame
+        * private addGame
         *
         * @description
         * @returns void
@@ -206,8 +227,8 @@
         */
         function startGame(form) {
             if ( ! form.$valid) {
-                MessageFactory.set_error("fields_need_content");
-                game.formmsg = MessageFactory.get_error();
+                messageFactory.set_error("fields_need_content");
+                game.formmsg = messageFactory.get_error();
             }else{
                 setActiveGameData();
                 games.game = {team_1: '', team_2: ''};
@@ -227,7 +248,7 @@
         return {
             get        : get,
             deleteGame : deleteGame,
-            startGame : startGame
+            startGame  : startGame
         }
     }    
 })();

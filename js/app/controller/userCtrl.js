@@ -6,15 +6,14 @@
     userCtrl.$inject = [
         '$scope',
         'userFactory',
-        'AutoIdFactory'
+        'autoidFactory'
     ];
 
-    function userCtrl ( $scope, userFactory, AutoIdFactory) {
-        console.log("userCtrl")
+    function userCtrl ( $scope, userFactory, autoidFactory) {
         // scope users
         $scope.users = userFactory.get();
         // scope users userAutoId
-        $scope.users.userAutoId = AutoIdFactory.getFuncautoId($scope.users.userData);
+        $scope.users.userAutoId = autoidFactory.getFuncautoId($scope.users.userData);
         // scope gridOptions
         $scope.gridOptionsUser = {
             data: 'users.userData',

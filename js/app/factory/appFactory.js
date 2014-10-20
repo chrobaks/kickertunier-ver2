@@ -9,9 +9,9 @@
     "use strict";
     
     angular.module('mainAppFactory', [])
-    .factory('MessageFactory', MessageFactory);
+    .factory('messageFactory', messageFactory);
     
-    function MessageFactory() {
+    function messageFactory() {
         var config_confirm = {
             "game_has_winner" : "Hurra! Das Team [%a1%] hat gewonnen, soll das Spiel eingetragen werden?",
             "team_delete" : "Wenn Sie das Team löschen, werden alle Spiele, an denen das Team beteiligt war, ebenfalls gelöscht! Möchten Sie das Team wirklich löschen?"

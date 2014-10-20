@@ -1,14 +1,14 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp').factory('TeamFactory', TeamFactory);
+    angular.module('mainApp').factory('teamFactory', teamFactory);
 
-    TeamFactory.$inject = [
+    teamFactory.$inject = [
         'notificationFactory',
-        'MessageFactory'
+        'messageFactory'
     ];
     
-    function TeamFactory (notificationFactory, MessageFactory) {
+    function teamFactory (notificationFactory, messageFactory) {
         var init = 0;
         var teams = {
             team : {
@@ -41,7 +41,7 @@
             deleteTeam    : deleteTeam,
             get           : get
         }
-        
+        /* notifications listener */
         notificationFactory.on('init',function(){
             if(!init){
                 notificationFactory.trigger('teamData',[teams.teamData]);
@@ -58,47 +58,9 @@
         notificationFactory.on('actualGameData',function(){
             teams.actualGameData = arguments[0];
         });
+        
         /**
-        * public teamPlays
-        *
-        * @description check team is playing
-        * @returns integer
-        */
-        function teamPlays(teamid, scope) {
-            if(scope.games.gameIsRunning){
-                return teams.teamData.filter(function(obj){if(obj.teamname==scope.games.gameActualTeamData.team_1 || obj.teamname==scope.games.gameActualTeamData.team_2 ){ return obj;}}).length;
-            }
-            return 0;
-        }
-        /**
-        * protect getTeamnames
-        *
-        * @description get teamnames
-        * @returns array
-        */
-        function getTeamnames() {
-            var r = [];
-            for(var e in teams.teamData){ r.push(teams.teamData[e].teamname); }
-            return r;
-        }
-        /**
-        * protect getIdByTeamname
-        *
-        * @description get teamid by teamname
-        * @returns number
-        */
-        function getIdByTeamname(teamname) {
-            var r = null;
-            for(var e in teams.teamData){
-                if(teams.teamData[e].teamname==teamname){
-                    r=teams.teamData[e].id;
-                    break;
-                }
-            }
-            return r;
-        }
-        /**
-        * public addTeam
+        * public function addTeam
         *
         * @description valided teamform and if ok run add func
         * @returns void
@@ -106,15 +68,15 @@
          function addTeam(form) {
             var actionOk = true;
             if ( ! form.teamForm.$valid) {
-                MessageFactory.set_error("fields_need_content");
+                messageFactory.set_error("fields_need_content");
                 actionOk = false;
             }
             if(teams.teamData.filter(function(obj){if(obj.teamname == teams.team.teamname ){ return obj;}}).length){
-                MessageFactory.set_error("teamname_exist");
+                messageFactory.set_error("teamname_exist");
                 actionOk = false;
             }
             if( ! actionOk){
-                teams.formmsg = MessageFactory.get_error();
+                teams.formmsg = messageFactory.get_error();
             }else{
                 var newteam = {
                     teamname: teams.team.teamname,
@@ -128,26 +90,25 @@
             }
         }
         /**
-        * public deleteTeam
+        * public function deleteTeam
         *
         * @description valided team not playing and if confirm delete
         * @returns void
         */
         function deleteTeam(id, scope) {
-            console.log(teams.actualGameData)
             var teamDelt = teams.teamData.filter(function(obj){if(obj.id == id ){ return obj;}})[0];
             if(teams.actualGameData.team_1 == teamDelt.teamname || teams.actualGameData.team_2 == teamDelt.teamname ){
-                MessageFactory.set_error("team_is_in_active_game");
-                MessageFactory.set_alert('error');
+                messageFactory.set_error("team_is_in_active_game");
+                messageFactory.set_alert('error');
             }else{
-                if(MessageFactory.get_confirm("team_delete")){
+                if(messageFactory.get_confirm("team_delete")){
                     teams.teamData = teams.teamData.filter(function(obj){if(obj.id != id ){ return obj;}});
-                    notificationFactory.trigger('teamData',[teams.teamData]);
+                    notificationFactory.trigger('deleteTeamData',[teams.teamData]);
                 }
             }
         }
         /**
-        * public get
+        * public function get
         *
         * @returns object
         */

@@ -1,9 +1,9 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp').factory('AutoIdFactory', AutoIdFactory);
+    angular.module('mainApp').factory('autoidFactory', autoidFactory);
 
-    function AutoIdFactory () {
+    function autoidFactory () {
         /**
         * private get_autoId
         *

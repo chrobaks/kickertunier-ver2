@@ -1,19 +1,19 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp').controller('teamCtrl', TeamCtrl);
+    angular.module('mainApp').controller('teamCtrl', teamCtrl);
 
-    TeamCtrl.$inject = [
+    teamCtrl.$inject = [
         '$scope',
-        'TeamFactory',
-        'AutoIdFactory'
+        'teamFactory',
+        'autoidFactory'
     ];
 
-    function TeamCtrl( $scope, TeamFactory, AutoIdFactory) {
+    function teamCtrl( $scope, teamFactory, autoidFactory) {
         // scope teams
-        $scope.teams = TeamFactory.get();
+        $scope.teams = teamFactory.get();
         // scope teams teamAutoId
-        $scope.teams.teamAutoId = AutoIdFactory.getFuncautoId($scope.teams.teamData);
+        $scope.teams.teamAutoId = autoidFactory.getFuncautoId($scope.teams.teamData);
         // scope gridOptions
         $scope.gridOptionsTeam = {
             data: 'teams.teamData',
@@ -25,10 +25,10 @@
         $scope.deleteTeam = deleteTeam;
         // func
         function addTeam() {
-            TeamFactory.addTeam($scope.teamForm);
+            teamFactory.addTeam($scope.teamForm);
         }
         function deleteTeam(id) {
-            TeamFactory.deleteTeam(id);
+            teamFactory.deleteTeam(id);
         }
         
     }

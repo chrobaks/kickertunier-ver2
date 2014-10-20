@@ -35,7 +35,7 @@
                             <span class="formmsg" ng-bind="users.formmsg"></span>
                         </p>
                     </form>
-                    <div class="gridStyle" ng-grid="gridOptionsUser"></div>
+                    <div class="gridStyle" ng-cloak ng-grid="gridOptionsUser"></div>
                 </div>
             </div>
             <!-- END FORM USER -->
@@ -79,7 +79,7 @@
                             <span class="formmsg" ng-bind="teams.formmsg"></span>
                         </p>
                     </form>
-                    <div class="gridStyle" ng-grid="gridOptionsTeam"></div>
+                    <div class="gridStyle" ng-cloak ng-grid="gridOptionsTeam"></div>
                 </div>
             </div>
             <!-- END FORM TEAM -->
@@ -105,7 +105,7 @@
                         </p>
                         <p>
                             <input type="submit" value="Spiel starten" />&nbsp;
-                            <span class="formmsg" ng-bind="tpl.formmsg.game"></span>
+                            <span class="formmsg" ng-bind="games.formmsg"></span>
                         </p>
                         <div class="wrapper-score-display-label">
                             <ul class="score-display-label">
@@ -131,8 +131,8 @@
                         </div>
                     </form>
                 </div>
-                <div class="gridStyle" ng-grid="gridOptionsGame"></div>
+                <div class="gridStyle" ng-cloak ng-grid="gridOptionsGame"></div>
                 <div class="box-label blue">Spiel-Tabelle</div>
-                <div class="gridStyle" ng-grid="gridOptionsGameScore"></div>
+                <div class="gridStyle" ng-cloak ng-grid="gridOptionsGameScore"></div>
             </div>
             <!-- END FORM GAME -->

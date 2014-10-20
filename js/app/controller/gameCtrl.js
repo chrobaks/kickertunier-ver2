@@ -1,44 +1,40 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp').controller('gameCtrl', GameCtrl);
+    angular.module('mainApp').controller('gameCtrl', gameCtrl);
 
-    GameCtrl.$inject = [
+    gameCtrl.$inject = [
         '$scope',
-        'AutoIdFactory',
-        'GameFactory'
+        'autoidFactory',
+        'gameFactory'
     ];
 
-    function GameCtrl( $scope, AutoIdFactory, GameFactory) {
-        // SCOPE VAR games
-        $scope.games = GameFactory.get();
-        $scope.games.gameAutoId = AutoIdFactory.getFuncautoId($scope.games.gameData);
+    function gameCtrl( $scope, autoidFactory, gameFactory) {
+        // scope games
+        $scope.games = gameFactory.get();
+        // scope games userAutoId
+        $scope.games.gameAutoId = autoidFactory.getFuncautoId($scope.games.gameData);
+        // scope gridOptions game
         $scope.gridOptionsGame = {
             data: 'games.gameData',
             columnDefs: 'games.gameColumnsDef'
         };
+        // scope gridOptions score
         $scope.gridOptionsGameScore = {
             data: 'games.scoreData',
             columnDefs: 'games.scoreColumnsDef',
             sortInfo: { fields: ['totalpoints'], directions: ['desc']}
         };
-
-        // START GAME
+        // start game
         $scope.startGame = startGame;
-        // DELETE GAME
+        // delete game
         $scope.deleteGame = deleteGame;
-
-        // INIT Game SCOPE
-        //init();
-        //FUNCTIONS
-        function init() {
-            
-        }
+        //func
         function startGame() {
-            GameFactory.startGame($scope.gameForm);
+            gameFactory.startGame($scope.gameForm);
         }
         function deleteGame(id) {
-            GameFactory.deleteGame(id);
+            gameFactory.deleteGame(id);
         }
     }
 })();

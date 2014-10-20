@@ -5,10 +5,10 @@
     
     userFactory.$inject = [
         'notificationFactory',
-        'MessageFactory'
+        'messageFactory'
     ];
     
-    function userFactory (notificationFactory, MessageFactory) {
+    function userFactory (notificationFactory, messageFactory) {
         var init = 0;
         var users = {
             user : {
@@ -39,6 +39,7 @@
             deleteUser : deleteUser,
             get        : get
         };
+        /* notifications listener */
         notificationFactory.on('init',function(){
             if(!init){
                 notificationFactory.trigger('userData',[users.userData]);
@@ -49,7 +50,9 @@
         notificationFactory.on('teamData',function(){
             users.teamData = arguments[0];
         });
-        
+        notificationFactory.on('deleteTeamData',function(){
+            users.teamData = arguments[0];
+        });
         /**
         * public function addUser
         *
@@ -59,11 +62,11 @@
         function addUser(form) {
             var actionOk = true;
             if ( ! form.$valid) {
-                MessageFactory.set_error("fields_need_content");
+                messageFactory.set_error("fields_need_content");
                 actionOk = false;
             }
             if(users.userData.filter(function(obj){if(obj.nickname==users.user.nickname ){ return obj;}}).length){
-                MessageFactory.set_error("nickname_exist");
+                messageFactory.set_error("nickname_exist");
                 actionOk = false;
             }
             if(actionOk){
@@ -71,7 +74,7 @@
                 users.userData.push(angular.copy(users.user));
                 users.user = {nickname: '', firstname: '', secondname: '', id: 0};
             }else{
-                users.formmsg = MessageFactory.get_error();
+                users.formmsg = messageFactory.get_error();
             }
         }
         /**
@@ -82,8 +85,8 @@
         function deleteUser(id) {
             var ncknm = users.userData.filter(function(obj){if(obj.id == id ){ return obj;}})[0].nickname;
             if(users.teamData.filter(function(obj){if(obj.player_1==ncknm || obj.player_2 == ncknm ){ return obj;}}).length){
-                MessageFactory.set_error("player_is_in_team");
-                MessageFactory.set_alert('error');
+                messageFactory.set_error("player_is_in_team");
+                messageFactory.set_alert('error');
             }else{
                 users.userData = users.userData.filter(function(obj){if(obj.id != id ){ return obj;}})
                 notificationFactory.trigger('deleteUser',[users.userData]);
