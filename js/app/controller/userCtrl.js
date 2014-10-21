@@ -11,6 +11,19 @@
 
     function userCtrl ( $scope, userFactory, autoidFactory) {
         // scope users
+
+        /*
+        function activate() {
+            userService.get().$promise.then(function(data) {
+                $scope.users = data;
+            });
+        }
+
+        activate();
+        */
+
+
+
         $scope.users = userFactory.get();
         // scope users userAutoId
         $scope.users.userAutoId = autoidFactory.getFuncautoId($scope.users.userData);
