@@ -1,14 +1,14 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp').controller('mainAppCtrl', MainAppCtrl);
+    angular.module('mainApp').controller('mainAppCtrl', mainAppCtrl);
 
-    MainAppCtrl.$inject = [
+    mainAppCtrl.$inject = [
         '$scope',
         'notificationFactory'
     ];
 
-    function MainAppCtrl( $scope, notificationFactory ) {
+    function mainAppCtrl( $scope, notificationFactory ) {
         
         $scope.show = {};
         

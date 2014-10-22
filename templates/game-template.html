@@ -37,12 +37,12 @@
                     </form>
                     <table class="repeattbl">
                         <tr>
-                            <td class="repeattbl-lbl">Vorname</td>
-                            <td class="repeattbl-lbl">Nachname</td>
-                            <td class="repeattbl-lbl">Nickname</td>
-                            <td class="repeattbl-lbl">&nbsp;</td>
+                            <td class="repeattbl-lbl green" ng-click="predicate = 'firstname'; reverse=!reverse">Vorname</td>
+                            <td class="repeattbl-lbl green" ng-click="predicate = 'secondname'; reverse=!reverse">Nachname</td>
+                            <td class="repeattbl-lbl green" ng-click="predicate = 'nickname'; reverse=!reverse">Nickname</td>
+                            <td class="repeattbl-lbl green">&nbsp;</td>
                         </tr>
-                        <tr ng-repeat="user in users.userData">
+                        <tr ng-repeat="user in users.userData | orderBy:predicate:reverse">
                             <td class="repeattbl-item">{{user.firstname}}</td>
                             <td class="repeattbl-item">{{user.secondname}}</td>
                             <td class="repeattbl-item">{{user.nickname}}</td>
@@ -95,12 +95,12 @@
                     </form>
                     <table class="repeattbl">
                         <tr>
-                            <td class="repeattbl-lbl">Vorname</td>
-                            <td class="repeattbl-lbl">Nachname</td>
-                            <td class="repeattbl-lbl">Nickname</td>
-                            <td class="repeattbl-lbl">&nbsp;</td>
+                            <td class="repeattbl-lbl green" ng-click="predicate = 'player_1'; reverse=!reverse">Vorname</td>
+                            <td class="repeattbl-lbl green" ng-click="predicate = 'player_2'; reverse=!reverse">Nachname</td>
+                            <td class="repeattbl-lbl green" ng-click="predicate = 'teamname'; reverse=!reverse">Nickname</td>
+                            <td class="repeattbl-lbl green">&nbsp;</td>
                         </tr>
-                        <tr ng-repeat="team in teams.teamData">
+                        <tr ng-repeat="team in teams.teamData | orderBy:predicate:reverse">
                             <td class="repeattbl-item">{{team.player_1}}</td>
                             <td class="repeattbl-item">{{team.player_2}}</td>
                             <td class="repeattbl-item">{{team.teamname}}</td>
@@ -161,12 +161,12 @@
 
                     <table class="repeattbl">
                         <tr>
-                            <td class="repeattbl-lbl">Team 1</td>
-                            <td class="repeattbl-lbl">Team 2</td>
-                            <td class="repeattbl-lbl">Ergebnis</td>
-                            <td class="repeattbl-lbl">&nbsp;</td>
+                            <td class="repeattbl-lbl blue" ng-click="predicate = 'team_1'; reverse=!reverse">Team 1</td>
+                            <td class="repeattbl-lbl blue" ng-click="predicate = 'team_2'; reverse=!reverse">Team 2</td>
+                            <td class="repeattbl-lbl blue">Ergebnis</td>
+                            <td class="repeattbl-lbl blue">&nbsp;</td>
                         </tr>
-                        <tr ng-repeat="game in games.gameData">
+                        <tr ng-repeat="game in games.gameData | orderBy:predicate:reverse">
                             <td class="repeattbl-item">{{game.team_1}}</td>
                             <td class="repeattbl-item">{{game.team_2}}</td>
                             <td class="repeattbl-item">{{game.result}}</td>
@@ -176,11 +176,11 @@
                     <div class="box-label blue">Spiel-Tabelle</div>
                     <table class="repeattbl">
                         <tr>
-                            <td class="repeattbl-lbl">Team 1</td>
-                            <td class="repeattbl-lbl">Team 2</td>
-                            <td class="repeattbl-lbl">Ergebnis</td>
+                            <td class="repeattbl-lbl blue" ng-click="predicate = 'teamname'; reverse=!reverse">Team</td>
+                            <td class="repeattbl-lbl blue" ng-click="predicate = 'gamecounts'; reverse=!reverse">Spiele</td>
+                            <td class="repeattbl-lbl blue" ng-click="predicate = 'totalpoints'; reverse=!reverse">Punkte</td>
                         </tr>
-                        <tr ng-repeat="score in games.scoreData">
+                        <tr ng-repeat="score in games.scoreData | orderBy:predicate:reverse">
                             <td class="repeattbl-item">{{score.teamname}}</td>
                             <td class="repeattbl-item">{{score.gamecounts}}</td>
                             <td class="repeattbl-item">{{score.totalpoints}}</td>

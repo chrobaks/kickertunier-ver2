@@ -21,15 +21,6 @@
                 {teamname: 'Ateam', player_1: 'SChrobak', player_2: 'MChrobak', id: 1},
                 {teamname: 'Vollenergie', player_1: 'PaulM', player_2: 'PaulaM', id: 2}
             ],
-            teamColumnsDef : [
-                {field: 'teamname', displayName: 'Team-Name'},
-                {field: 'player_1', displayName: 'Spieler 1'},
-                {field: 'player_2', displayName: 'Spieler 2'},
-                {
-                    displayName  : 'Aktion',
-                    cellTemplate : 'templates/grid-options-team-template.html'
-                }
-            ],
             userData       : [],
             actualGameData : {},
             headertitle    : 'Teams',
@@ -46,7 +37,6 @@
             if(!init){
                 notificationFactory.trigger('teamData',[teams.teamData]);
                 init=1;
-                console.log("team init");
             }
         });
         notificationFactory.on('userData',function(){
@@ -67,7 +57,7 @@
         */
          function addTeam(form) {
             var actionOk = true;
-            if ( ! form.teamForm.$valid) {
+            if ( ! form.$valid) {
                 messageFactory.set_error("fields_need_content");
                 actionOk = false;
             }

@@ -48,9 +48,10 @@
                 notificationFactory.trigger('gameIsRunning',[games.gameIsRunning]);
                 setScoreData();
                 init=1;
-                console.log("game init");
             }
         });
+        notificationFactory.trigger('actualGameData',[games.actualGameData]);
+        notificationFactory.trigger('gameIsRunning',[games.gameIsRunning]);
         notificationFactory.on('teamData',function(){
             games.teamData = arguments[0];
         });

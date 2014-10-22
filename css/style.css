@@ -11,6 +11,18 @@ ul {list-style: none;}
 .uiview {
     width: 400px;
 }
+.green {
+    background-color: #669900;
+}
+.blue {
+    background-color: #0099cc;
+}
+.green-light {
+    background-color: #99cc00;
+}
+.blue-light {
+    background-color: #a8dff4;
+}
 .gridStyle {
     border: 1px solid rgb(212,212,212);
     width: 100%; 
@@ -27,12 +39,6 @@ ul {list-style: none;}
     width: 100%;
     cursor: pointer;
 }
-.box-label.green {
-    background-color: #669900;
-}
-.box-label.blue {
-    background-color: #0099cc;
-}
 .wrapper-box {
     padding: 0px;
 }
@@ -41,12 +47,6 @@ ul {list-style: none;}
 }
 .wrapper-box.active {
     display: block;
-}
-.wrapper-box.green-light {
-    background-color: #99cc00;
-}
-.wrapper-box.blue-light {
-    background-color: #a8dff4;
 }
 .goal-display {
     font-size: 0.7em;
@@ -92,9 +92,9 @@ ul {list-style: none;}
     padding-left: 5px;
 }
 .repeattbl-lbl {
-    background-color:#669900;
     color:#fff;
     font-weight:bold;
     font-size: 0.6em;
     text-align:center;
+    cursor: pointer;
 }

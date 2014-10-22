@@ -23,12 +23,6 @@
                 {nickname: 'PaulM', firstname: 'Paul', secondname: 'Mustermann', id: 3},
                 {nickname: 'PaulaM', firstname: 'Paula', secondname: 'Musterfrau', id: 4}
             ],
-            userColumnsDef : [
-                {field: 'nickname', displayName: 'Nick-Name'},
-                {field: 'firstname', displayName: 'Vorname'},
-                {field: 'secondname', displayName: 'Nachname'},
-                {displayName: 'Aktion', cellTemplate: 'templates/grid-options-user-template.html'}
-            ],
             teamData    : [],
             headertitle : 'Spieler',
             formmsg     : 'Neuen Spieler speichern',
@@ -44,7 +38,6 @@
             if(!init){
                 notificationFactory.trigger('userData',[users.userData]);
                 init=1;
-                console.log("user init");
             }
         });
         notificationFactory.on('teamData',function(){
