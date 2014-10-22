@@ -35,7 +35,21 @@
                             <span class="formmsg" ng-bind="users.formmsg"></span>
                         </p>
                     </form>
-                    <div class="gridStyle" ng-cloak ng-grid="gridOptionsUser"></div>
+                    <table class="repeattbl">
+                        <tr>
+                            <td class="repeattbl-lbl">Vorname</td>
+                            <td class="repeattbl-lbl">Nachname</td>
+                            <td class="repeattbl-lbl">Nickname</td>
+                            <td class="repeattbl-lbl">&nbsp;</td>
+                        </tr>
+                        <tr ng-repeat="user in users.userData">
+                            <td class="repeattbl-item">{{user.firstname}}</td>
+                            <td class="repeattbl-item">{{user.secondname}}</td>
+                            <td class="repeattbl-item">{{user.nickname}}</td>
+                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="$parent.deleteUser(user.id)"></td>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
             <!-- END FORM USER -->
@@ -79,7 +93,20 @@
                             <span class="formmsg" ng-bind="teams.formmsg"></span>
                         </p>
                     </form>
-                    <div class="gridStyle" ng-cloak ng-grid="gridOptionsTeam"></div>
+                    <table class="repeattbl">
+                        <tr>
+                            <td class="repeattbl-lbl">Vorname</td>
+                            <td class="repeattbl-lbl">Nachname</td>
+                            <td class="repeattbl-lbl">Nickname</td>
+                            <td class="repeattbl-lbl">&nbsp;</td>
+                        </tr>
+                        <tr ng-repeat="team in teams.teamData">
+                            <td class="repeattbl-item">{{team.player_1}}</td>
+                            <td class="repeattbl-item">{{team.player_2}}</td>
+                            <td class="repeattbl-item">{{team.teamname}}</td>
+                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="$parent.deleteTeam(team.id)"></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <!-- END FORM TEAM -->
@@ -130,9 +157,35 @@
                             <score-display index="1" class="goal-display"></score-display>
                         </div>
                     </form>
+
+
+                    <table class="repeattbl">
+                        <tr>
+                            <td class="repeattbl-lbl">Team 1</td>
+                            <td class="repeattbl-lbl">Team 2</td>
+                            <td class="repeattbl-lbl">Ergebnis</td>
+                            <td class="repeattbl-lbl">&nbsp;</td>
+                        </tr>
+                        <tr ng-repeat="game in games.gameData">
+                            <td class="repeattbl-item">{{game.team_1}}</td>
+                            <td class="repeattbl-item">{{game.team_2}}</td>
+                            <td class="repeattbl-item">{{game.result}}</td>
+                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="$parent.deleteGame(game.id)"></td>
+                        </tr>
+                    </table>
+                    <div class="box-label blue">Spiel-Tabelle</div>
+                    <table class="repeattbl">
+                        <tr>
+                            <td class="repeattbl-lbl">Team 1</td>
+                            <td class="repeattbl-lbl">Team 2</td>
+                            <td class="repeattbl-lbl">Ergebnis</td>
+                        </tr>
+                        <tr ng-repeat="score in games.scoreData">
+                            <td class="repeattbl-item">{{score.teamname}}</td>
+                            <td class="repeattbl-item">{{score.gamecounts}}</td>
+                            <td class="repeattbl-item">{{score.totalpoints}}</td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="gridStyle" ng-cloak ng-grid="gridOptionsGame"></div>
-                <div class="box-label blue">Spiel-Tabelle</div>
-                <div class="gridStyle" ng-cloak ng-grid="gridOptionsGameScore"></div>
             </div>
             <!-- END FORM GAME -->

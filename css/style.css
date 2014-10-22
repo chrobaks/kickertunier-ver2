@@ -83,3 +83,18 @@ ul {list-style: none;}
 .score-display-label-space {
     clear: left;
 }
+.repeattbl {
+    width: 100%;
+}
+.repeattbl-item {
+    background-color:#fff;
+    font-size: 0.7em;
+    padding-left: 5px;
+}
+.repeattbl-lbl {
+    background-color:#669900;
+    color:#fff;
+    font-weight:bold;
+    font-size: 0.6em;
+    text-align:center;
+}

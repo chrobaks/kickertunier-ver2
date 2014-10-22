@@ -14,11 +14,6 @@
         $scope.teams = teamFactory.get();
         // scope teams teamAutoId
         $scope.teams.teamAutoId = autoidFactory.getFuncautoId($scope.teams.teamData);
-        // scope gridOptions
-        $scope.gridOptionsTeam = {
-            data: 'teams.teamData',
-            columnDefs: 'teams.teamColumnsDef'
-        };
         // add team
         $scope.addTeam = addTeam;
         // delete tesm

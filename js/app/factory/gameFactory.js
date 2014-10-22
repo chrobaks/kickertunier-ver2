@@ -20,20 +20,6 @@
                 {team_win: 'Vollenergie',team_1: 'Ateam', team_2: 'Vollenergie', result: '3 : 7', id: 2}
             ],
             scoreData : [],
-            gameColumnsDef : [
-                {field: 'team_1', displayName: 'Team 1'},
-                {field: 'team_2', displayName: 'Team 2'},
-                {field: 'result', displayName: 'Ergebnis'},
-                {
-                    displayName  : 'Aktion',
-                    cellTemplate : 'templates/grid-options-game-template.html'
-                }
-            ],
-            scoreColumnsDef : [
-                {field: 'teamname', displayName: 'Teamname'},
-                {field: 'gamecounts', displayName: 'Anzahl Spiele'},
-                {field: 'totalpoints', displayName: 'Punkte'}
-            ],
             actualGameData : {
                 team_1        : 'Kein Team',
                 team_2        : 'Kein Team',

@@ -14,17 +14,6 @@
         $scope.games = gameFactory.get();
         // scope games userAutoId
         $scope.games.gameAutoId = autoidFactory.getFuncautoId($scope.games.gameData);
-        // scope gridOptions game
-        $scope.gridOptionsGame = {
-            data: 'games.gameData',
-            columnDefs: 'games.gameColumnsDef'
-        };
-        // scope gridOptions score
-        $scope.gridOptionsGameScore = {
-            data: 'games.scoreData',
-            columnDefs: 'games.scoreColumnsDef',
-            sortInfo: { fields: ['totalpoints'], directions: ['desc']}
-        };
         // start game
         $scope.startGame = startGame;
         // delete game
