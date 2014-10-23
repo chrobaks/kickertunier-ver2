@@ -31,7 +31,7 @@
                             <label>Nickname</label>
                         </p>
                         <p>
-                            <input type="submit" value="speichern" />&nbsp;
+                            <input ng-disabled="userForm.$invalid" type="submit" value="speichern" />&nbsp;
                             <span class="formmsg" ng-bind="users.formmsg"></span>
                         </p>
                     </form>
@@ -89,7 +89,7 @@
                             <label>Teamname</label>
                         </p>
                         <p>
-                            <input type="submit" value="speichern" />&nbsp;
+                            <input ng-disabled="teamForm.$invalid" type="submit" value="speichern" />&nbsp;
                             <span class="formmsg" ng-bind="teams.formmsg"></span>
                         </p>
                     </form>
@@ -131,7 +131,7 @@
                             <label>Team 2</label>
                         </p>
                         <p>
-                            <input type="submit" value="Spiel starten" />&nbsp;
+                            <input ng-disabled="gameForm.$invalid" type="submit" value="Spiel starten" />&nbsp;
                             <span class="formmsg" ng-bind="games.formmsg"></span>
                         </p>
                         <div class="wrapper-score-display-label">
