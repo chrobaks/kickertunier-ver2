@@ -32,7 +32,10 @@ $data = $_RH->data();
 <title>Seitentitel</title>
 </head>
 <body>
-<p><a href="request.php?tbl=users&act=get">get</a></p>
+<p><a href="request.php?tbl=users&act=get">get users</a></p>
+<p><a href="request.php?tbl=teams&act=get">get teams</a></p>
+<p><a href="request.php?tbl=games&act=get">get games</a></p>
+<?php if( ! empty($data)): ?>
 <table>
 <tr>
 <?php print("<td><strong>".implode("</strong></td><td><strong>",array_keys($data[0]))."</strong></td>");?>
@@ -43,6 +46,7 @@ $data = $_RH->data();
 </tr>
 <?php endforeach; ?>
 </table>
+<?php endif; ?>
 <p><a href='request.php?tbl=users&act=add&firstname=cbcbcbcb&secondname=rtzrzrzrz&nickname="dfgdgdgd"'>add user</a></p>
 <p><a href='request.php?tbl=users&act=upd&id=60&nickname=HurtigHugo'>updated user</a></p>
 <p><a href='request.php?tbl=users&act=del&id=61'>delete user</a></p>
