@@ -49,7 +49,7 @@ class DbHandler extends DB {
 		return self::$instance;
 	}
 	public function execute($sql="",$setlastinsertid=false){
-		if(dbHandler::getBoolDbSelect() && $sql != ""){
+		if(DbHandler::getBoolDbSelect() && $sql != ""){
 			if(@mysql_query($sql,$this->getDbConnect())){
 				if($setlastinsertid){
 				    $this->lastinsertid=mysql_insert_id();
