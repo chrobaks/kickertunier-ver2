@@ -1,11 +1,20 @@
 <?php
 /*
 *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+* CONFIG DB
+*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+define("DB_HOST","localhost");
+define("DB_USER","root");
+define("DB_PASS","");
+define("DB_DATABASE","kickertunier");
+/*
+*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 * CONFIG REST
 *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
 $config_rest = array(
-    "tbl" =>  array("users", "teams", "games"),
+    "tbl" =>  array("users", "teams", "games", "scorelist"),
     "act" =>  array("add", "upd", "del", "get"),
     "add" =>  array(
         "users" => array("firstname", "secondname", "nickname"),
@@ -25,33 +34,45 @@ $config_rest = array(
     "get" =>  array(
         "users" => array("id"),
         "teams" => array("id"),
-        "games" => array("id")
+        "games" => array("id"),
+        "scorelist" => array("id")
     )
 );
+/*
+*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*# CLASS DB
+*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+class DB 
+{
+    protected $dbhandler;
+	public function __construct(){
+		$this->dbhandler = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset=UTF-8', DB_USER, DB_PASS);
+    }
+}
 /*
 *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 *# CLASS RestHandler
 *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
-class RestHandler {
-	public static $instance;
-	private $config;
-	private $setttings;
-	private $params;
-	private $db;
+class RestHandler extends DB
+{
+    public static $instance;
+    private $config;
+    private $setttings;
+    private $params;
     private $response;
-	public function __construct($config) { 
-        $this->db = DbHandler::get_instance();
-        $this->db->execute("/*!40101 SET NAMES 'UTF8' */");
-        $this->config = $config;
+    public function __construct($config) {
+        parent::__construct();
+        $this->config    = $config;
         $this->setttings = array();
-        $this->params = array();
-        $this->response = '{"status":"error"}';
-	}
-	public static function get_instance($config){
-		if( ! isset(self::$instance)){self::$instance = new RestHandler($config);}
-		return self::$instance;
-	}
+        $this->params    = array();
+        $this->response  = '{"status":"error"}';
+    }
+    public static function get_instance($config){
+        if( ! isset(self::$instance)){self::$instance = new RestHandler($config);}
+        return self::$instance;
+    }
     public function init ($param) {
         $func = "";
         if($this->settings["tbl"]=(isset($param["tbl"]) && in_array($param["tbl"],$this->config["tbl"])) ? $param["tbl"] : null){
@@ -63,59 +84,78 @@ class RestHandler {
                     }
                 }
                 if( ! empty($this->params) || empty($this->params) && $this->settings["act"]=='get')
-                $this->$func();
+                    $this->$func();
             }
         }
     }
     private function del () {
-        if($this->db->execute("DELETE FROM ".$this->settings["tbl"]." WHERE id =".$this->params["id"])){
-            $this->response = '{"status":"succes"}';
+        if($this->dbhandler->exec("DELETE FROM ".$this->settings["tbl"]." WHERE id =".$this->params["id"])){
+            $this->dbhandler->exec("FLUSH TABLES");
+            $this->response = '{"status":"success"}';
         }
     }
     private function upd () {
-        $dbval = $this->escape(array_values($this->params));
-        $updcol = array_filter(array_map("self::updcol", array_keys($this->params), $dbval));
+        $updcol = array_filter(array_map("self::updcol", array_keys($this->params),array_values($this->params)));
         $query = sprintf("UPDATE ".$this->settings["tbl"]." SET %s WHERE id='%s'", implode(', ',$updcol), $this->params["id"]);
-        if($this->db->execute($query)){
-            $this->response = '{"status":"succes"}';
+        if($this->dbhandler->exec($query)){
+            $this->dbhandler->exec("FLUSH TABLES");
+            $this->response = '{"status":"success"}';
         }
     }
     private function add () {
-        $dbval = $this->escape(array_values($this->params));
-        $query = sprintf('INSERT INTO '.$this->settings["tbl"].' (%s) VALUES ("%s")', implode(', ',array_keys($this->params)), implode('"," ',$dbval));
-        if($this->db->execute($query, true)){
-            $this->response = '{"status":"succes","insertid":"'.$this->db->getLastInsertId().'"}';
+        $query = sprintf('INSERT INTO '.$this->settings["tbl"].' (%s) VALUES ("%s")', implode(', ',array_keys($this->params)), implode('"," ',array_values($this->params)));
+        if($this->dbhandler->exec($query)){
+            $this->response = '{"status":"success","insertid":"'.$this->dbhandler->lastInsertId().'"}';
+            $this->dbhandler->exec("FLUSH TABLES");
         }
     }
-    private function get () {
-        $r = $this->db->getList($this->settings["tbl"], "", ((isset($this->params["id"])) ? array("id"=>$this->params["id"]):array()));
-        $this->response = '{"status":"succes","list":'.json_encode($r).'}';
+    private function queryScorelist () {
+        return "SELECT teams.id, teams.teamname,
+                (SELECT count(id) FROM games WHERE winner_id=teams.id) as totalpoints,
+                (SELECT count(id) FROM games WHERE team_1=teams.id OR team_2=teams.id ) as gamecounts
+                FROM teams 
+                ORDER BY totalpoints DESC, gamecounts ASC ";
     }
-    private function devget () {
-        return $this->db->getList($this->settings["tbl"], "", ((isset($this->params["id"])) ? array("id"=>$this->params["id"]):array()));
+    private function get () {
+        if($this->settings["tbl"] !== 'scorelist'){
+            if(isset($this->params["id"])){
+                $stmt = $this->dbhandler->prepare("SELECT * FROM ".$this->settings["tbl"]." WHERE id= :id");
+                $stmt->execute($this->params);
+            }else{
+                $stmt = $this->dbhandler->prepare("SELECT * FROM ".$this->settings["tbl"]);
+                $stmt->execute();
+            }
+        }else{
+            $stmt = $this->dbhandler->prepare($this->queryScorelist());
+            $stmt->execute();
+        }
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->response = '{"status":"success","list":'.json_encode($result).'}';
     }
     private function updcol($key, $val) {
         if($key!="id"){ return $key."='".$val."'"; }
     }
-    private function escape($val) {
-        return array_map(create_function('$e', 'return mysql_real_escape_string(((get_magic_quotes_gpc()) ? stripslashes($e) : $e));'), $val);
-    }
     public function response() {
         return $this->response;
+    }
+    // ONLY DEVMOD
+    private function devget () {
+        if($this->settings["tbl"] !== 'scorelist'){
+            $stmt = $this->dbhandler->prepare("SELECT * FROM ".$this->settings["tbl"]);
+        }else{
+            $stmt = $this->dbhandler->prepare($this->queryScorelist());
+        }
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function devdata() {
         $this->params = array();
         $res = array();
-        $this->settings["tbl"] = "users";
         $this->settings["act"] = "get";
-        $res["users"] = $this->devget();
-        $this->settings["tbl"] = "teams";
-        $this->settings["act"] = "get";
-        $res["teams"] = $this->devget();
-        $this->settings["tbl"] = "games";
-        $this->settings["act"] = "get";
-        $res["games"] = $this->devget();
+        foreach($this->config["tbl"] as $tbl){
+            $this->settings["tbl"] = $tbl;
+            $res[$tbl] = $this->devget();
+        }
         return $res;
     }
 }
-?>
