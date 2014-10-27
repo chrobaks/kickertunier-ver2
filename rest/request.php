@@ -1,13 +1,19 @@
 <?php
 /*
 *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-*# RESTHANDLER CLASS INCLUDE
+*# DB CLASS INCLUDE
+*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+require_once('db.php');
+/*
+*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*# DB CLASS INCLUDE
 *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
 require_once('rest.php');
 /*
 *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-* INSTANCE OF CLASS RESTHANDLER
+* INSTANCE OF CLASS DBHANDLER
 *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
 $_RH = RestHandler::get_instance($config_rest);
@@ -23,4 +29,5 @@ if( ! isset($_GET["devmd"])){
     $data = $_RH->devdata();
     require_once('devmodtpl.php');
 }
+?>
 

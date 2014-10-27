@@ -1,9 +1,9 @@
 <?php
-/*
-*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-* CONFIG REST
-*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-*/
+define("DB_HOST","localhost");
+define("DB_USER","root");
+define("DB_PASS","st03ch05");
+define("DB_DATABASE","kickertunier");
+
 $config_rest = array(
     "tbl" =>  array("users", "teams", "games"),
     "act" =>  array("add", "upd", "del", "get"),
@@ -28,30 +28,30 @@ $config_rest = array(
         "games" => array("id")
     )
 );
-/*
-*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-*# CLASS RestHandler
-*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-*/
-class RestHandler {
-	public static $instance;
-	private $config;
-	private $setttings;
-	private $params;
-	private $db;
+
+class RestHandler  extends DB
+{
+    public static $instance;
+    private $config;
+    private $setttings;
+    private $params;
+    private $db;
     private $response;
-	public function __construct($config) { 
-        $this->db = DbHandler::get_instance();
-        $this->db->execute("/*!40101 SET NAMES 'UTF8' */");
+    private $lastinsertid;
+    public function __construct($config) {
+        parent::__construct();
+        $this->lastinsertid = 0;
         $this->config = $config;
         $this->setttings = array();
         $this->params = array();
         $this->response = '{"status":"error"}';
-	}
-	public static function get_instance($config){
-		if( ! isset(self::$instance)){self::$instance = new RestHandler($config);}
-		return self::$instance;
-	}
+        $stmt = $this->handler->prepare("/*!40101 SET NAMES 'UTF8' */");
+        $stmt->execute();
+    }
+    public static function get_instance($config){
+        if( ! isset(self::$instance)){self::$instance = new RestHandler($config);}
+        return self::$instance;
+    }
     public function init ($param) {
         $func = "";
         if($this->settings["tbl"]=(isset($param["tbl"]) && in_array($param["tbl"],$this->config["tbl"])) ? $param["tbl"] : null){
@@ -63,33 +63,39 @@ class RestHandler {
                     }
                 }
                 if( ! empty($this->params) || empty($this->params) && $this->settings["act"]=='get')
-                $this->$func();
+                    $this->$func();
             }
         }
     }
     private function del () {
-        if($this->db->execute("DELETE FROM ".$this->settings["tbl"]." WHERE id =".$this->params["id"])){
-            $this->response = '{"status":"succes"}';
+        if($this->handler->exec("DELETE FROM ".$this->settings["tbl"]." WHERE id =".$this->params["id"])){
+            $this->response = '{"status":"success"}';
         }
     }
     private function upd () {
-        $dbval = $this->escape(array_values($this->params));
-        $updcol = array_filter(array_map("self::updcol", array_keys($this->params), $dbval));
+        $updcol = array_filter(array_map("self::updcol", array_keys($this->params),array_values($this->params)));
         $query = sprintf("UPDATE ".$this->settings["tbl"]." SET %s WHERE id='%s'", implode(', ',$updcol), $this->params["id"]);
-        if($this->db->execute($query)){
-            $this->response = '{"status":"succes"}';
+        $affected_rows = $this->handler->exec($query);
+        if($affected_rows){
+            $this->response = '{"status":"success"}';
         }
     }
     private function add () {
-        $dbval = $this->escape(array_values($this->params));
-        $query = sprintf('INSERT INTO '.$this->settings["tbl"].' (%s) VALUES ("%s")', implode(', ',array_keys($this->params)), implode('"," ',$dbval));
-        if($this->db->execute($query, true)){
-            $this->response = '{"status":"succes","insertid":"'.$this->db->getLastInsertId().'"}';
+        $query = sprintf('INSERT INTO '.$this->settings["tbl"].' (%s) VALUES ("%s")', implode(', ',array_keys($this->params)), implode('"," ',array_values($this->params)));
+        if($this->handler->exec($query)){
+            $this->response = '{"status":"success","insertid":"'.$this->handler->lastInsertId().'"}';
         }
     }
     private function get () {
-        $r = $this->db->getList($this->settings["tbl"], "", ((isset($this->params["id"])) ? array("id"=>$this->params["id"]):array()));
-        $this->response = '{"status":"succes","list":'.json_encode($r).'}';
+        if(isset($this->params["id"])){
+            $stmt = $this->handler->prepare("SELECT * FROM ".$this->settings["tbl"]." WHERE id= :id");
+            $stmt->execute($this->params);
+        }else{
+            $stmt = $this->handler->prepare("SELECT * FROM ".$this->settings["tbl"]);
+            $stmt->execute();
+        }
+        $result = $stmt->fetchAll();
+        $this->response = '{"status":"success","list":'.json_encode($result).'}';
     }
     private function devget () {
         return $this->db->getList($this->settings["tbl"], "", ((isset($this->params["id"])) ? array("id"=>$this->params["id"]):array()));
@@ -118,4 +124,7 @@ class RestHandler {
         return $res;
     }
 }
+$_RH = RestHandler::get_instance($config_rest);
+$_RH->init($_GET);
+print($_RH->response());
 ?>
