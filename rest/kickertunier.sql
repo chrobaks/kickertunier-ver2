@@ -45,11 +45,11 @@ CREATE TABLE IF NOT EXISTS `games` (
 
 CREATE TABLE IF NOT EXISTS `teams` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_1_id` int(11) NOT NULL,
-  `user_2_id` int(11) NOT NULL,
+  `player_1` int(11) NOT NULL,
+  `player_2` int(11) NOT NULL,
   `teamname` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_1_id` (`user_1_id`,`user_2_id`)
+  KEY `player_1` (`player_1`,`player_2`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=42 ;
 
 --
