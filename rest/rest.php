@@ -1,45 +1,6 @@
 <?php
 /*
 *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-* CONFIG DB
-*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-*/
-define("DB_HOST","localhost");
-define("DB_USER","root");
-define("DB_PASS","");
-define("DB_DATABASE","kickertunier");
-/*
-*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-* CONFIG REST
-*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-*/
-$config_rest = array(
-    "tbl" =>  array("users", "teams", "games", "scorelist"),
-    "act" =>  array("add", "upd", "del", "get"),
-    "add" =>  array(
-        "users" => array("firstname", "secondname", "nickname"),
-        "teams" => array("player_1", "player_2", "teamname"),
-        "games" => array("team_1", "team_2", "result", "winner_id")
-    ),
-    "upd" =>  array(
-        "users" => array("id", "firstname", "secondname", "nickname"),
-        "teams" => array("id", "player_1", "player_2", "teamname"),
-        "games" => array("id", "team_1", "team_2", "result", "winner_id")
-    ),
-    "del" =>  array(
-        "users" => array("id"),
-        "teams" => array("id"),
-        "games" => array("id")
-    ),
-    "get" =>  array(
-        "users" => array("id"),
-        "teams" => array("id"),
-        "games" => array("id"),
-        "scorelist" => array("id")
-    )
-);
-/*
-*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 *# CLASS DB
 *xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
@@ -47,7 +8,7 @@ class DB
 {
     protected $dbhandler;
 	public function __construct(){
-		$this->dbhandler = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset=UTF-8', DB_USER, DB_PASS);
+		$this->dbhandler = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';', DB_USER, DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
     }
 }
 /*
