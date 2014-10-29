@@ -35,7 +35,30 @@ class RestHandler extends DB
         return self::$instance;
     }
     public function init ($param) {
-        $func = "";
+        if(count($param)>=2){
+            $this->settings["tbl"] = ( in_array($param[0],$this->config["tbl"])) ? $param[0] : null;
+            $this->settings["act"] = ( in_array($param[1],$this->config["act"])) ? $param[1] : null;
+            if($this->settings["tbl"] && $this->settings["act"]){
+                $func = $this->settings["act"];
+                /*
+                foreach($param as $k => $v){
+                    if($k>1 && in_array($k, $this->config[$this->settings["act"]][$this->settings["tbl"]])){
+                        $this->params[$k] = $v;
+                    }
+                }
+                
+                if( ! empty($this->params) || empty($this->params) && $this->settings["act"]=='get'){
+                */
+                
+                if($this->settings["act"]=='get'){
+                    $this->$func();
+                    $this->params = json_decode('{'.$param[2].'}',true);
+                    $this->response  = $this->params["address"];
+                }else{$this->response  = '{"status":"error","msg":"param"}';}
+            }else{$this->response  = '{"status":"error","msg":"func","p":"'.$param[1].'"}';}
+        }else{$this->response  = '{"status":"error","msg":"settings"}';}
+        
+        /*
         if($this->settings["tbl"]=(isset($param["tbl"]) && in_array($param["tbl"],$this->config["tbl"])) ? $param["tbl"] : null){
             if($func = (isset($param["act"]) && in_array($param["act"],$this->config["act"])) ? $param["act"] : null){
                 $this->settings["act"]=$param["act"];
@@ -44,10 +67,12 @@ class RestHandler extends DB
                         $this->params[$k] = $v;
                     }
                 }
-                if( ! empty($this->params) || empty($this->params) && $this->settings["act"]=='get')
+                if( ! empty($this->params) || empty($this->params) && $this->settings["act"]=='get'){
                     $this->$func();
-            }
-        }
+                }else{$this->response  = '{"status":"error","msg":"param"}';}
+            }else{$this->response  = '{"status":"error","msg":"func"}';}
+        }else{$this->response  = '{"status":"error","msg":"settings"}';}
+        */
     }
     private function del () {
         if($this->dbhandler->exec("DELETE FROM ".$this->settings["tbl"]." WHERE id =".$this->params["id"])){
