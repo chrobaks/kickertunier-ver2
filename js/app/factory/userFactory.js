@@ -14,15 +14,9 @@
             user : {
                 firstname  : "",
                 secondname : "",
-                nickname   : "",
-                id         : null
+                nickname   : ""
             },
-            userData : [
-                {nickname: 'SChrobak', firstname: 'Stefan', secondname: 'Chrobak', id: 1},
-                {nickname: 'MChrobak', firstname: 'Max', secondname: 'Chrobak', id: 2},
-                {nickname: 'PaulM', firstname: 'Paul', secondname: 'Mustermann', id: 3},
-                {nickname: 'PaulaM', firstname: 'Paula', secondname: 'Musterfrau', id: 4}
-            ],
+            userData    : [],
             teamData    : [],
             headertitle : 'Spieler',
             formmsg     : 'Neuen Spieler speichern',
@@ -33,7 +27,7 @@
             deleteUser : deleteUser,
             get        : get
         };
-        /* notifications listener */
+        /* notifications listener
         notificationFactory.on('init',function(){
             if(!init){
                 notificationFactory.trigger('userData',[users.userData]);
@@ -45,7 +39,7 @@
         });
         notificationFactory.on('deleteTeamData',function(){
             users.teamData = arguments[0];
-        });
+        });*/
         /**
         * public function addUser
         *

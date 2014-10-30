@@ -35,44 +35,27 @@ class RestHandler extends DB
         return self::$instance;
     }
     public function init ($param) {
-        if(count($param)>=2){
-            $this->settings["tbl"] = ( in_array($param[0],$this->config["tbl"])) ? $param[0] : null;
-            $this->settings["act"] = ( in_array($param[1],$this->config["act"])) ? $param[1] : null;
-            if($this->settings["tbl"] && $this->settings["act"]){
-                $func = $this->settings["act"];
-                /*
-                foreach($param as $k => $v){
-                    if($k>1 && in_array($k, $this->config[$this->settings["act"]][$this->settings["tbl"]])){
-                        $this->params[$k] = $v;
-                    }
-                }
-                
-                if( ! empty($this->params) || empty($this->params) && $this->settings["act"]=='get'){
-                */
-                
-                if($this->settings["act"]=='get'){
-                    $this->$func();
-                    $this->params = json_decode('{'.$param[2].'}',true);
-                    $this->response  = $this->params["address"];
-                }else{$this->response  = '{"status":"error","msg":"param"}';}
-            }else{$this->response  = '{"status":"error","msg":"func","p":"'.$param[1].'"}';}
-        }else{$this->response  = '{"status":"error","msg":"settings"}';}
-        
-        /*
-        if($this->settings["tbl"]=(isset($param["tbl"]) && in_array($param["tbl"],$this->config["tbl"])) ? $param["tbl"] : null){
-            if($func = (isset($param["act"]) && in_array($param["act"],$this->config["act"])) ? $param["act"] : null){
-                $this->settings["act"]=$param["act"];
-                foreach($param as $k => $v){
-                    if($k!="tbl" && $k!="act" && in_array($k, $this->config[$this->settings["act"]][$this->settings["tbl"]])){
-                        $this->params[$k] = $v;
-                    }
-                }
-                if( ! empty($this->params) || empty($this->params) && $this->settings["act"]=='get'){
-                    $this->$func();
-                }else{$this->response  = '{"status":"error","msg":"param"}';}
-            }else{$this->response  = '{"status":"error","msg":"func"}';}
-        }else{$this->response  = '{"status":"error","msg":"settings"}';}
-        */
+        $this->paramaction ();
+        $this->settings["tbl"] = ( in_array($param[0],$this->config["tbl"])) ? $param[0] : null;
+        if($this->settings["tbl"] && $this->settings["act"]){
+            $func = $this->settings["act"];
+            $this->$func();
+        }else{$this->response  = '{"status":"error","msg":"func"}';}
+    }
+    private function paramaction () {
+        switch($_SERVER['REQUEST_METHOD']){
+            case('GET'):
+                $this->settings["act"] = 'get';
+            break;
+            case('PUT'):
+                $this->settings["act"] = 'add';
+                $this->params = json_decode(file_get_contents('php://input'),true);
+            break;
+            case('DELETE'):
+                $this->settings["act"] = 'del';
+                $this->params = json_decode(file_get_contents('php://input'),true);
+                break;
+        }
     }
     private function del () {
         if($this->dbhandler->exec("DELETE FROM ".$this->settings["tbl"]." WHERE id =".$this->params["id"])){
@@ -89,10 +72,13 @@ class RestHandler extends DB
         }
     }
     private function add () {
-        $query = sprintf('INSERT INTO '.$this->settings["tbl"].' (%s) VALUES ("%s")', implode(', ',array_keys($this->params)), implode('"," ',array_values($this->params)));
-        if($this->dbhandler->exec($query)){
-            $this->response = '{"status":"success","insertid":"'.$this->dbhandler->lastInsertId().'"}';
-            $this->dbhandler->exec("FLUSH TABLES");
+        if( ! empty($this->params)){
+            $query = sprintf('INSERT INTO '.$this->settings["tbl"].' (%s) VALUES ("%s")', implode(', ',array_keys($this->params)), implode('"," ',array_values($this->params)));
+            if($this->dbhandler->exec($query)){
+                $this->params["id"] = $this->dbhandler->lastInsertId();
+                $this->response = json_encode($this->params);
+                $this->dbhandler->exec("FLUSH TABLES");
+            }
         }
     }
     private function queryScorelist () {
@@ -116,7 +102,7 @@ class RestHandler extends DB
             $stmt->execute();
         }
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $this->response = '{"status":"success","list":'.json_encode($result).'}';
+        $this->response = json_encode($result);
     }
     private function updcol($key, $val) {
         if($key!="id"){ return $key."='".$val."'"; }

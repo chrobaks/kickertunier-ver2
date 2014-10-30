@@ -1,7 +1,7 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp', ['ui.router', 'mainAppFilter', 'mainAppFactory']);
+    angular.module('mainApp', ['ui.router', 'mainAppFilter', 'mainAppFactory', 'ngResource']);
     
     angular.module('mainApp').config(
         function($stateProvider, $urlRouterProvider){
