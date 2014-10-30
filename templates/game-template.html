@@ -95,14 +95,14 @@
                     </form>
                     <table class="repeattbl">
                         <tr>
-                            <td class="repeattbl-lbl green" ng-click="predicate = 'player_1'; reverse=!reverse">Vorname</td>
-                            <td class="repeattbl-lbl green" ng-click="predicate = 'player_2'; reverse=!reverse">Nachname</td>
-                            <td class="repeattbl-lbl green" ng-click="predicate = 'teamname'; reverse=!reverse">Nickname</td>
+                            <td class="repeattbl-lbl green" ng-click="predicate = 'player_1'; reverse=!reverse">Spieler 1</td>
+                            <td class="repeattbl-lbl green" ng-click="predicate = 'player_2'; reverse=!reverse">Spieler 2</td>
+                            <td class="repeattbl-lbl green" ng-click="predicate = 'teamname'; reverse=!reverse">Teamname</td>
                             <td class="repeattbl-lbl green">&nbsp;</td>
                         </tr>
                         <tr ng-repeat="team in teams.teamData | orderBy:predicate:reverse">
-                            <td class="repeattbl-item">{{team.player_1}}</td>
-                            <td class="repeattbl-item">{{team.player_2}}</td>
+                            <td class="repeattbl-item">{{team.nickname_1}}</td>
+                            <td class="repeattbl-item">{{team.nickname_2}}</td>
                             <td class="repeattbl-item">{{team.teamname}}</td>
                             <td class="repeattbl-item"><input type="button" value="löschen" ng-click="$parent.deleteTeam(team.id)"></td>
                         </tr>

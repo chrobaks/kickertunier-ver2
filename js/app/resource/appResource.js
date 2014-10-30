@@ -1,10 +1,9 @@
 (function() {
     "use strict";
 
-    angular.module('mainApp').factory('userResource', ['$resource',
+    angular.module('mainApp').factory('appResource', ['$resource',
         function ($resource) {
-            return $resource('/kickertunier-ver2/rest/request.php/users', null,
-            {
+            var config = {
                 'getAll': {
                     method: 'GET',
                     isArray: true
@@ -15,7 +14,11 @@
                 'del': {
                     method: 'DELETE'
                 }
-            });
+            };
+            return {
+                user : $resource('/kickertunier-ver2/rest/request.php/users', null,config),
+                team : $resource('/kickertunier-ver2/rest/request.php/teams', null,config)
+            }
         }]
     );
 })();

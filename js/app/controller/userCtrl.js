@@ -6,19 +6,19 @@
     userCtrl.$inject = [
         '$scope',
         'userFactory',
-        'userResource',
+        'appResource',
         'notificationFactory',
         'messageFactory'
     ];
 
-    function userCtrl ( $scope, userFactory, userResource, notificationFactory, messageFactory) {
+    function userCtrl ( $scope, userFactory, appResource, notificationFactory, messageFactory) {
         $scope.users = userFactory.get();
         // add user
         $scope.addUser = addUser;
         // delete user
         $scope.deleteUser = deleteUser;
 
-        userResource.getAll().$promise.then(function(data) {
+        appResource.user.getAll().$promise.then(function(data) {
             $scope.users.userData = data;
             notificationFactory.trigger('userData',[$scope.users.userData]);
         });
@@ -42,10 +42,10 @@
                 actionOk = false;
             }
             if(actionOk){
-                userResource.set(angular.copy($scope.users.user)).$promise.then(function(data) {
+                appResource.user.set(angular.copy($scope.users.user)).$promise.then(function(data) {
                     $scope.users.userData.push(data);
-                    notificationFactory.trigger('userData',[$scope.users.userData]);
                     $scope.users.user = {nickname: '', firstname: '', secondname: ''};
+                    notificationFactory.trigger('userData',[$scope.users.userData]);
                 });
             }else{
                 $scope.users.formmsg = messageFactory.get_error();
@@ -57,7 +57,7 @@
                 messageFactory.set_error("player_is_in_team");
                 messageFactory.set_alert('error');
             }else{
-                userResource.del({"id":id}).$promise.then(function(data) {
+                appResource.user.del({"id":id}).$promise.then(function(data) {
                     $scope.users.userData = $scope.users.userData.filter(function(obj){if(obj.id != id ){ return obj;}})
                     notificationFactory.trigger('deleteUser',[$scope.users.userData]);
                 });
