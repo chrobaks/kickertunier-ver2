@@ -4,64 +4,65 @@
     angular.module('mainApp').controller('userCtrl', userCtrl);
 
     userCtrl.$inject = [
-        '$scope',
         'userFactory',
         'appResource',
         'notificationFactory',
         'messageFactory'
     ];
 
-    function userCtrl ( $scope, userFactory, appResource, notificationFactory, messageFactory) {
+    function userCtrl ( userFactory, appResource, notificationFactory, messageFactory) {
 
-        $scope.addUser = addUser;
-        $scope.deleteUser = deleteUser;
+        var uctrl = this;
+        
+        uctrl.addUser = addUser;
+        uctrl.deleteUser = deleteUser;
 
         activate();
 
         function activate () {
-            $scope.users = userFactory.get();
+            uctrl.users = userFactory.get();
 
             appResource.user.getAll().$promise.then(function(data) {
-                $scope.users.userData = data;
-                notificationFactory.trigger('userData',[$scope.users.userData]);
+                uctrl.users.userData = data;
+                notificationFactory.trigger('userData',[uctrl.users.userData]);
             });
 
             notificationFactory.on('teamData',function(data){
-                $scope.users.teamData = data;
+                uctrl.users.teamData = data;
             });
             notificationFactory.on('deleteTeamData',function(data){
-                $scope.users.teamData = data;
+                uctrl.users.teamData = data;
             });
         }
 
         function addUser() {
             var actionOk = true;
-            if ( ! $scope.userForm.$valid) {
+            if ( ! uctrl.userForm.$valid) {
                 messageFactory.set_error("fields_need_content");
                 actionOk = false;
             }
-            if($scope.users.userData.filter(function(obj){if(obj.nickname==$scope.users.user.nickname ){ return obj;}}).length){
+            if(uctrl.users.userData.filter(function(obj){if(obj.nickname==uctrl.users.user.nickname ){ return obj;}}).length){
                 messageFactory.set_error("nickname_exist");
                 actionOk = false;
             }
             if(actionOk){
-                appResource.user.set(angular.copy($scope.users.user)).$promise.then(function(data) {
-                    $scope.users.userData.push(data);
-                    $scope.users.user = {nickname: '', firstname: '', secondname: ''};
-                    notificationFactory.trigger('userData',[$scope.users.userData]);
+                appResource.user.set(angular.copy(uctrl.users.user)).$promise.then(function(data) {
+                    uctrl.users.userData.push(data);
+                    uctrl.users.user = {nickname: '', firstname: '', secondname: ''};
+                    notificationFactory.trigger('userData',[uctrl.users.userData]);
                 });
             }else{
-                $scope.users.formmsg = messageFactory.get_error();
+                uctrl.users.formmsg = messageFactory.get_error();
             }
         }
         function deleteUser(id) {
-            if($scope.users.teamData.filter(function(obj){if(obj.player_1==id || obj.player_2 == id ){ return obj;}}).length){
+            if(uctrl.users.teamData.filter(function(obj){if(obj.player_1==id || obj.player_2 == id ){ return obj;}}).length){
                 messageFactory.set_error("player_is_in_team");
                 messageFactory.set_alert('error');
             }else{
                 appResource.user.del({"id":id}).$promise.then(function(data) {
-                    $scope.users.userData = $scope.users.userData.filter(function(obj){if(obj.id != id ){ return obj;}})
-                    notificationFactory.trigger('deleteUser',[$scope.users.userData]);
+                    uctrl.users.userData = uctrl.users.userData.filter(function(obj){if(obj.id != id ){ return obj;}})
+                    notificationFactory.trigger('deleteUser',[uctrl.users.userData]);
                 });
             }
         }

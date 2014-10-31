@@ -1,0 +1,40 @@
+<?php
+/*
+*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+* CONFIG DB
+*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+define("DB_HOST","localhost");
+define("DB_USER","");
+define("DB_PASS","");
+define("DB_DATABASE","kickertunier");
+/*
+*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+* CONFIG REST
+*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+$config_rest = array(
+    "tbl" =>  array("users", "teams", "games", "scorelist"),
+    "act" =>  array("add", "upd", "del", "get"),
+    "add" =>  array(
+        "users" => array("firstname", "secondname", "nickname"),
+        "teams" => array("player_1", "player_2", "teamname"),
+        "games" => array("team_1", "team_2", "result", "winner_id")
+    ),
+    "upd" =>  array(
+        "users" => array("id", "firstname", "secondname", "nickname"),
+        "teams" => array("id", "player_1", "player_2", "teamname"),
+        "games" => array("id", "team_1", "team_2", "result", "winner_id")
+    ),
+    "del" =>  array(
+        "users" => array("id"),
+        "teams" => array("id"),
+        "games" => array("id")
+    ),
+    "get" =>  array(
+        "users" => array("id"),
+        "teams" => array("id"),
+        "games" => array("id"),
+        "scorelist" => array("id")
+    )
+);

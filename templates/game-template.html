@@ -1,15 +1,15 @@
             <!-- START FORM USER -->
-            <div class="ng-scope" ng-controller="userCtrl">
+            <div class="ng-scope" ng-controller="userCtrl as uctrl">
                 <div class="box-label green"
-                    ng-click="$parent.toggleTab('user')">
-                    {{users.headertitle}} / {{ $parent.show.user | tabText }}
+                    ng-click="mctrl.toggleTab('user')">
+                    {{uctrl.users.headertitle}} / {{ mctrl.show.user | tabText }}
                 </div>
-                <div class="wrapper-box green-light" ng-show="$parent.show.user">
+                <div class="wrapper-box green-light" ng-show="mctrl.show.user">
                     <form name="userForm" ng-submit="addUser()" novalidate >
                         <p>
                             <input name="firstname"
                                 type="text"
-                                ng-model="users.user.firstname"
+                                ng-model="uctrl.users.user.firstname"
                                 ng-maxlength="30"
                                 required/>
                             <label>Vorname</label>
@@ -17,7 +17,7 @@
                         <p>
                             <input name="secondname"
                                 type="text"
-                                ng-model='users.user.secondname'
+                                ng-model='uctrl.users.user.secondname'
                                 ng-maxlength="30"
                                 required/>
                             <label>Nachname</label>
@@ -25,14 +25,14 @@
                         <p>
                             <input name="nickname"
                                 type="text"
-                                ng-model='users.user.nickname'
+                                ng-model='uctrl.users.user.nickname'
                                 ng-maxlength="30"
                                 required/>
                             <label>Nickname</label>
                         </p>
                         <p>
                             <input ng-disabled="userForm.$invalid" type="submit" value="speichern" />&nbsp;
-                            <span class="formmsg" ng-bind="users.formmsg"></span>
+                            <span class="formmsg" ng-bind="uctrl.users.formmsg"></span>
                         </p>
                     </form>
                     <table class="repeattbl">
@@ -42,11 +42,11 @@
                             <td class="repeattbl-lbl green" ng-click="predicate = 'nickname'; reverse=!reverse">Nickname</td>
                             <td class="repeattbl-lbl green">&nbsp;</td>
                         </tr>
-                        <tr ng-repeat="user in users.userData | orderBy:predicate:reverse">
+                        <tr ng-repeat="user in uctrl.users.userData | orderBy:predicate:reverse">
                             <td class="repeattbl-item">{{user.firstname}}</td>
                             <td class="repeattbl-item">{{user.secondname}}</td>
                             <td class="repeattbl-item">{{user.nickname}}</td>
-                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="$parent.deleteUser(user.id)"></td>
+                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="uctrl.deleteUser(user.id)"></td>
                         </tr>
                     </table>
 
@@ -56,10 +56,10 @@
             <!-- START FORM TEAM -->
             <div class="ng-scope" ng-controller="teamCtrl">
                 <div class="box-label green"
-                    ng-click="$parent.toggleTab('team')">
-                    {{ teams.headertitle }} / {{ $parent.show.team | tabText }}
+                    ng-click="mctrl.toggleTab('team')">
+                    {{ teams.headertitle }} / {{ mctrl.show.team | tabText }}
                 </div>
-                <div class="wrapper-box green-light" ng-show="$parent.show.team">
+                <div class="wrapper-box green-light" ng-show="mctrl.show.team">
                     <form name="teamForm" ng-submit="addTeam()" novalidate>
                         <p>
                             <select name="player_1"
