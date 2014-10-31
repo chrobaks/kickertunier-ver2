@@ -52,20 +52,18 @@ class RestHandler extends DB
             break;
             case('DELETE'):
                 $this->settings["act"] = 'del';
-                $this->params["id"] = (isset($_GET["id"])) ? $_GET["id"] : null;
-                //$fgc = file_get_contents('php://input');
-                //$this->params = json_decode($fgc,true);
+                $this->params["id"] = $request[1];
             break;
         }
         if(count($request)>0){
-            if($this->settings["act"]=='del'){
-                $request = explode("?",$request[0]);
-            }
             $this->settings["tbl"] = ( in_array($request[0],$this->config["tbl"])) ? $request[0] : null;
         }
     }
     private function del () {
         if($this->dbhandler->exec("DELETE FROM ".$this->settings["tbl"]." WHERE id =".$this->params["id"])){
+            if($this->settings["tbl"]=='teams'){
+                $this->dbhandler->exec("DELETE FROM games WHERE team_1 =".$this->params["id"]." OR team_2 =".$this->params["id"]);
+            }
             $this->dbhandler->exec("FLUSH TABLES");
             $this->response = '{"status":"success"}';
         }else{
@@ -82,7 +80,7 @@ class RestHandler extends DB
     }
     private function add () {
         if( ! empty($this->params)){
-            $query = sprintf('INSERT INTO '.$this->settings["tbl"].' (%s) VALUES ("%s")', implode(', ',array_keys($this->params)), implode('"," ',array_values($this->params)));
+            $query = sprintf('INSERT INTO '.$this->settings["tbl"].' (%s) VALUES ("%s")', implode(',',array_keys($this->params)), implode('","',array_values($this->params)));
             if($this->dbhandler->exec($query)){
                 $this->params["id"] = $this->dbhandler->lastInsertId();
                 $this->response = json_encode($this->params);
@@ -119,6 +117,11 @@ class RestHandler extends DB
             $query = "SELECT ".$this->settings["tbl"].".* ,
             (SELECT nickname FROM users WHERE users.id=".$this->settings["tbl"].".player_1 LIMIT 1) AS nickname_1,
             (SELECT nickname FROM users WHERE users.id=".$this->settings["tbl"].".player_2 LIMIT 1) AS nickname_2
+            FROM ".$this->settings["tbl"].$where;
+        }elseif($this->settings["tbl"] == 'games'){
+            $query = "SELECT ".$this->settings["tbl"].".* ,
+            (SELECT teamname FROM teams WHERE teams.id=".$this->settings["tbl"].".team_1 LIMIT 1) AS teamname_1,
+            (SELECT teamname FROM teams WHERE teams.id=".$this->settings["tbl"].".team_2 LIMIT 1) AS teamname_2
             FROM ".$this->settings["tbl"].$where;
         }else{
             $query = "SELECT * FROM ".$this->settings["tbl"].$where;

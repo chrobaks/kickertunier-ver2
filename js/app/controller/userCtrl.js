@@ -52,8 +52,7 @@
             }
         }
         function deleteUser(id) {
-            var ncknm = $scope.users.userData.filter(function(obj){if(obj.id == id ){ return obj;}})[0].nickname;
-            if($scope.users.teamData.filter(function(obj){if(obj.player_1==ncknm || obj.player_2 == ncknm ){ return obj;}}).length){
+            if($scope.users.teamData.filter(function(obj){if(obj.player_1==id || obj.player_2 == id ){ return obj;}}).length){
                 messageFactory.set_error("player_is_in_team");
                 messageFactory.set_alert('error');
             }else{

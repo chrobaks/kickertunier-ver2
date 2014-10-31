@@ -167,8 +167,8 @@
                             <td class="repeattbl-lbl blue">&nbsp;</td>
                         </tr>
                         <tr ng-repeat="game in games.gameData | orderBy:predicate:reverse">
-                            <td class="repeattbl-item">{{game.team_1}}</td>
-                            <td class="repeattbl-item">{{game.team_2}}</td>
+                            <td class="repeattbl-item">{{game.teamname_1}}</td>
+                            <td class="repeattbl-item">{{game.teamname_2}}</td>
                             <td class="repeattbl-item">{{game.result}}</td>
                             <td class="repeattbl-item"><input type="button" value="löschen" ng-click="$parent.deleteGame(game.id)"></td>
                         </tr>
