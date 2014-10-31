@@ -12,25 +12,28 @@
     ];
 
     function userCtrl ( $scope, userFactory, appResource, notificationFactory, messageFactory) {
-        $scope.users = userFactory.get();
-        // add user
+
         $scope.addUser = addUser;
-        // delete user
         $scope.deleteUser = deleteUser;
 
-        appResource.user.getAll().$promise.then(function(data) {
-            $scope.users.userData = data;
-            notificationFactory.trigger('userData',[$scope.users.userData]);
-        });
+        activate();
 
-        notificationFactory.on('teamData',function(data){
-            $scope.users.teamData = data;
-        });
-        notificationFactory.on('deleteTeamData',function(data){
-            $scope.users.teamData = data;
-        });
+        function activate () {
+            $scope.users = userFactory.get();
 
-        // func
+            appResource.user.getAll().$promise.then(function(data) {
+                $scope.users.userData = data;
+                notificationFactory.trigger('userData',[$scope.users.userData]);
+            });
+
+            notificationFactory.on('teamData',function(data){
+                $scope.users.teamData = data;
+            });
+            notificationFactory.on('deleteTeamData',function(data){
+                $scope.users.teamData = data;
+            });
+        }
+
         function addUser() {
             var actionOk = true;
             if ( ! $scope.userForm.$valid) {

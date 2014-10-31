@@ -16,15 +16,15 @@
             formmsg     : 'Neuen Spieler speichern',
             userAutoId  : null
         };
-        var returns = {
-            get : get
-        };
         /**
         * public function get
         *
         * @returns object
         */
         function get () { return users; }
-        return returns;
+
+        return {
+            get : get
+        };
     }    
 })();
