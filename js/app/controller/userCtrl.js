@@ -35,9 +35,9 @@
             });
         }
 
-        function addUser() {
+        function addUser(form) {
             var actionOk = true;
-            if ( ! uctrl.userForm.$valid) {
+            if ( ! form.userForm.$valid) {
                 messageFactory.set_error("fields_need_content");
                 actionOk = false;
             }
