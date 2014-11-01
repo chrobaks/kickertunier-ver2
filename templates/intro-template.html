@@ -1,0 +1,16 @@
+           
+            <div class="wrapper-box blue" ng-controller="introCtrl as ictrl">
+                <p>{{'2014-04-04'| amDateFormat:'dddd, MMMM Do YYYY'}}</p>
+                <form name="selectTournamentForm" ng-submit="ictrl.selectTournament(this)" novalidate>
+                    <p>
+                        <select name="selectTournament"
+                            ng-model='ictrl.selectTournament'
+                            ng-required="true"
+                            ng-options="teamuser.name for teamuser in ictrl.tournaments">
+                            <option ng-selected="selected" value="">-- Auswahl Tuniere --</option>
+                        </select>
+                        <label>Tunier-Auswahl</label>
+                    </p>
+                </form>
+            </div>
+            

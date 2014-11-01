@@ -153,9 +153,9 @@
         * @returns boolean if form not valid than false
         */
         function startGame(form) {
-            if ( ! form.$valid) {
+            if ( ! form.gameForm.$valid) {
                 messageFactory.set_error("fields_need_content");
-                game.formmsg = messageFactory.get_error();
+                games.formmsg = messageFactory.get_error();
             }else{
                 setActiveGameData();
                 games.game = {team_1: '', team_2: ''};

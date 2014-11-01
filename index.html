@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="ng-scope" ng-app="mainApp">
+<html ng-app="mainApp">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Kickertunier</title>
@@ -7,29 +7,18 @@
 <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
 <body>
-    <div class="ng-scope" ng-controller="mainAppCtrl as mctrl">
+    <div ng-controller="mainAppCtrl as mctrl">
         <div class="uiview" ui-view></div>
     </div>
-    <style type="text/css">
-    /**/
-    @charset "UTF-8";
-    [ng\:cloak],
-    [ng-cloak],
-    [data-ng-cloak],
-    [x-ng-cloak],
-    .ng-cloak,
-    .x-ng-cloak{display:none;}
-    ng\:form{display:block;}
-    
-    </style>
-    <script type="text/javascript" src="js/lib/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="js/lib/angular.js"></script>
     <script type="text/javascript" src="js/lib/angular-ui-router.js"></script>
     <script type="text/javascript" src="js/lib/angular-resource.js"></script>
-    <script type="text/javascript" src="js/app/mainApp.js"></script>
+    <script type="text/javascript" src="js/app/module/mainApp.js"></script>
     <script type="text/javascript" src="js/app/filter/mainAppFilter.js"></script>
+    <script type="text/javascript" src="js/app/config/routeConf.js"></script>
     <script type="text/javascript" src="js/app/resource/appResource.js"></script>
     <script type="text/javascript" src="js/app/controller/mainAppCtrl.js"></script>
+    <script type="text/javascript" src="js/app/controller/introCtrl.js"></script>
     <script type="text/javascript" src="js/app/controller/gameCtrl.js"></script>
     <script type="text/javascript" src="js/app/controller/userCtrl.js"></script>
     <script type="text/javascript" src="js/app/controller/teamCtrl.js"></script>

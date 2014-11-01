@@ -1,7 +1,10 @@
 (function() {
+    
     "use strict";
 
-    angular.module('mainApp').controller('userCtrl', userCtrl);
+    angular
+        .module('mainApp')
+        .controller('userCtrl', userCtrl);
 
     userCtrl.$inject = [
         'userFactory',
@@ -14,12 +17,13 @@
 
         var uctrl = this;
         
-        uctrl.addUser = addUser;
+        uctrl.addUser    = addUser;
         uctrl.deleteUser = deleteUser;
 
         activate();
 
         function activate () {
+            
             uctrl.users = userFactory.get();
 
             appResource.user.getAll().$promise.then(function(data) {
@@ -35,9 +39,11 @@
             });
         }
 
-        function addUser() {
+        function addUser(form) {
+            
             var actionOk = true;
-            if ( ! uctrl.userForm.$valid) {
+            
+            if ( ! form.userForm.$valid) {
                 messageFactory.set_error("fields_need_content");
                 actionOk = false;
             }
