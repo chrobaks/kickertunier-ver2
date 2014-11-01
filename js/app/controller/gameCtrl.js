@@ -1,46 +1,42 @@
 (function() {
-    
     "use strict";
 
-    angular
-        .module('mainApp')
-        .controller('gameCtrl', gameCtrl);
+    angular.module('mainApp').controller('gameCtrl', gameCtrl);
 
     gameCtrl.$inject = [
+        '$scope',
         'gameFactory',
         'notificationFactory',
         'messageFactory',
         'appResource'
     ];
 
-    function gameCtrl( gameFactory, notificationFactory, messageFactory, appResource) {
-        
-        var gctrl = this;
+    function gameCtrl( $scope, gameFactory, notificationFactory, messageFactory, appResource) {
 
-        gctrl.startGame = startGame;
-        gctrl.deleteGame = deleteGame;
+        $scope.startGame = startGame;
+        $scope.deleteGame = deleteGame;
 
         activate();
 
         function activate () {
 
-            gctrl.games = gameFactory.get();
+            $scope.games = gameFactory.get();
 
             appResource.game.getAll().$promise.then(function(data) {
-                gctrl.games.gameData = data;
-                notificationFactory.trigger('actualGameData',[gctrl.games.actualGameData]);
-                notificationFactory.trigger('gameIsRunning',[gctrl.games.gameIsRunning]);
+                $scope.games.gameData = data;
+                notificationFactory.trigger('actualGameData',[$scope.games.actualGameData]);
+                notificationFactory.trigger('gameIsRunning',[$scope.games.gameIsRunning]);
             });
 
             appResource.scorelist.getAll().$promise.then(function(data) {
-                gctrl.games.scoreData = data;
+                $scope.games.scoreData = data;
             });
 
             notificationFactory.on('teamData',function(data){
-                gctrl.games.teamData = data;
+                $scope.games.teamData = data;
             });
             notificationFactory.on('deleteTeamData',function(data){
-                gctrl.games.teamData = data;
+                $scope.games.teamData = data;
                 gameFactory.updateGameData();
             });
             notificationFactory.on('scoreConfig',function(data){
@@ -48,9 +44,9 @@
             });
 
         }
-        
-        function startGame(form) {
-            gameFactory.startGame(form);
+        //func
+        function startGame() {
+            gameFactory.startGame($scope.gameForm);
         }
         function deleteGame(id) {
             gameFactory.deleteGame(id);
