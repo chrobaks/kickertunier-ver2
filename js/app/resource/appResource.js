@@ -17,6 +17,7 @@
                     }
                 };
                 return {
+                    intro: $resource(url + '/tournaments/:id', {id: '@id'}, config),
                     user: $resource(url + '/users/:id', {id: '@id'}, config),
                     team: $resource(url + '/teams/:id', {id: '@id'}, config),
                     game: $resource(url + '/games/:id', {id: '@id'}, config),

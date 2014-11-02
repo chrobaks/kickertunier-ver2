@@ -3,8 +3,12 @@
 
     angular.module('mainApp').controller('mainAppCtrl', mainAppCtrl);
 
-    function mainAppCtrl() {
         
+    mainAppCtrl.$inject = [
+        'notificationFactory'
+    ];
+    
+    function mainAppCtrl( notificationFactory) {
         var mctrl = this;
         
         mctrl.show = {};

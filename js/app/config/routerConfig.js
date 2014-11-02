@@ -6,11 +6,15 @@
         .module('mainApp')
         .config(function($stateProvider, $urlRouterProvider){
             
-            $urlRouterProvider.otherwise("");
+            $urlRouterProvider.otherwise("/intro");
             
             $stateProvider
-            .state('index', {
-                url: "",
+            .state('intro', {
+                url: "/intro",
+                controller: 'mainAppCtrl',
+                templateUrl: "templates/intro-template.html"
+            }).state('game', {
+                url: "/game",
                 controller: 'mainAppCtrl',
                 templateUrl: "templates/game-template.html"
             });

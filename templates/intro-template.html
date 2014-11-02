@@ -1,0 +1,17 @@
+           
+            <div class="wrapper-box blue" ng-controller="introCtrl as ictrl">
+                
+                <form name="selectTournamentForm" ng-submit="ictrl.selectTournament(this)" novalidate>
+                    <p>
+                        <select name="selectTournamentId"
+                            ng-model='ictrl.selectTournamentId'
+                            ng-options="tournaments.name for tournaments in ictrl.tournaments">
+                            <option ng-selected="selected" value="">-- Auswahl Tuniere --</option>
+                        </select>
+                        <label>Tunier-Auswahl</label>
+                    </p>
+                        
+                    <p><input type="submit" value="Tunier laden" /></p>
+                </form>
+            </div>
+            
