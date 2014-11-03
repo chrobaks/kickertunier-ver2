@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6dcf55d-ee57-4dfc-92c2-5f6401f7b5fd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/resource/appResource.js" afterPath="$PROJECT_DIR$/js/app/resource/appResource.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/controller/gameCtrl.js" afterPath="$PROJECT_DIR$/js/app/controller/gameCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/controller/userCtrl.js" afterPath="$PROJECT_DIR$/js/app/controller/userCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/factory/userFactory.js" afterPath="$PROJECT_DIR$/js/app/factory/userFactory.js" />
-    </list>
+    <list default="true" id="d6dcf55d-ee57-4dfc-92c2-5f6401f7b5fd" name="Default" comment="" />
     <ignored path="kickertunier-ver2.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -29,78 +24,7 @@
     <favorites_list name="kickertunier-ver2" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="userCtrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/app/controller/userCtrl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125">
-              <caret line="18" column="19" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gameCtrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/app/controller/gameCtrl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
-              <caret line="41" column="47" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mainApp.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/app/mainApp.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.049234137" vertical-offset="0" max-vertical-offset="914">
-              <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gameFactory.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/app/factory/gameFactory.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="76" max-vertical-offset="2745">
-              <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="userFactory.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/app/factory/userFactory.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="teamCtrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/app/controller/teamCtrl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-30.583334" vertical-offset="361" max-vertical-offset="1275">
-              <caret line="73" column="23" selection-start-line="70" selection-start-column="20" selection-end-line="73" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="appResource.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/app/resource/appResource.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
-              <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -347,7 +271,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="-4" width="1920" height="1084" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -715,7 +639,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/app/resource/appResource.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
+        <state vertical-scroll-proportion="0.37828946" vertical-offset="0" max-vertical-offset="912">
           <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
           <folding />
         </state>
@@ -723,7 +647,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/app/controller/teamCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-30.583334" vertical-offset="361" max-vertical-offset="1275">
+        <state vertical-scroll-proportion="0.8265766" vertical-offset="361" max-vertical-offset="1275">
           <caret line="73" column="23" selection-start-line="70" selection-start-column="20" selection-end-line="73" selection-end-column="23" />
           <folding />
         </state>
@@ -731,7 +655,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/app/factory/userFactory.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+        <state vertical-scroll-proportion="0.39473686" vertical-offset="0" max-vertical-offset="912">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
@@ -747,7 +671,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/app/factory/gameFactory.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="76" max-vertical-offset="2745">
+        <state vertical-scroll-proportion="0.13048245" vertical-offset="76" max-vertical-offset="2745">
           <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
           <folding />
         </state>
@@ -763,8 +687,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/app/mainApp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.049234137" vertical-offset="0" max-vertical-offset="914">
-          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.32894737" vertical-offset="0" max-vertical-offset="912">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
