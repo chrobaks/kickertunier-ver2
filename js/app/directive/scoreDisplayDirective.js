@@ -9,7 +9,7 @@
     
     function scoreDisplay( notificationFactory ) {
         var get_tpl = function(){
-            var tpl = '<div class="item" ng-repeat="goal in games.goalsItemConf" ng-click="setGoal($index, $event)" >{{goal.val}}</div>';
+            var tpl = '<div class="item" ng-repeat="goal in gmctrl.games.goalsItemConf" ng-click="setGoal($index, $event)" >{{goal.val}}</div>';
             tpl += '<div class="clearL"></div>';
             return tpl;
         }

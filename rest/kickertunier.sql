@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `games` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `team1` int(11) NOT NULL,
-  `team2` int(11) NOT NULL,
+  `team_1` int(11) NOT NULL,
+  `team_2` int(11) NOT NULL,
   `result` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
   `winner_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `team1` (`team1`,`team2`),
+  KEY `team_1` (`team_1`,`team_2`),
   KEY `winner_id` (`winner_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 

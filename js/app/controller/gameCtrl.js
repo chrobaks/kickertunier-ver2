@@ -4,39 +4,39 @@
     angular.module('mainApp').controller('gameCtrl', gameCtrl);
 
     gameCtrl.$inject = [
-        '$scope',
         'gameFactory',
         'notificationFactory',
         'messageFactory',
         'appResource'
     ];
 
-    function gameCtrl( $scope, gameFactory, notificationFactory, messageFactory, appResource) {
+    function gameCtrl( gameFactory, notificationFactory, messageFactory, appResource) {
 
-        $scope.startGame = startGame;
-        $scope.deleteGame = deleteGame;
+        var gmctrl        = this;
+        gmctrl.startGame  = startGame;
+        gmctrl.deleteGame = deleteGame;
 
         activate();
 
         function activate () {
 
-            $scope.games = gameFactory.get();
+            gmctrl.games = gameFactory.get();
 
             appResource.game.getAll().$promise.then(function(data) {
-                $scope.games.gameData = data;
-                notificationFactory.trigger('actualGameData',[$scope.games.actualGameData]);
-                notificationFactory.trigger('gameIsRunning',[$scope.games.gameIsRunning]);
+                gmctrl.games.gameData = data;
+                notificationFactory.trigger('actualGameData',[gmctrl.games.actualGameData]);
+                notificationFactory.trigger('gameIsRunning',[gmctrl.games.gameIsRunning]);
             });
 
             appResource.scorelist.getAll().$promise.then(function(data) {
-                $scope.games.scoreData = data;
+                gmctrl.games.scoreData = data;
             });
 
             notificationFactory.on('teamData',function(data){
-                $scope.games.teamData = data;
+                gmctrl.games.teamData = data;
             });
             notificationFactory.on('deleteTeamData',function(data){
-                $scope.games.teamData = data;
+                gmctrl.games.teamData = data;
                 gameFactory.updateGameData();
             });
             notificationFactory.on('scoreConfig',function(data){
@@ -44,9 +44,9 @@
             });
 
         }
-        //func
-        function startGame() {
-            gameFactory.startGame($scope.gameForm);
+        
+        function startGame(form) {
+            gameFactory.startGame(form.gameForm);
         }
         function deleteGame(id) {
             gameFactory.deleteGame(id);

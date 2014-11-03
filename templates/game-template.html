@@ -1,15 +1,15 @@
             <!-- START FORM USER -->
-            <div class="ng-scope" ng-controller="userCtrl">
+            <div class="ng-scope" ng-controller="userCtrl as uctrl">
                 <div class="box-label green"
-                    ng-click="$parent.toggleTab('user')">
-                    {{users.headertitle}} / {{ $parent.show.user | tabText }}
+                    ng-click="mctrl.toggleTab('user')">
+                    {{uctrl.users.headertitle}} / {{ mctrl.show.user | tabText }}
                 </div>
-                <div class="wrapper-box green-light" ng-show="$parent.show.user">
-                    <form name="userForm" ng-submit="addUser()" novalidate >
+                <div class="wrapper-box green-light" ng-show="mctrl.show.user">
+                    <form name="userForm" ng-submit="uctrl.addUser(this)" novalidate >
                         <p>
                             <input name="firstname"
                                 type="text"
-                                ng-model="users.user.firstname"
+                                ng-model="uctrl.users.user.firstname"
                                 ng-maxlength="30"
                                 required/>
                             <label>Vorname</label>
@@ -17,7 +17,7 @@
                         <p>
                             <input name="secondname"
                                 type="text"
-                                ng-model='users.user.secondname'
+                                ng-model='uctrl.users.user.secondname'
                                 ng-maxlength="30"
                                 required/>
                             <label>Nachname</label>
@@ -25,14 +25,14 @@
                         <p>
                             <input name="nickname"
                                 type="text"
-                                ng-model='users.user.nickname'
+                                ng-model='uctrl.users.user.nickname'
                                 ng-maxlength="30"
                                 required/>
                             <label>Nickname</label>
                         </p>
                         <p>
                             <input ng-disabled="userForm.$invalid" type="submit" value="speichern" />&nbsp;
-                            <span class="formmsg" ng-bind="users.formmsg"></span>
+                            <span class="formmsg" ng-bind="uctrl.users.formmsg"></span>
                         </p>
                     </form>
                     <table class="repeattbl">
@@ -42,11 +42,11 @@
                             <td class="repeattbl-lbl green" ng-click="predicate = 'nickname'; reverse=!reverse">Nickname</td>
                             <td class="repeattbl-lbl green">&nbsp;</td>
                         </tr>
-                        <tr ng-repeat="user in users.userData | orderBy:predicate:reverse">
+                        <tr ng-repeat="user in uctrl.users.userData | orderBy:predicate:reverse">
                             <td class="repeattbl-item">{{user.firstname}}</td>
                             <td class="repeattbl-item">{{user.secondname}}</td>
                             <td class="repeattbl-item">{{user.nickname}}</td>
-                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="$parent.deleteUser(user.id)"></td>
+                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="uctrl.deleteUser(user.id)"></td>
                         </tr>
                     </table>
 
@@ -54,27 +54,27 @@
             </div>
             <!-- END FORM USER -->
             <!-- START FORM TEAM -->
-            <div class="ng-scope" ng-controller="teamCtrl">
+            <div class="ng-scope" ng-controller="teamCtrl as tmctrl">
                 <div class="box-label green"
-                    ng-click="$parent.toggleTab('team')">
-                    {{ teams.headertitle }} / {{ $parent.show.team | tabText }}
+                    ng-click="mctrl.toggleTab('team')">
+                    {{ tmctrl.teams.headertitle }} / {{ mctrl.show.team | tabText }}
                 </div>
-                <div class="wrapper-box green-light" ng-show="$parent.show.team">
-                    <form name="teamForm" ng-submit="addTeam()" novalidate>
+                <div class="wrapper-box green-light" ng-show="mctrl.show.team">
+                    <form name="teamForm" ng-submit="tmctrl.addTeam(this)" novalidate>
                         <p>
                             <select name="player_1"
-                                ng-model='teams.team.player_1'
+                                ng-model='tmctrl.teams.team.player_1'
                                 ng-required="true"
-                                ng-options="teamuser.nickname for teamuser in teams.userData">
+                                ng-options="teamuser.nickname for teamuser in tmctrl.teams.userData">
                                 <option ng-selected="selected" value="">-- Auswahl Spieler 1 --</option>
                             </select>
                             <label>Spieler 1</label>
                         </p>
                         <p>
                             <select name="player_2"
-                                ng-model='teams.team.player_2'
+                                ng-model='tmctrl.teams.team.player_2'
                                 ng-required="true"
-                                ng-options="teamuser.nickname for teamuser in teams.userData">
+                                ng-options="teamuser.nickname for teamuser in tmctrl.teams.userData">
                                 <option ng-selected="selected" value="">-- Auswahl Spieler 2 --</option>
                             </select>
                             <label>Spieler 2</label>
@@ -82,7 +82,7 @@
                         <p>
                             <input name="teamname"
                                 type="text"
-                                ng-model='teams.team.teamname'
+                                ng-model='tmctrl.teams.team.teamname'
                                 ng-required="true"
                                 ng-maxlength="30"
                                 required/>
@@ -90,7 +90,7 @@
                         </p>
                         <p>
                             <input ng-disabled="teamForm.$invalid" type="submit" value="speichern" />&nbsp;
-                            <span class="formmsg" ng-bind="teams.formmsg"></span>
+                            <span class="formmsg" ng-bind="tmctrl.teams.formmsg"></span>
                         </p>
                     </form>
                     <table class="repeattbl">
@@ -100,47 +100,47 @@
                             <td class="repeattbl-lbl green" ng-click="predicate = 'teamname'; reverse=!reverse">Teamname</td>
                             <td class="repeattbl-lbl green">&nbsp;</td>
                         </tr>
-                        <tr ng-repeat="team in teams.teamData | orderBy:predicate:reverse">
+                        <tr ng-repeat="team in tmctrl.teams.teamData | orderBy:predicate:reverse">
                             <td class="repeattbl-item">{{team.nickname_1}}</td>
                             <td class="repeattbl-item">{{team.nickname_2}}</td>
                             <td class="repeattbl-item">{{team.teamname}}</td>
-                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="$parent.deleteTeam(team.id)"></td>
+                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="tmctrl.deleteTeam(team.id)"></td>
                         </tr>
                     </table>
                 </div>
             </div>
             <!-- END FORM TEAM -->
             <!-- START FORM GAME -->
-            <div class="ng-scope" ng-controller="gameCtrl">
-                <div class="box-label blue" ng-bind="games.headertitle"></div>
+            <div class="ng-scope" ng-controller="gameCtrl as gmctrl">
+                <div class="box-label blue" ng-bind="gmctrl.games.headertitle"></div>
                 <div class="wrapper-box active blue-light">
-                    <form name="gameForm" ng-submit="startGame()" novalidate>
+                    <form name="gameForm" ng-submit="gmctrl.startGame(this)" novalidate>
                         <p>
 
-                            <select ng-model='games.game.team_1'
+                            <select ng-model='gmctrl.games.game.team_1'
                                     ng-required="true"
-                                    ng-options="gameteam.teamname for gameteam in games.teamData"
+                                    ng-options="gameteam.teamname for gameteam in gmctrl.games.teamData"
                                     name="team_1"><option ng-selected="selected" value="">-- Auswahl Team 1 --</option></select>
                             <label>Team 1</label>
                         </p>
                         <p>
-                            <select ng-model='games.game.team_2'
+                            <select ng-model='gmctrl.games.game.team_2'
                                     ng-required="true"
-                                    ng-options="gameteam.teamname for gameteam in games.teamData"
+                                    ng-options="gameteam.teamname for gameteam in gmctrl.games.teamData"
                                     name="team_2"><option ng-selected="selected" value="">-- Auswahl Team 2 --</option></select>
                             <label>Team 2</label>
                         </p>
                         <p>
                             <input ng-disabled="gameForm.$invalid" type="submit" value="Spiel starten" />&nbsp;
-                            <span class="formmsg" ng-bind="games.formmsg"></span>
+                            <span class="formmsg" ng-bind="gmctrl.games.formmsg"></span>
                         </p>
                         <div class="wrapper-score-display-label">
                             <ul class="score-display-label">
                                 <li class="score-display-label-titel">Team 1</li>
-                                <li class="score-display-label-value" ng-bind-template=" : {{games.actualGameData.team_1}}"></li>
+                                <li class="score-display-label-value" ng-bind-template=" : {{gmctrl.games.actualGameData.team_1}}"></li>
                                 <li class="score-display-label-space"></li>
                                 <li class="score-display-label-titel">Tore</li>
-                                <li class="score-display-label-value" ng-bind-template=" : {{games.actualGameData.team_1_scores}}"></li>
+                                <li class="score-display-label-value" ng-bind-template=" : {{gmctrl.games.actualGameData.team_1_scores}}"></li>
                                 <li class="score-display-label-space"></li>
                             </ul>
                             <score-display index="0" class="goal-display"></score-display>
@@ -148,10 +148,10 @@
                         <div class="wrapper-score-display-label">
                             <ul class="score-display-label">
                                 <li class="score-display-label-titel">Team 2</li>
-                                <li class="score-display-label-value" ng-bind-template=" : {{games.actualGameData.team_2}}"></li>
+                                <li class="score-display-label-value" ng-bind-template=" : {{gmctrl.games.actualGameData.team_2}}"></li>
                                 <li class="score-display-label-space"></li>
                                 <li class="score-display-label-titel">Tore</li>
-                                <li class="score-display-label-value" ng-bind-template=" : {{games.actualGameData.team_2_scores}}"></li>
+                                <li class="score-display-label-value" ng-bind-template=" : {{gmctrl.games.actualGameData.team_2_scores}}"></li>
                                 <li class="score-display-label-space"></li>
                             </ul>
                             <score-display index="1" class="goal-display"></score-display>
@@ -166,11 +166,11 @@
                             <td class="repeattbl-lbl blue">Ergebnis</td>
                             <td class="repeattbl-lbl blue">&nbsp;</td>
                         </tr>
-                        <tr ng-repeat="game in games.gameData | orderBy:predicate:reverse">
+                        <tr ng-repeat="game in gmctrl.games.gameData | orderBy:predicate:reverse">
                             <td class="repeattbl-item">{{game.teamname_1}}</td>
                             <td class="repeattbl-item">{{game.teamname_2}}</td>
                             <td class="repeattbl-item">{{game.result}}</td>
-                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="$parent.deleteGame(game.id)"></td>
+                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="gmctrl.deleteGame(game.id)"></td>
                         </tr>
                     </table>
                     <div class="box-label blue">Spiel-Tabelle</div>
@@ -180,7 +180,7 @@
                             <td class="repeattbl-lbl blue" ng-click="predicate = 'gamecounts'; reverse=!reverse">Spiele</td>
                             <td class="repeattbl-lbl blue" ng-click="predicate = 'totalpoints'; reverse=!reverse">Punkte</td>
                         </tr>
-                        <tr ng-repeat="score in games.scoreData | orderBy:predicate:reverse">
+                        <tr ng-repeat="score in gmctrl.games.scoreData | orderBy:predicate:reverse">
                             <td class="repeattbl-item">{{score.teamname}}</td>
                             <td class="repeattbl-item">{{score.gamecounts}}</td>
                             <td class="repeattbl-item">{{score.totalpoints}}</td>
