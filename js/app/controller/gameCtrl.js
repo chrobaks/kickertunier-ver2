@@ -1,7 +1,10 @@
 (function() {
+    
     "use strict";
 
-    angular.module('mainApp').controller('gameCtrl', gameCtrl);
+    angular
+        .module('mainApp')
+        .controller('gameCtrl', gameCtrl);
 
     gameCtrl.$inject = [
         'gameFactory',
@@ -13,9 +16,9 @@
 
     function gameCtrl( gameFactory, notificationFactory, messageFactory, appResource, $stateParams) {
 
-        var gmctrl            = this;
-        gmctrl.startGame      = startGame;
-        gmctrl.deleteGame     = deleteGame;
+        var gmctrl        = this;
+        gmctrl.startGame  = startGame;
+        gmctrl.deleteGame = deleteGame;
 
         activate();
 

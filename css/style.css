@@ -39,6 +39,11 @@ ul {list-style: none;}
     width: 100%;
     cursor: pointer;
 }
+.box-label.blue a {
+    color:#fff;
+    text-decoration: none;
+    font-size: 0.7em;
+}
 .wrapper-box {
     padding: 0px;
 }

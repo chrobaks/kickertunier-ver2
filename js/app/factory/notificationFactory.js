@@ -1,7 +1,10 @@
 (function() {
+    
     "use strict";
 
-    angular.module('mainApp').factory('notificationFactory', notificationFactory);
+    angular
+        .module('mainApp')
+        .factory('notificationFactory', notificationFactory);
 
     function notificationFactory() {
 
@@ -45,4 +48,4 @@
 
     }
 })();
-//notificationFactory.trigger('teamDelete', 15);
+

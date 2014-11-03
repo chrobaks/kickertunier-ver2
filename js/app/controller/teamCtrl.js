@@ -1,7 +1,10 @@
 (function() {
+    
     "use strict";
 
-    angular.module('mainApp').controller('teamCtrl', teamCtrl);
+    angular
+        .module('mainApp')
+        .controller('teamCtrl', teamCtrl);
 
     teamCtrl.$inject = [
         'teamFactory',

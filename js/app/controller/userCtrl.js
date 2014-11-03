@@ -1,7 +1,10 @@
 (function() {
+    
     "use strict";
 
-    angular.module('mainApp').controller('userCtrl', userCtrl);
+    angular
+        .module('mainApp')
+        .controller('userCtrl', userCtrl);
 
     userCtrl.$inject = [
         'userFactory',

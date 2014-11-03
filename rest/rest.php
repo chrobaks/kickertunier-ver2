@@ -64,8 +64,13 @@ class RestHandler extends DB
     }
     private function del () {
         if($this->dbhandler->exec("DELETE FROM ".$this->settings["tbl"]." WHERE id =".$this->params["id"])){
-            if($this->settings["tbl"]=='teams'){
+            if($this->settings["tbl"] == 'teams'){
                 $this->dbhandler->exec("DELETE FROM games WHERE team_1 =".$this->params["id"]." OR team_2 =".$this->params["id"]);
+            }
+            if($this->settings["tbl"] == 'tournaments'){
+                $this->dbhandler->exec("DELETE FROM users WHERE tournaments_id =".$this->params["id"]);
+                $this->dbhandler->exec("DELETE FROM teams WHERE tournaments_id =".$this->params["id"]);
+                $this->dbhandler->exec("DELETE FROM games WHERE tournaments_id =".$this->params["id"]);
             }
             $this->dbhandler->exec("FLUSH TABLES");
             $this->response = '{"status":"success"}';

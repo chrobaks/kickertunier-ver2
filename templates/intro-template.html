@@ -1,6 +1,7 @@
 
     <div ng-controller="introCtrl as ictrl">
         <div class="wrapper-box green">
+            <img src="img/bg_intro.png" />
             <form name="newTournamentForm" ng-submit="ictrl.add(this)" novalidate>
                 <p>
                     <input name="name"
@@ -9,7 +10,6 @@
                            required>
                     <label>Tunier-Name</label>
                 </p>
-
                 <p><input type="submit" value="Tunier speichern" /></p>
             </form>
         </div>
@@ -18,13 +18,16 @@
                 <p>
                     <select name="selectTournamentId"
                             ng-model='ictrl.selectTournamentId'
-                            ng-options="tournaments.name for tournaments in ictrl.tournaments">
+                            ng-options="tournaments.name for tournaments in ictrl.tournaments"
+                            ng-required="true">
                         <option ng-selected="selected" value="">-- Auswahl Tuniere --</option>
                     </select>
                     <label>Tunier-Auswahl</label>
                 </p>
 
-                <p><input type="submit" value="Tunier laden" /></p>
+                <p>
+                <input type="submit" value="Tunier laden" />&nbsp;
+                <input ng-click="ictrl.del()" type="button" value="Tunier löschen" /></p>
             </form>
         </div>
     </div>

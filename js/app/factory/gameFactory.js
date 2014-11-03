@@ -1,7 +1,10 @@
 (function() {
+    
     "use strict";
 
-    angular.module('mainApp').factory('gameFactory', gameFactory);
+    angular
+        .module('mainApp')
+        .factory('gameFactory', gameFactory);
 
     gameFactory.$inject = [
         'notificationFactory',
@@ -53,10 +56,10 @@
         * @returns void
         */
         function updateGameData(){
-            appResource.game.getAll().$promise.then(function(data) {
+            appResource.game.getAll({"tournaments_id" : games.tournaments_id}).$promise.then(function(data) {
                 games.gameData = data;
             });
-            appResource.scorelist.getAll().$promise.then(function(data) {
+            appResource.scorelist.getAll({"tournaments_id" : games.tournaments_id}).$promise.then(function(data) {
                 games.scoreData = data;
             });
         }
@@ -126,7 +129,7 @@
                 games.gameData.push(angular.copy(data));
                 games.gameIsRunning = false;
                 setActiveGameData();
-                appResource.scorelist.getAll().$promise.then(function(data) {
+                appResource.scorelist.getAll({"tournaments_id" : games.tournaments_id}).$promise.then(function(data) {
                     games.scoreData = data;
                 });
                 notificationFactory.trigger('scoreConfigStatus',["stop"]);
