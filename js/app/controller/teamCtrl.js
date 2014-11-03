@@ -7,21 +7,23 @@
         'teamFactory',
         'notificationFactory',
         'messageFactory',
-        'appResource'
+        'appResource',
+        '$stateParams'
     ];
 
-    function teamCtrl( teamFactory, notificationFactory, messageFactory, appResource) {
+    function teamCtrl( teamFactory, notificationFactory, messageFactory, appResource, $stateParams) {
         
-        var tmctrl        = this;
-        tmctrl.teams      = teamFactory.get();
-        tmctrl.addTeam    = addTeam;
-        tmctrl.deleteTeam = deleteTeam;
+        var tmctrl            = this;
+        tmctrl.teams          = teamFactory.get();
+        tmctrl.addTeam        = addTeam;
+        tmctrl.deleteTeam     = deleteTeam;
+        tmctrl.tournaments_id = $stateParams.tournaments_id;
 
         activate();
 
         function activate () {
             
-            appResource.team.getAll().$promise.then(function(data) {
+            appResource.team.getAll({"tournaments_id" : tmctrl.tournaments_id}).$promise.then(function(data) {
                 tmctrl.teams.teamData = data;
                 notificationFactory.trigger('teamData',[tmctrl.teams.teamData]);
             });
@@ -53,9 +55,10 @@
                 tmctrl.teams.formmsg = messageFactory.get_error();
             }else{
                 var newteam = {
-                    teamname: tmctrl.teams.team.teamname,
-                    player_1: tmctrl.teams.team.player_1.id,
-                    player_2: tmctrl.teams.team.player_2.id
+                    teamname       : tmctrl.teams.team.teamname,
+                    player_1       : tmctrl.teams.team.player_1.id,
+                    player_2       : tmctrl.teams.team.player_2.id,
+                    tournaments_id : tmctrl.tournaments_id
                 };
                 appResource.team.set(angular.copy(newteam)).$promise.then(function(data) {
                     data.nickname_1 = tmctrl.teams.team.player_1.nickname;

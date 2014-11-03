@@ -7,28 +7,30 @@
         'gameFactory',
         'notificationFactory',
         'messageFactory',
-        'appResource'
+        'appResource',
+        '$stateParams'
     ];
 
-    function gameCtrl( gameFactory, notificationFactory, messageFactory, appResource) {
+    function gameCtrl( gameFactory, notificationFactory, messageFactory, appResource, $stateParams) {
 
-        var gmctrl        = this;
-        gmctrl.startGame  = startGame;
-        gmctrl.deleteGame = deleteGame;
+        var gmctrl            = this;
+        gmctrl.startGame      = startGame;
+        gmctrl.deleteGame     = deleteGame;
 
         activate();
 
         function activate () {
 
             gmctrl.games = gameFactory.get();
+            gmctrl.games.tournaments_id = $stateParams.tournaments_id;
 
-            appResource.game.getAll().$promise.then(function(data) {
+            appResource.game.getAll({"tournaments_id" : gmctrl.games.tournaments_id}).$promise.then(function(data) {
                 gmctrl.games.gameData = data;
                 notificationFactory.trigger('actualGameData',[gmctrl.games.actualGameData]);
                 notificationFactory.trigger('gameIsRunning',[gmctrl.games.gameIsRunning]);
             });
 
-            appResource.scorelist.getAll().$promise.then(function(data) {
+            appResource.scorelist.getAll({"tournaments_id" : gmctrl.games.tournaments_id}).$promise.then(function(data) {
                 gmctrl.games.scoreData = data;
             });
 

@@ -113,10 +113,11 @@
         */
         function addGame() {
             var arg = {
-                winner_id : (games.actualGameData.team_1_scores > games.actualGameData.team_2_scores)? games.actualGameData.team_1_id:games.actualGameData.team_2_id,
-                team_1    : games.actualGameData.team_1_id,
-                team_2    : games.actualGameData.team_2_id,
-                result    : games.actualGameData.team_1_scores+'/'+games.actualGameData.team_2_scores
+                winner_id      : (games.actualGameData.team_1_scores > games.actualGameData.team_2_scores)? games.actualGameData.team_1_id:games.actualGameData.team_2_id,
+                team_1         : games.actualGameData.team_1_id,
+                team_2         : games.actualGameData.team_2_id,
+                result         : games.actualGameData.team_1_scores+'/'+games.actualGameData.team_2_scores,
+                tournaments_id : games.tournaments_id
             }
 
             appResource.game.set(angular.copy(arg)).$promise.then(function(data) {

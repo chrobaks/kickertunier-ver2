@@ -14,7 +14,7 @@
                 controller: 'mainAppCtrl',
                 templateUrl: "templates/intro-template.html"
             }).state('game', {
-                url: "/game",
+                url: "/game/:tournaments_id",
                 controller: 'mainAppCtrl',
                 templateUrl: "templates/game-template.html"
             });

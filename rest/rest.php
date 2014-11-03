@@ -45,6 +45,9 @@ class RestHandler extends DB
         switch($_SERVER['REQUEST_METHOD']){
             case('GET'):
                 $this->settings["act"] = 'get';
+                if( $request[0]!= "tournaments"){
+                    $this->params["tournaments_id"] = $request[1];
+                }
             break;
             case('PUT'):
                 $this->settings["act"] = 'add';
@@ -91,8 +94,8 @@ class RestHandler extends DB
     private function get () {
         if($this->settings["tbl"] !== 'scorelist'){
             $stmt = $this->dbhandler->prepare($this->queryGet());
-            if(isset($this->params["id"])){
-                $stmt->execute($this->params);
+            if(isset($this->params["id"]) || isset($this->params["tournaments_id"]) ){
+                $stmt->execute();
             }else{
                 $stmt->execute();
             }
@@ -107,12 +110,13 @@ class RestHandler extends DB
         return "SELECT teams.id, teams.teamname,
                 (SELECT count(id) FROM games WHERE winner_id=teams.id) as totalpoints,
                 (SELECT count(id) FROM games WHERE team_1=teams.id OR team_2=teams.id ) as gamecounts
-                FROM teams 
+                FROM teams WHERE tournaments_id=".$this->params["tournaments_id"]."
                 ORDER BY totalpoints DESC, gamecounts ASC ";
     }
     private function queryGet () {
         $query = "";
-        $where = (isset($this->params["id"])) ? " WHERE id= :id" : "";
+        $where = (isset($this->params["tournaments_id"])) ? " WHERE tournaments_id=".$this->params["tournaments_id"] : "";
+        //$where .= (isset($this->params["id"])) ? " AND id= :id" : "";
         if($this->settings["tbl"] == 'teams'){
             $query = "SELECT ".$this->settings["tbl"].".* ,
             (SELECT nickname FROM users WHERE users.id=".$this->settings["tbl"].".player_1 LIMIT 1) AS nickname_1,

@@ -15,10 +15,12 @@
 
     function introCtrl ( $state, appResource, notificationFactory, messageFactory) {
         
-        var ictrl              = this;
-        ictrl.tournaments      = [];
-        ictrl.selectTournament = selectTournament;
+        var ictrl                = this;
+        ictrl.tournaments        = [];
+        ictrl.name               = "";
         ictrl.selectTournamentId = "";
+        ictrl.selectTournament   = selectTournament;
+        ictrl.add                = add;
         
         activate();
         
@@ -29,9 +31,13 @@
             });
             
         }
-        
+        function add () {
+            appResource.intro.set({"name" : ictrl.name}).$promise.then(function(data) {
+                ictrl.tournaments.push(data);
+            });
+        }
         function selectTournament (form) {
-            console.log("selectTournament: "+ictrl.selectTournamentId.id);
+            $state.transitionTo('game', {tournaments_id:ictrl.selectTournamentId.id});
         }
     }
 })();

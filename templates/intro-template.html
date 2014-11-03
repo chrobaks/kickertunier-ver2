@@ -1,17 +1,32 @@
-           
-            <div class="wrapper-box blue" ng-controller="introCtrl as ictrl">
-                
-                <form name="selectTournamentForm" ng-submit="ictrl.selectTournament(this)" novalidate>
-                    <p>
-                        <select name="selectTournamentId"
+
+    <div ng-controller="introCtrl as ictrl">
+        <div class="wrapper-box green">
+            <form name="newTournamentForm" ng-submit="ictrl.add(this)" novalidate>
+                <p>
+                    <input name="name"
+                           type="text"
+                           ng-model="ictrl.name"
+                           required>
+                    <label>Tunier-Name</label>
+                </p>
+
+                <p><input type="submit" value="Tunier speichern" /></p>
+            </form>
+        </div>
+        <div class="wrapper-box blue">
+            <form name="selectTournamentForm" ng-submit="ictrl.selectTournament(this)" novalidate>
+                <p>
+                    <select name="selectTournamentId"
                             ng-model='ictrl.selectTournamentId'
                             ng-options="tournaments.name for tournaments in ictrl.tournaments">
-                            <option ng-selected="selected" value="">-- Auswahl Tuniere --</option>
-                        </select>
-                        <label>Tunier-Auswahl</label>
-                    </p>
-                        
-                    <p><input type="submit" value="Tunier laden" /></p>
-                </form>
-            </div>
-            
+                        <option ng-selected="selected" value="">-- Auswahl Tuniere --</option>
+                    </select>
+                    <label>Tunier-Auswahl</label>
+                </p>
+
+                <p><input type="submit" value="Tunier laden" /></p>
+            </form>
+        </div>
+    </div>
+
+

@@ -5,11 +5,14 @@
 
         
     mainAppCtrl.$inject = [
-        'notificationFactory'
+        'notificationFactory',
+        '$stateParams'
     ];
     
-    function mainAppCtrl( notificationFactory) {
+    function mainAppCtrl( notificationFactory, $stateParams) {
+
         var mctrl = this;
+        mctrl.tournaments_id = (typeof $stateParams.tournaments_id) ? $stateParams.tournaments_id: "";
         
         mctrl.show = {};
         mctrl.toggleTab = function (tab) {

@@ -7,22 +7,24 @@
         'userFactory',
         'appResource',
         'notificationFactory',
-        'messageFactory'
+        'messageFactory',
+        '$stateParams'
     ];
 
-    function userCtrl ( userFactory, appResource, notificationFactory, messageFactory) {
+    function userCtrl ( userFactory, appResource, notificationFactory, messageFactory, $stateParams) {
 
         var uctrl = this;
         
-        uctrl.addUser = addUser;
-        uctrl.deleteUser = deleteUser;
+        uctrl.addUser        = addUser;
+        uctrl.deleteUser     = deleteUser;
+        uctrl.tournaments_id = $stateParams.tournaments_id;
 
         activate();
 
         function activate () {
             uctrl.users = userFactory.get();
 
-            appResource.user.getAll().$promise.then(function(data) {
+            appResource.user.getAll({"tournaments_id" : uctrl.tournaments_id}).$promise.then(function(data) {
                 uctrl.users.userData = data;
                 notificationFactory.trigger('userData',[uctrl.users.userData]);
             });
@@ -46,6 +48,7 @@
                 actionOk = false;
             }
             if(actionOk){
+                uctrl.users.user.tournaments_id = uctrl.tournaments_id;
                 appResource.user.set(angular.copy(uctrl.users.user)).$promise.then(function(data) {
                     uctrl.users.userData.push(data);
                     uctrl.users.user = {nickname: '', firstname: '', secondname: ''};

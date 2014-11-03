@@ -40,6 +40,18 @@ CREATE TABLE IF NOT EXISTS `games` (
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `tournaments`
+--
+
+CREATE TABLE IF NOT EXISTS `tournaments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `teams`
 --
 
