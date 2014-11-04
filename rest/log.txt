@@ -1,39 +1,9 @@
-SELECT * FROM users WHERE tournaments_id=1
-SELECT teams.* ,
-            (SELECT nickname FROM users WHERE users.id=teams.player_1 LIMIT 1) AS nickname_1,
-            (SELECT nickname FROM users WHERE users.id=teams.player_2 LIMIT 1) AS nickname_2
-            FROM teams WHERE tournaments_id=1
-SELECT games.* ,
+# 04.11.2014-20:37:47 # SELECT games.* ,
             (SELECT teamname FROM teams WHERE teams.id=games.team_1 LIMIT 1) AS teamname_1,
             (SELECT teamname FROM teams WHERE teams.id=games.team_2 LIMIT 1) AS teamname_2
             FROM games WHERE tournaments_id=1
-SELECT * FROM tournaments
-SELECT * FROM users WHERE tournaments_id=2
-SELECT games.* ,
-            (SELECT teamname FROM teams WHERE teams.id=games.team_1 LIMIT 1) AS teamname_1,
-            (SELECT teamname FROM teams WHERE teams.id=games.team_2 LIMIT 1) AS teamname_2
-            FROM games WHERE tournaments_id=2
-SELECT teams.* ,
-            (SELECT nickname FROM users WHERE users.id=teams.player_1 LIMIT 1) AS nickname_1,
-            (SELECT nickname FROM users WHERE users.id=teams.player_2 LIMIT 1) AS nickname_2
-            FROM teams WHERE tournaments_id=2
-SELECT * FROM tournaments
-SELECT * FROM users WHERE tournaments_id=1
-SELECT teams.* ,
+# 04.11.2014-20:37:47 # SELECT teams.* ,
             (SELECT nickname FROM users WHERE users.id=teams.player_1 LIMIT 1) AS nickname_1,
             (SELECT nickname FROM users WHERE users.id=teams.player_2 LIMIT 1) AS nickname_2
             FROM teams WHERE tournaments_id=1
-SELECT games.* ,
-            (SELECT teamname FROM teams WHERE teams.id=games.team_1 LIMIT 1) AS teamname_1,
-            (SELECT teamname FROM teams WHERE teams.id=games.team_2 LIMIT 1) AS teamname_2
-            FROM games WHERE tournaments_id=1
-SELECT * FROM tournaments
-SELECT * FROM users WHERE tournaments_id=2
-SELECT teams.* ,
-            (SELECT nickname FROM users WHERE users.id=teams.player_1 LIMIT 1) AS nickname_1,
-            (SELECT nickname FROM users WHERE users.id=teams.player_2 LIMIT 1) AS nickname_2
-            FROM teams WHERE tournaments_id=2
-SELECT games.* ,
-            (SELECT teamname FROM teams WHERE teams.id=games.team_1 LIMIT 1) AS teamname_1,
-            (SELECT teamname FROM teams WHERE teams.id=games.team_2 LIMIT 1) AS teamname_2
-            FROM games WHERE tournaments_id=2
+# 04.11.2014-20:37:47 # SELECT * FROM users WHERE tournaments_id=1

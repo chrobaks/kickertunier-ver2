@@ -2,7 +2,9 @@
     
     "use strict";
 
-    angular.module('mainApp').controller('mainAppCtrl', mainAppCtrl);
+    angular
+        .module('mainApp')
+        .controller('mainAppCtrl', mainAppCtrl);
 
     mainAppCtrl.$inject = [
         'notificationFactory',

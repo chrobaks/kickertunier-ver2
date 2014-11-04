@@ -115,12 +115,11 @@ class RestHandler extends DB
         }
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        $this->header("200 OK");
         if(is_array($result) && ! empty($result)) {
             $this->response = json_encode($result);
-            $this->header("200 OK");
         }else{
-            $this->header("400 Bad Request");
+            $this->response = '[]';
         }
     }
     private function queryScorelist () {
@@ -137,21 +136,22 @@ class RestHandler extends DB
         if($this->settings["tbl"] == 'teams'){
 
             $query = "SELECT ".$this->settings["tbl"].".* ,
-            (SELECT nickname FROM users WHERE users.id=".$this->settings["tbl"].".player_1 LIMIT 1) AS nickname_1,
-            (SELECT nickname FROM users WHERE users.id=".$this->settings["tbl"].".player_2 LIMIT 1) AS nickname_2
+            (SELECT nickname FROM users WHERE users.id=".$this->settings["tbl"].".player_1 AND tournaments_id=".$this->params["tournaments_id"]." LIMIT 1) AS nickname_1,
+            (SELECT nickname FROM users WHERE users.id=".$this->settings["tbl"].".player_2 AND tournaments_id=".$this->params["tournaments_id"]." LIMIT 1) AS nickname_2
             FROM ".$this->settings["tbl"].$where;
 
         }elseif($this->settings["tbl"] == 'games'){
 
             $query = "SELECT ".$this->settings["tbl"].".* ,
-            (SELECT teamname FROM teams WHERE teams.id=".$this->settings["tbl"].".team_1 LIMIT 1) AS teamname_1,
-            (SELECT teamname FROM teams WHERE teams.id=".$this->settings["tbl"].".team_2 LIMIT 1) AS teamname_2
+            (SELECT teamname FROM teams WHERE teams.id=".$this->settings["tbl"].".team_1 AND tournaments_id=".$this->params["tournaments_id"]." LIMIT 1) AS teamname_1,
+            (SELECT teamname FROM teams WHERE teams.id=".$this->settings["tbl"].".team_2 AND tournaments_id=".$this->params["tournaments_id"]." LIMIT 1) AS teamname_2
             FROM ".$this->settings["tbl"].$where;
 
         }else{
             $query = "SELECT * FROM ".$this->settings["tbl"].$where;
         }
-        $this->log($query."\n");
+        // activate if need query logs
+        //$this->log($query);
         return $query;
     }
     private function where () {
@@ -180,7 +180,8 @@ class RestHandler extends DB
         return $this->response;
     }
     private function log($txt){
-
+        setlocale(LC_TIME, "de_DE");
+        $txt = strftime("# %d.%m.%Y-%H:%M:%S")." # ".$txt."\n";
         if($file = fopen("log.txt","a")){
             fwrite($file, $txt);
             fclose($file);
