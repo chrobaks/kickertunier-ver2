@@ -1,2 +1,2 @@
-<div class="item" ng-repeat="goal in goalsItemConf" ng-click="setGoal({team_id:0,goal_index:$index})" >{{goal.val}}</div>
+<div class="item" ng-repeat="goal in gmctrl.games.goalsItemConf" ng-click="setGoal($index, $event)" >{{goal.val}}</div>
 <div class="clearL"></div>

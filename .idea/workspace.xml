@@ -2,18 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6dcf55d-ee57-4dfc-92c2-5f6401f7b5fd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/lib/angular.js" afterPath="$PROJECT_DIR$/js/lib/angular.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/resource/appResource.js" afterPath="$PROJECT_DIR$/js/app/resource/appResource.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/controller/gameCtrl.js" afterPath="$PROJECT_DIR$/js/app/controller/gameCtrl.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/rest/log.txt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/bg_intro.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img/mayflower_logo440.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/directive-score-display-template.html" afterPath="$PROJECT_DIR$/templates/directive-score-display-template.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/factory/gameFactory.js" afterPath="$PROJECT_DIR$/js/app/factory/gameFactory.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/intro-template.html" afterPath="$PROJECT_DIR$/templates/intro-template.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/controller/introCtrl.js" afterPath="$PROJECT_DIR$/js/app/controller/introCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/kickertunier.sql" afterPath="$PROJECT_DIR$/rest/kickertunier.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/controller/mainAppCtrl.js" afterPath="$PROJECT_DIR$/js/app/controller/mainAppCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/request.php" afterPath="$PROJECT_DIR$/rest/request.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rest/rest.php" afterPath="$PROJECT_DIR$/rest/rest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/config/routerConfig.js" afterPath="$PROJECT_DIR$/js/app/config/routerConfig.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/controller/teamCtrl.js" afterPath="$PROJECT_DIR$/js/app/controller/teamCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/controller/userCtrl.js" afterPath="$PROJECT_DIR$/js/app/controller/userCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/directive/scoreDisplayDirective.js" afterPath="$PROJECT_DIR$/js/app/directive/scoreDisplayDirective.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="kickertunier-ver2.iws" />
@@ -60,7 +57,6 @@
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/rest/db.php" />
         <option value="$PROJECT_DIR$/rest/testpdo.php" />
-        <option value="$PROJECT_DIR$/rest/request.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/js/app/mainApp.js" />
         <option value="$PROJECT_DIR$/index.html" />
@@ -75,11 +71,15 @@
         <option value="$PROJECT_DIR$/rest/restconfig.php" />
         <option value="$PROJECT_DIR$/templates/intro-template.html" />
         <option value="$PROJECT_DIR$/js/app/controller/introCtrl.js" />
-        <option value="$PROJECT_DIR$/rest/rest.php" />
         <option value="$PROJECT_DIR$/js/app/controller/userCtrl.js" />
-        <option value="$PROJECT_DIR$/js/app/factory/gameFactory.js" />
         <option value="$PROJECT_DIR$/js/app/controller/teamCtrl.js" />
         <option value="$PROJECT_DIR$/js/app/controller/gameCtrl.js" />
+        <option value="$PROJECT_DIR$/rest/request.php" />
+        <option value="$PROJECT_DIR$/templates/directive-score-display-template.html" />
+        <option value="$PROJECT_DIR$/js/app/directive/scoreDisplayDirective.js" />
+        <option value="$PROJECT_DIR$/rest/log.txt" />
+        <option value="$PROJECT_DIR$/rest/rest.php" />
+        <option value="$PROJECT_DIR$/js/app/factory/gameFactory.js" />
       </list>
     </option>
   </component>
@@ -89,6 +89,34 @@
     <option name="y" value="24" />
     <option name="width" value="1920" />
     <option name="height" value="1056" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>PHP</id>
+          </State>
+          <State>
+            <id>Type compatibilityPHP</id>
+          </State>
+          <State>
+            <id>XPath</id>
+          </State>
+          <State>
+            <id>XSLT</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PhpParamsInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -116,7 +144,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -174,10 +201,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -239,34 +262,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kickertunier-ver2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kickertunier-ver2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="directive" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -293,15 +295,15 @@
       <BehatRunner />
       <method />
     </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
-      <method />
-    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-options />
       <gulpfile />
       <tasks />
       <pass-parent-env-vars>false</pass-parent-env-vars>
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <list size="0" />
@@ -323,26 +325,26 @@
     <frame x="1920" y="24" width="1920" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.171459" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17305644" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -368,30 +370,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rest/rest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="355" max-vertical-offset="2505">
-          <caret line="27" column="3" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
-          <folding>
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT teams..teams..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT count..games..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT count..games..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..this_settings_tbl_..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..this_settings_tbl_..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rest/request.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="480">
@@ -404,14 +382,16 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="1890">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="29" selection-end-column="2" />
           <folding>
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT teams..teams..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT count..games..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT count..games..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..this_settings_tbl_..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..this_settings_tbl_..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="SELECT teams..teams..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="SELECT count..games..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="SELECT count..games..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..this_settings_tbl_..." />
           </folding>
         </state>
       </provider>
@@ -619,13 +599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rest/request.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40449437" vertical-offset="0" max-vertical-offset="890">
-          <caret line="24" column="76" selection-start-line="24" selection-start-column="76" selection-end-line="24" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/app/factory/teamFactory.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
@@ -637,7 +610,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39473686" vertical-offset="0" max-vertical-offset="912">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -645,7 +617,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5138889" vertical-offset="231" max-vertical-offset="1605">
           <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="50" selection-end-column="62" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -653,7 +624,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26258206" vertical-offset="0" max-vertical-offset="914">
           <caret line="16" column="43" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -669,7 +639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.64004374" vertical-offset="0" max-vertical-offset="914">
           <caret line="39" column="55" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -677,7 +646,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13129103" vertical-offset="0" max-vertical-offset="914">
           <caret line="8" column="21" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -685,7 +653,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0505618" vertical-offset="190" max-vertical-offset="2955">
           <caret line="75" column="43" selection-start-line="75" selection-start-column="35" selection-end-line="75" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -693,7 +660,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.033707865" vertical-offset="0" max-vertical-offset="890">
           <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -701,7 +667,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3118162" vertical-offset="0" max-vertical-offset="914">
           <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -713,36 +678,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/app/factory/gameFactory.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1261" max-vertical-offset="2760">
-          <caret line="115" column="31" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/app/controller/teamCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-29.0" vertical-offset="159" max-vertical-offset="1395">
           <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rest/rest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.5" vertical-offset="180" max-vertical-offset="2505">
-          <caret line="48" column="66" selection-start-line="48" selection-start-column="66" selection-end-line="48" selection-end-column="66" />
-          <folding>
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT teams..teams..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT count..games..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT count..games..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..this_settings_tbl_..." />
-            <marker date="1415025012811" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..this_settings_tbl_..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -750,7 +689,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.42560175" vertical-offset="1" max-vertical-offset="945">
           <caret line="26" column="68" selection-start-line="26" selection-start-column="68" selection-end-line="26" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -758,7 +696,65 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7221007" vertical-offset="90" max-vertical-offset="1185">
           <caret line="50" column="71" selection-start-line="50" selection-start-column="71" selection-end-line="50" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest/request.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.40449437" vertical-offset="0" max-vertical-offset="890">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/directive-score-display-template.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="890">
+          <caret line="0" column="119" selection-start-line="0" selection-start-column="119" selection-end-line="0" selection-end-column="119" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/app/directive/scoreDisplayDirective.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3118162" vertical-offset="0" max-vertical-offset="1125">
+          <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest/log.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="4" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/app/factory/gameFactory.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11378556" vertical-offset="991" max-vertical-offset="2835">
+          <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rest/rest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7977528" vertical-offset="1150" max-vertical-offset="2985">
+          <caret line="124" column="5" selection-start-line="124" selection-start-column="5" selection-end-line="124" selection-end-column="5" />
+          <folding>
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="SELECT teams..teams..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="SELECT count..games..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="SELECT count..games..." />
+            <marker date="1415103750513" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..this_settings_tbl_..." />
+          </folding>
         </state>
       </provider>
     </entry>

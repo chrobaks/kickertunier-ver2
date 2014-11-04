@@ -71,10 +71,12 @@
         */
         function setGoal(goalConf){
             if(games.gameIsRunning && goalConf.teamid !== ""){
-                goalConf.teamid = goalConf.teamid*1+1;
-                var teamscore = games.actualGameData["team_"+goalConf.teamid+"_scores"]*1;
-                var goalval = games.goalsItemConf[goalConf.goalid].val*1;
+
+                goalConf.teamid   = goalConf.teamid*1+1;
+                var teamscore     = games.actualGameData["team_"+goalConf.teamid+"_scores"]*1;
+                var goalval       = games.goalsItemConf[goalConf.goalid].val*1;
                 var gameHasWinner = false;
+
                 if(goalConf.goalid == goalConf.actulascore){
                     games.actualGameData["team_"+goalConf.teamid+"_scores"] += 1;
                     if(games.actualGameData["team_"+goalConf.teamid+"_scores"]==games.goalsItemConf.length){
@@ -145,7 +147,7 @@
         function deleteGame(id) {
             appResource.game.del({"id":id}).$promise.then(function(data) {
                 games.gameData = games.gameData.filter(function(obj){if(obj.id != id ){ return obj;}})
-                appResource.scorelist.getAll().$promise.then(function(data) {
+                appResource.scorelist.getAll({"tournaments_id" : games.tournaments_id}).$promise.then(function(data) {
                     games.scoreData = data;
                 });
             });

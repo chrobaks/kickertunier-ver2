@@ -39,7 +39,10 @@ class RestHandler extends DB
         if($this->settings["tbl"] && $this->settings["act"]){
             $func = $this->settings["act"];
             $this->$func();
-        }else{$this->response  = '{"status":"error","msg":"settings"}';}
+        }else{
+            $this->header("400 Bad Request");
+            $this->response  = '{"status":"error","msg":"settings"}';
+        }
     }
     private function requestaction ($request) {
         switch($_SERVER['REQUEST_METHOD']){
@@ -74,8 +77,9 @@ class RestHandler extends DB
             }
             $this->dbhandler->exec("FLUSH TABLES");
             $this->response = '{"status":"success"}';
+            $this->header("200 OK");
         }else{
-            //$this->response = '{"status":"error", "msg":"'.$this->params["id"].'"}';
+            $this->header("400 Bad Request");
         }
     }
     private function upd () {
@@ -84,6 +88,9 @@ class RestHandler extends DB
         if($this->dbhandler->exec($query)){
             $this->dbhandler->exec("FLUSH TABLES");
             $this->response = '{"status":"success"}';
+            $this->header("200 OK");
+        }else{
+            $this->header("400 Bad Request");
         }
     }
     private function add () {
@@ -93,23 +100,28 @@ class RestHandler extends DB
                 $this->params["id"] = $this->dbhandler->lastInsertId();
                 $this->response = json_encode($this->params);
                 $this->dbhandler->exec("FLUSH TABLES");
-            }
+                $this->header("201 Created");
+            }else{ $this->header("400 Bad Request"); }
+        }else{
+            $this->header("400 Bad Request");
         }
     }
     private function get () {
+
         if($this->settings["tbl"] !== 'scorelist'){
             $stmt = $this->dbhandler->prepare($this->queryGet());
-            if(isset($this->params["id"]) || isset($this->params["tournaments_id"]) ){
-                $stmt->execute();
-            }else{
-                $stmt->execute();
-            }
         }else{
             $stmt = $this->dbhandler->prepare($this->queryScorelist());
-            $stmt->execute();
         }
+        $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $this->response = json_encode($result);
+
+        if(is_array($result) && ! empty($result)) {
+            $this->response = json_encode($result);
+            $this->header("200 OK");
+        }else{
+            $this->header("400 Bad Request");
+        }
     }
     private function queryScorelist () {
         return "SELECT teams.id, teams.teamname,
@@ -120,47 +132,62 @@ class RestHandler extends DB
     }
     private function queryGet () {
         $query = "";
-        $where = (isset($this->params["tournaments_id"])) ? " WHERE tournaments_id=".$this->params["tournaments_id"] : "";
-        //$where .= (isset($this->params["id"])) ? " AND id= :id" : "";
+        $where = $this->where();
+
         if($this->settings["tbl"] == 'teams'){
+
             $query = "SELECT ".$this->settings["tbl"].".* ,
             (SELECT nickname FROM users WHERE users.id=".$this->settings["tbl"].".player_1 LIMIT 1) AS nickname_1,
             (SELECT nickname FROM users WHERE users.id=".$this->settings["tbl"].".player_2 LIMIT 1) AS nickname_2
             FROM ".$this->settings["tbl"].$where;
+
         }elseif($this->settings["tbl"] == 'games'){
+
             $query = "SELECT ".$this->settings["tbl"].".* ,
             (SELECT teamname FROM teams WHERE teams.id=".$this->settings["tbl"].".team_1 LIMIT 1) AS teamname_1,
             (SELECT teamname FROM teams WHERE teams.id=".$this->settings["tbl"].".team_2 LIMIT 1) AS teamname_2
             FROM ".$this->settings["tbl"].$where;
+
         }else{
             $query = "SELECT * FROM ".$this->settings["tbl"].$where;
         }
+        $this->log($query."\n");
         return $query;
+    }
+    private function where () {
+        $result = array();
+        if(isset($this->params["tournaments_id"])){
+            $result[] = "tournaments_id=".$this->params["tournaments_id"];
+        }
+        if(isset($this->params["id"])){
+            $result[] = "id=".$this->params["id"];
+        }
+        if( ! empty($result)){
+            $result = " WHERE ".implode(" AND ", $result);
+        }else{
+            $result = "";
+        }
+        return $result;
     }
     private function updcol($key, $val) {
         if($key!="id"){ return $key."='".$val."'"; }
     }
+    private function header ($status) {
+        header('HTTP/1.1 '.$status);
+        header('Content-type: application/json');
+    }
     public function response() {
         return $this->response;
     }
-    // ONLY DEVMOD
-    private function devget () {
-        if($this->settings["tbl"] !== 'scorelist'){
-            $stmt = $this->dbhandler->prepare("SELECT * FROM ".$this->settings["tbl"]);
-        }else{
-            $stmt = $this->dbhandler->prepare($this->queryScorelist());
+    private function log($txt){
+
+        if($file = fopen("log.txt","a")){
+            fwrite($file, $txt);
+            fclose($file);
         }
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function devdata() {
-        $this->params = array();
-        $res = array();
-        $this->settings["act"] = "get";
-        foreach($this->config["tbl"] as $tbl){
-            $this->settings["tbl"] = $tbl;
-            $res[$tbl] = $this->devget();
-        }
-        return $res;
     }
 }
+
+
+
+

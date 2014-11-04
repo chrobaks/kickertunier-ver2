@@ -1,23 +1,22 @@
 (function() {
+
     "use strict";
     
-    angular.module('mainApp').directive('scoreDisplay', scoreDisplay);
+    angular
+        .module('mainApp')
+        .directive('scoreDisplay', scoreDisplay);
 
     scoreDisplay.$inject = [
         'notificationFactory'
     ];
     
     function scoreDisplay( notificationFactory ) {
-        var get_tpl = function(){
-            var tpl = '<div class="item" ng-repeat="goal in gmctrl.games.goalsItemConf" ng-click="setGoal($index, $event)" >{{goal.val}}</div>';
-            tpl += '<div class="clearL"></div>';
-            return tpl;
-        }
+
         return {
+
             restrict: 'E',
             scope : true,
-            template:get_tpl(),
-            //templateUrl: 'templates/directive-score-display-template.html',
+            templateUrl: 'templates/directive-score-display-template.html',
             link : function (scope,element,attrs) {
                 scope.actulascore = -1; 
                 scope.status = "stop"; 
