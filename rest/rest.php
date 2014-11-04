@@ -28,7 +28,7 @@ class RestHandler extends DB
         $this->config    = $config;
         $this->setttings = array();
         $this->params    = array();
-        $this->response  = '{"status":"error"}';
+        $this->response  = '[]';
     }
     public static function get_instance($config){
         if( ! isset(self::$instance)){self::$instance = new RestHandler($config);}
@@ -40,8 +40,7 @@ class RestHandler extends DB
             $func = $this->settings["act"];
             $this->$func();
         }else{
-            $this->header("400 Bad Request");
-            $this->response  = '{"status":"error","msg":"settings"}';
+            $this->responseheader("400 Bad Request");
         }
     }
     private function requestaction ($request) {
@@ -76,10 +75,9 @@ class RestHandler extends DB
                 $this->dbhandler->exec("DELETE FROM games WHERE tournaments_id =".$this->params["id"]);
             }
             $this->dbhandler->exec("FLUSH TABLES");
-            $this->response = '{"status":"success"}';
-            $this->header("200 OK");
+            $this->responseheader("200 OK");
         }else{
-            $this->header("400 Bad Request");
+            $this->responseheader("400 Bad Request");
         }
     }
     private function upd () {
@@ -87,10 +85,9 @@ class RestHandler extends DB
         $query = sprintf("UPDATE ".$this->settings["tbl"]." SET %s WHERE id='%s'", implode(', ',$updcol), $this->params["id"]);
         if($this->dbhandler->exec($query)){
             $this->dbhandler->exec("FLUSH TABLES");
-            $this->response = '{"status":"success"}';
-            $this->header("200 OK");
+            $this->responseheader("200 OK");
         }else{
-            $this->header("400 Bad Request");
+            $this->responseheader("400 Bad Request");
         }
     }
     private function add () {
@@ -100,10 +97,10 @@ class RestHandler extends DB
                 $this->params["id"] = $this->dbhandler->lastInsertId();
                 $this->response = json_encode($this->params);
                 $this->dbhandler->exec("FLUSH TABLES");
-                $this->header("201 Created");
-            }else{ $this->header("400 Bad Request"); }
+                $this->responseheader("201 Created");
+            }else{ $this->responseheader("400 Bad Request"); }
         }else{
-            $this->header("400 Bad Request");
+            $this->responseheader("400 Bad Request");
         }
     }
     private function get () {
@@ -115,7 +112,7 @@ class RestHandler extends DB
         }
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $this->header("200 OK");
+        $this->responseheader("200 OK");
         if(is_array($result) && ! empty($result)) {
             $this->response = json_encode($result);
         }else{
@@ -172,7 +169,7 @@ class RestHandler extends DB
     private function updcol($key, $val) {
         if($key!="id"){ return $key."='".$val."'"; }
     }
-    private function header ($status) {
+    private function responseheader ($status) {
         header('HTTP/1.1 '.$status);
         header('Content-type: application/json');
     }

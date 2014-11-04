@@ -183,7 +183,7 @@
                             <td class="repeattbl-lbl blue" ng-click="predicate = 'gamecounts'; reverse=!reverse">Spiele</td>
                             <td class="repeattbl-lbl blue" ng-click="predicate = 'totalpoints'; reverse=!reverse">Punkte</td>
                         </tr>
-                        <tr ng-repeat="score in gmctrl.games.scoreData | orderBy:predicate:reverse">
+                        <tr ng-repeat="score in gmctrl.games.scoreData | orderBy:'totalpoints'">
                             <td class="repeattbl-item">{{score.teamname}}</td>
                             <td class="repeattbl-item">{{score.gamecounts}}</td>
                             <td class="repeattbl-item">{{score.totalpoints}}</td>
