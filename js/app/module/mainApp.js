@@ -1,4 +1,5 @@
 define([
+    'mainApp',
     'angular',
     'uiRouter',
     'ngResource'
