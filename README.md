@@ -3,14 +3,15 @@ Kickertunier-UI with Angular.js
 
 LearningByDoing-Application with Angular for Beginners
 
-Update : 31.10.2014
+Update : 06.11.2014
 
 used libarys
 
-- angular.js 1.0.7
+- angular.js
 - angular-resource.js
 - angular-ui-router.js
-- jquery.js 1.7
+- angular-smart-table.js
+- jquery.js
 
 Html Page Type : Single Page
 
