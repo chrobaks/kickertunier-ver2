@@ -1,20 +1,15 @@
-define([
-    'mainApp',
-    'angular',
-    'uiRouter',
-    'ngResource'
-    //'app/filter/mainAppFilter',
-    //'app/factory/appFactory'
-],function ( angular ) {
+(function () {
 
-    "use strict";
+        "use strict";
 
-    //angular.module('mainApp', ['ui.router', 'mainAppFilter', 'mainAppFactory', 'ngResource']);
-    var mainApp = angular.module('mainApp', ['ui.router', 'ngResource']);
+        angular.module('mainApp', ['ui.router', 'ngResource', 'mainAppFilter', 'mainAppFactory']);
 
-    return mainApp;
+})();
 
-});
+
+
+
+
 
 
 

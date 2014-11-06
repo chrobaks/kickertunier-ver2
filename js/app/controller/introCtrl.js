@@ -44,7 +44,7 @@
             }
         }
         function del() {
-            if(typeof ictrl.selectTournamentId.id != 'undefined'){
+            if(typeof ictrl.selectTournamentId != 'undefined' && typeof ictrl.selectTournamentId.id != 'undefined'){
                 if(messageFactory.get_confirm("tournaments_delete")){
                     appResource.intro.del({"id":ictrl.selectTournamentId.id}).$promise.then(function(data) {
                         ictrl.tournaments = ictrl.tournaments.filter(function(obj){if(obj.id != ictrl.selectTournamentId.id ){ return obj;}})
@@ -53,7 +53,7 @@
             }
         }
         function selectTournament (form) {
-            if(typeof ictrl.selectTournamentId.id != 'undefined')
+            if(typeof ictrl.selectTournamentId != 'undefined' && typeof ictrl.selectTournamentId.id != 'undefined')
             $state.transitionTo('game', {tournaments_id:ictrl.selectTournamentId.id});
         }
     }
