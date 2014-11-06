@@ -73,7 +73,6 @@
             }
         }
         function deleteTeam(id) {
-            
             var teamDelt = tmctrl.teams.teamData.filter(function(obj){if(obj.id == id ){ return obj;}})[0];
             if(tmctrl.teams.actualGameData.team_1 == teamDelt.teamname || tmctrl.teams.actualGameData.team_2 == teamDelt.teamname ){
                 messageFactory.set_error("team_is_in_active_game");

@@ -28,7 +28,7 @@ class RestHandler extends DB
         $this->config    = $config;
         $this->setttings = array();
         $this->params    = array();
-        $this->response  = '[]';
+        $this->response  = '';
     }
     public static function get_instance($config){
         if( ! isset(self::$instance)){self::$instance = new RestHandler($config);}

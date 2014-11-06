@@ -2,15 +2,13 @@
 
         "use strict";
 
-        angular.module('mainApp', ['ui.router', 'ngResource', 'mainAppFilter', 'mainAppFactory']);
-
+        angular
+            .module('mainApp', [
+                'ui.router', 
+                'smart-table',
+                'ngResource', 
+                'mainAppFilter', 
+                'mainAppFactory'
+            ]);
 })();
-
-
-
-
-
-
-
-
 

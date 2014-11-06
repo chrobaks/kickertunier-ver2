@@ -20,6 +20,11 @@
             },
             gameData   : [],
             scoreData  : [],
+            scoreColumns : [
+                { label: 'Teamname', map: 'teamname'},
+                { label: 'Spiele', map: 'gamecounts'},
+                { label: 'Punkte', map: 'totalpoints'}
+            ],
             actualGameData : {
                 team_1        : 'Kein Team',
                 team_2        : 'Kein Team',

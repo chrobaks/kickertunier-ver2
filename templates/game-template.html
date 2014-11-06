@@ -38,21 +38,23 @@
                             <span class="formmsg" ng-bind="uctrl.users.formmsg"></span>
                         </p>
                     </form>
-                    <table class="repeattbl">
+                    <table 
+                        st-table="displayedCollection" 
+                        st-safe-src="uctrl.users.userData" 
+                        class="table table-striped repeattbl">
                         <tr>
-                            <td class="repeattbl-lbl green" ng-click="predicate = 'firstname'; reverse=!reverse">Vorname</td>
-                            <td class="repeattbl-lbl green" ng-click="predicate = 'secondname'; reverse=!reverse">Nachname</td>
-                            <td class="repeattbl-lbl green" ng-click="predicate = 'nickname'; reverse=!reverse">Nickname</td>
+                            <td st-sort="firstname" class="repeattbl-lbl green">Vorname</td>
+                            <td st-sort="secondname" class="repeattbl-lbl green">Nachname</td>
+                            <td st-sort="nickname" class="repeattbl-lbl green">Nickname</td>
                             <td class="repeattbl-lbl green">&nbsp;</td>
                         </tr>
-                        <tr ng-repeat="user in uctrl.users.userData | orderBy:predicate:reverse">
-                            <td class="repeattbl-item">{{user.firstname}}</td>
-                            <td class="repeattbl-item">{{user.secondname}}</td>
-                            <td class="repeattbl-item">{{user.nickname}}</td>
-                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="uctrl.deleteUser(user.id)"></td>
-                        </tr>
-                    </table>
-
+                        <tr ng-repeat="row in displayedCollection">
+            				<td class="repeattbl-item">{{row.firstname}}</td>
+            				<td class="repeattbl-item">{{row.secondname}}</td>
+            				<td class="repeattbl-item">{{row.nickname}}</td>
+                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="uctrl.deleteUser(row.id)"></td>
+            			</tr>
+                     </table>
                 </div>
             </div>
             <!-- END FORM USER -->
@@ -96,20 +98,23 @@
                             <span class="formmsg" ng-bind="tmctrl.teams.formmsg"></span>
                         </p>
                     </form>
-                    <table class="repeattbl">
+                    <table 
+                        st-table="displayedCollection" 
+                        st-safe-src="tmctrl.teams.teamData" 
+                        class="table table-striped repeattbl">
                         <tr>
-                            <td class="repeattbl-lbl green" ng-click="predicate = 'player_1'; reverse=!reverse">Spieler 1</td>
-                            <td class="repeattbl-lbl green" ng-click="predicate = 'player_2'; reverse=!reverse">Spieler 2</td>
-                            <td class="repeattbl-lbl green" ng-click="predicate = 'teamname'; reverse=!reverse">Teamname</td>
+                            <td st-sort="nickname_1" class="repeattbl-lbl green">Spieler 1</td>
+                            <td st-sort="nickname_2" class="repeattbl-lbl green">Spieler 2</td>
+                            <td st-sort="teamname" class="repeattbl-lbl green">Teamname</td>
                             <td class="repeattbl-lbl green">&nbsp;</td>
                         </tr>
-                        <tr ng-repeat="team in tmctrl.teams.teamData | orderBy:predicate:reverse">
-                            <td class="repeattbl-item">{{team.nickname_1}}</td>
-                            <td class="repeattbl-item">{{team.nickname_2}}</td>
-                            <td class="repeattbl-item">{{team.teamname}}</td>
-                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="tmctrl.deleteTeam(team.id)"></td>
-                        </tr>
-                    </table>
+                        <tr ng-repeat="row in displayedCollection">
+            				<td class="repeattbl-item">{{row.nickname_1}}</td>
+            				<td class="repeattbl-item">{{row.nickname_2}}</td>
+            				<td class="repeattbl-item">{{row.teamname}}</td>
+                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="tmctrl.deleteTeam(row.id)"></td>
+            			</tr>
+                     </table>
                 </div>
             </div>
             <!-- END FORM TEAM -->
@@ -160,35 +165,21 @@
                             <score-display index="1" class="goal-display"></score-display>
                         </div>
                     </form>
-
-
-                    <table class="repeattbl">
+                    <table 
+                        st-table="displayedCollection" 
+                        st-safe-src="gmctrl.games.scoreData" 
+                        class="table table-striped repeattbl">
                         <tr>
-                            <td class="repeattbl-lbl blue" ng-click="predicate = 'team_1'; reverse=!reverse">Team 1</td>
-                            <td class="repeattbl-lbl blue" ng-click="predicate = 'team_2'; reverse=!reverse">Team 2</td>
-                            <td class="repeattbl-lbl blue">Ergebnis</td>
-                            <td class="repeattbl-lbl blue">&nbsp;</td>
+                            <td st-sort="teamname" class="repeattbl-lbl blue">Team</td>
+                            <td st-sort="gamecounts" class="repeattbl-lbl blue">Spiele</td>
+                            <td st-sort="totalpoints" class="repeattbl-lbl blue">Punkte</td>
                         </tr>
-                        <tr ng-repeat="game in gmctrl.games.gameData | orderBy:predicate:reverse">
-                            <td class="repeattbl-item">{{game.teamname_1}}</td>
-                            <td class="repeattbl-item">{{game.teamname_2}}</td>
-                            <td class="repeattbl-item">{{game.result}}</td>
-                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="gmctrl.deleteGame(game.id)"></td>
-                        </tr>
-                    </table>
-                    <div class="box-label blue">Spiel-Tabelle</div>
-                    <table class="repeattbl">
-                        <tr>
-                            <td class="repeattbl-lbl blue" ng-click="predicate = 'teamname'; reverse=!reverse">Team</td>
-                            <td class="repeattbl-lbl blue" ng-click="predicate = 'gamecounts'; reverse=!reverse">Spiele</td>
-                            <td class="repeattbl-lbl blue" ng-click="predicate = 'totalpoints'; reverse=!reverse">Punkte</td>
-                        </tr>
-                        <tr ng-repeat="score in gmctrl.games.scoreData | orderBy:'totalpoints'">
-                            <td class="repeattbl-item">{{score.teamname}}</td>
-                            <td class="repeattbl-item">{{score.gamecounts}}</td>
-                            <td class="repeattbl-item">{{score.totalpoints}}</td>
-                        </tr>
-                    </table>
+                        <tr ng-repeat="row in displayedCollection">
+            				<td class="repeattbl-item">{{row.teamname}}</td>
+            				<td class="repeattbl-item">{{row.gamecounts}}</td>
+            				<td class="repeattbl-item">{{row.totalpoints}}</td>
+            			</tr>
+                     </table>
                 </div>
             </div>
             <!-- END FORM GAME -->
