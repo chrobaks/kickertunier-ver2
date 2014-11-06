@@ -103,3 +103,4 @@ ul {list-style: none;}
     text-align:center;
     cursor: pointer;
 }
+td.item-bt span {cursor: pointer;}

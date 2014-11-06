@@ -12,6 +12,7 @@
                         <p>
                             <input name="firstname"
                                 type="text"
+                                placeholder="Vorname"
                                 ng-model="uctrl.users.user.firstname"
                                 ng-maxlength="30"
                                 required/>
@@ -20,6 +21,7 @@
                         <p>
                             <input name="secondname"
                                 type="text"
+                                placeholder="Nachname"
                                 ng-model='uctrl.users.user.secondname'
                                 ng-maxlength="30"
                                 required/>
@@ -28,6 +30,7 @@
                         <p>
                             <input name="nickname"
                                 type="text"
+                                placeholder="Nickname"
                                 ng-model='uctrl.users.user.nickname'
                                 ng-maxlength="30"
                                 required/>
@@ -52,7 +55,9 @@
             				<td class="repeattbl-item">{{row.firstname}}</td>
             				<td class="repeattbl-item">{{row.secondname}}</td>
             				<td class="repeattbl-item">{{row.nickname}}</td>
-                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="uctrl.deleteUser(row.id)"></td>
+                            <td class="repeattbl-item item-bt">
+                                <span ng-click="uctrl.deleteUser(row.id)" class="glyphicon glyphicon-trash"></span>
+                            </td>
             			</tr>
                      </table>
                 </div>
@@ -87,6 +92,7 @@
                         <p>
                             <input name="teamname"
                                 type="text"
+                                placeholder="Teamname"
                                 ng-model='tmctrl.teams.team.teamname'
                                 ng-required="true"
                                 ng-maxlength="30"
@@ -112,7 +118,9 @@
             				<td class="repeattbl-item">{{row.nickname_1}}</td>
             				<td class="repeattbl-item">{{row.nickname_2}}</td>
             				<td class="repeattbl-item">{{row.teamname}}</td>
-                            <td class="repeattbl-item"><input type="button" value="löschen" ng-click="tmctrl.deleteTeam(row.id)"></td>
+                            <td class="repeattbl-item item-bt">
+                                <span ng-click="tmctrl.deleteTeam(row.id)" class="glyphicon glyphicon-trash"></span>
+                            </td>
             			</tr>
                      </table>
                 </div>
