@@ -90,11 +90,12 @@ ul {list-style: none;}
 }
 .repeattbl {
     width: 100%;
+    background-color: #fff;
 }
 .repeattbl-item {
-    background-color:#fff;
+   /* background-color:#fff;
     font-size: 0.7em;
-    padding-left: 5px;
+    padding-left: 5px;*/
 }
 .repeattbl-lbl {
     color:#fff;
