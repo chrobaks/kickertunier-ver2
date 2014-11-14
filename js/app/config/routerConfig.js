@@ -1,24 +1,41 @@
-(function() {
-    
-    "use strict";
+define(
+    [
+        'app',
+        'resource/appResource',
+        'factory/appFactory',
+        'factory/notificationFactory',
+        'controller/mainAppCtrl',
+        'controller/introCtrl',
+        'controller/userCtrl',
+        'controller/teamCtrl',
+        'controller/gameCtrl'
+    ],
+    function (app) {
 
-    angular
-        .module('mainApp')
-        .config(function($stateProvider, $urlRouterProvider){
-            
-            $urlRouterProvider.otherwise("/intro");
-            
-            $stateProvider
-            .state('intro', {
-                url: "/intro",
-                controller: 'mainAppCtrl',
-                templateUrl: "templates/intro-template.html"
-            }).state('game', {
-                url: "/game/:tournaments_id",
-                controller: 'mainAppCtrl',
-                templateUrl: "templates/game-template.html"
-            });
-        }
-    );
-    
-})();
+        'use strict';
+
+        return app.config([
+
+            '$stateProvider',
+            '$urlRouterProvider',
+
+            function ($stateProvider, $urlRouterProvider) {
+
+                $urlRouterProvider.otherwise("/intro");
+
+                $stateProvider
+                    .state('intro', {
+                        url: "/intro",
+                        templateUrl: "templates/intro-template.html",
+                        controller : 'mainAppCtrl'
+                    }).state('game', {
+                        url: "/game/:tournaments_id",
+                        templateUrl: "templates/game-template.html",
+                        controller : 'mainAppCtrl'
+                    });
+            }
+        ]);
+    }
+);
+
+

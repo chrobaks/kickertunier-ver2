@@ -173,21 +173,42 @@
                             <score-display index="1" class="goal-display"></score-display>
                         </div>
                     </form>
-                    <table 
-                        st-table="displayedCollection" 
-                        st-safe-src="gmctrl.games.scoreData" 
-                        class="table table-striped repeattbl">
+
+                    <table
+                            st-table="gameData"
+                            st-safe-src="gmctrl.games.gameData"
+                            class="table table-striped repeattbl">
+                        <tr>
+                            <td st-sort="teamname_1" class="repeattbl-lbl blue">Team 1</td>
+                            <td st-sort="teamname_2" class="repeattbl-lbl blue">Team 2</td>
+                            <td st-sort="result" class="repeattbl-lbl blue">Ergebnis</td>
+                            <td class="repeattbl-lbl blue">&nbsp;</td>
+                        </tr>
+                        <tr ng-repeat="row in gameData">
+                            <td class="repeattbl-item">{{row.teamname_1}}</td>
+                            <td class="repeattbl-item">{{row.teamname_2}}</td>
+                            <td class="repeattbl-item">{{row.result}}</td>
+                            <td class="repeattbl-item item-bt">
+                                <span ng-click="gmctrl.deleteGame(row.id)" class="glyphicon glyphicon-trash"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table
+                            st-table="scoreData"
+                            st-safe-src="gmctrl.games.scoreData"
+                            class="table table-striped repeattbl">
                         <tr>
                             <td st-sort="teamname" class="repeattbl-lbl blue">Team</td>
                             <td st-sort="gamecounts" class="repeattbl-lbl blue">Spiele</td>
                             <td st-sort="totalpoints" class="repeattbl-lbl blue">Punkte</td>
                         </tr>
-                        <tr ng-repeat="row in displayedCollection">
-            				<td class="repeattbl-item">{{row.teamname}}</td>
-            				<td class="repeattbl-item">{{row.gamecounts}}</td>
-            				<td class="repeattbl-item">{{row.totalpoints}}</td>
-            			</tr>
-                     </table>
+                        <tr ng-repeat="row in scoreData">
+                            <td class="repeattbl-item">{{row.teamname}}</td>
+                            <td class="repeattbl-item">{{row.gamecounts}}</td>
+                            <td class="repeattbl-item">{{row.totalpoints}}</td>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
             <!-- END FORM GAME -->

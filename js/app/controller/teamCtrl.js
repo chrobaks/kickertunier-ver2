@@ -1,10 +1,13 @@
-(function() {
+define(
+    [
+        'app',
+        'factory/teamFactory'
+    ],
+    function (app) {
     
     "use strict";
 
-    angular
-        .module('mainApp')
-        .controller('teamCtrl', teamCtrl);
+    app.controller('teamCtrl', teamCtrl);
 
     teamCtrl.$inject = [
         'teamFactory',
@@ -16,29 +19,29 @@
 
     function teamCtrl( teamFactory, notificationFactory, messageFactory, appResource, $stateParams) {
         
-        var tmctrl            = this;
-        tmctrl.teams          = teamFactory.get();
-        tmctrl.addTeam        = addTeam;
-        tmctrl.deleteTeam     = deleteTeam;
-        tmctrl.tournaments_id = $stateParams.tournaments_id;
+        var vm            = this;
+        vm.teams          = teamFactory.get();
+        vm.addTeam        = addTeam;
+        vm.deleteTeam     = deleteTeam;
+        vm.tournaments_id = $stateParams.tournaments_id;
 
         activate();
 
         function activate () {
             
-            appResource.team.getAll({"tournaments_id" : tmctrl.tournaments_id}).$promise.then(function(data) {
-                tmctrl.teams.teamData = data;
-                notificationFactory.trigger('teamData',[tmctrl.teams.teamData]);
+            appResource.team.getAll({"tournaments_id" : vm.tournaments_id}).$promise.then(function(data) {
+                vm.teams.teamData = data;
+                notificationFactory.trigger('teamData',[vm.teams.teamData]);
             });
             
             notificationFactory.on('userData',function(data){
-                tmctrl.teams.userData = data;
+                vm.teams.userData = data;
             });
             notificationFactory.on('deleteUser',function(data){
-                tmctrl.teams.userData = data;
+                vm.teams.userData = data;
             });
             notificationFactory.on('actualGameData',function(data){
-                tmctrl.teams.actualGameData = data;
+                vm.teams.actualGameData = data;
             });
             
         }
@@ -50,41 +53,41 @@
                 messageFactory.set_error("fields_need_content");
                 actionOk = false;
             }
-            if(tmctrl.teams.teamData.filter(function(obj){if(obj.teamname == tmctrl.teams.team.teamname ){ return obj;}}).length){
+            if(vm.teams.teamData.filter(function(obj){if(obj.teamname == vm.teams.team.teamname ){ return obj;}}).length){
                 messageFactory.set_error("teamname_exist");
                 actionOk = false;
             }
             if( ! actionOk){
-                tmctrl.teams.formmsg = messageFactory.get_error();
+                vm.teams.formmsg = messageFactory.get_error();
             }else{
                 var newteam = {
-                    teamname       : tmctrl.teams.team.teamname,
-                    player_1       : tmctrl.teams.team.player_1.id,
-                    player_2       : tmctrl.teams.team.player_2.id,
-                    tournaments_id : tmctrl.tournaments_id
+                    teamname       : vm.teams.team.teamname,
+                    player_1       : vm.teams.team.player_1.id,
+                    player_2       : vm.teams.team.player_2.id,
+                    tournaments_id : vm.tournaments_id
                 };
                 appResource.team.set(angular.copy(newteam)).$promise.then(function(data) {
-                    data.nickname_1 = tmctrl.teams.team.player_1.nickname;
-                    data.nickname_2 = tmctrl.teams.team.player_2.nickname;
-                    tmctrl.teams.teamData.push(angular.copy(data));
-                    tmctrl.teams.team = {teamname: '', player_1: '', player_2: ''};
-                    notificationFactory.trigger('teamData',[tmctrl.teams.teamData]);
+                    data.nickname_1 = vm.teams.team.player_1.nickname;
+                    data.nickname_2 = vm.teams.team.player_2.nickname;
+                    vm.teams.teamData.push(angular.copy(data));
+                    vm.teams.team = {teamname: '', player_1: '', player_2: ''};
+                    notificationFactory.trigger('teamData',[vm.teams.teamData]);
                 });
             }
         }
         function deleteTeam(id) {
-            var teamDelt = tmctrl.teams.teamData.filter(function(obj){if(obj.id == id ){ return obj;}})[0];
-            if(tmctrl.teams.actualGameData.team_1 == teamDelt.teamname || tmctrl.teams.actualGameData.team_2 == teamDelt.teamname ){
+            var teamDelt = vm.teams.teamData.filter(function(obj){if(obj.id == id ){ return obj;}})[0];
+            if(vm.teams.actualGameData.team_1 == teamDelt.teamname || vm.teams.actualGameData.team_2 == teamDelt.teamname ){
                 messageFactory.set_error("team_is_in_active_game");
                 messageFactory.set_alert('error');
             }else{
                 if(messageFactory.get_confirm("team_delete")){
                     appResource.team.del({"id":id}).$promise.then(function(data) {
-                        tmctrl.teams.teamData = tmctrl.teams.teamData.filter(function(obj){if(obj.id != id ){ return obj;}})
-                        notificationFactory.trigger('deleteTeamData',[tmctrl.teams.teamData]);
+                        vm.teams.teamData = vm.teams.teamData.filter(function(obj){if(obj.id != id ){ return obj;}})
+                        notificationFactory.trigger('deleteTeamData',[vm.teams.teamData]);
                     });
                 }
             }
         }
     }
-})();
+});

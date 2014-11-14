@@ -1,10 +1,12 @@
-(function(){
+define(
+    [
+        'app'
+    ],
+    function (app) {
     
     "use strict";
     
-    angular
-        .module('mainApp')
-        .controller('introCtrl', introCtrl);
+    app.controller('introCtrl', introCtrl);
         
     introCtrl.$inject = [
         '$state',
@@ -15,46 +17,46 @@
 
     function introCtrl ( $state, appResource, notificationFactory, messageFactory) {
         
-        var ictrl                = this;
-        ictrl.tournaments        = [];
-        ictrl.name               = "";
-        ictrl.selectTournamentId = "";
-        ictrl.selectTournament   = selectTournament;
-        ictrl.add                = add;
-        ictrl.del                = del;
+        var vm                = this;
+        vm.tournaments        = [];
+        vm.name               = "";
+        vm.selectTournamentId = "";
+        vm.selectTournament   = selectTournament;
+        vm.add                = add;
+        vm.del                = del;
         
         activate();
         
         function activate () {
             
             appResource.intro.getAll().$promise.then(function(data) {
-                ictrl.tournaments = data;
+                vm.tournaments = data;
             });
             
         }
         function add () {
-            if(ictrl.tournaments.filter(function(obj){if(obj.name == ictrl.name ){ return obj;}}).length){
+            if(vm.tournaments.filter(function(obj){if(obj.name == vm.name ){ return obj;}}).length){
                 messageFactory.set_error("tournaments_exist");
                 messageFactory.set_alert('error');
             }else{
-                appResource.intro.set({"name" : ictrl.name}).$promise.then(function(data) {
-                    ictrl.tournaments.push(data);
-                    ictrl.name = "";
+                appResource.intro.set({"name" : vm.name}).$promise.then(function(data) {
+                    vm.tournaments.push(data);
+                    vm.name = "";
                 });    
             }
         }
         function del() {
-            if(typeof ictrl.selectTournamentId != 'undefined' && typeof ictrl.selectTournamentId.id != 'undefined'){
+            if(typeof vm.selectTournamentId != 'undefined' && typeof vm.selectTournamentId.id != 'undefined'){
                 if(messageFactory.get_confirm("tournaments_delete")){
-                    appResource.intro.del({"id":ictrl.selectTournamentId.id}).$promise.then(function(data) {
-                        ictrl.tournaments = ictrl.tournaments.filter(function(obj){if(obj.id != ictrl.selectTournamentId.id ){ return obj;}})
+                    appResource.intro.del({"id":vm.selectTournamentId.id}).$promise.then(function(data) {
+                        vm.tournaments = vm.tournaments.filter(function(obj){if(obj.id != vm.selectTournamentId.id ){ return obj;}})
                     });
                 }
             }
         }
         function selectTournament (form) {
-            if(typeof ictrl.selectTournamentId != 'undefined' && typeof ictrl.selectTournamentId.id != 'undefined')
-            $state.transitionTo('game', {tournaments_id:ictrl.selectTournamentId.id});
+            if(typeof vm.selectTournamentId != 'undefined' && typeof vm.selectTournamentId.id != 'undefined')
+            $state.transitionTo('game', {tournaments_id:vm.selectTournamentId.id});
         }
     }
-})();
+});

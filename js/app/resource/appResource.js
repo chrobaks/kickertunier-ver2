@@ -1,12 +1,14 @@
-(function () {
+define(
+    [
+        'app'
+    ],
+    function (app) {
     
     "use strict";
 
-    angular
-        .module('mainApp')
-        .factory('appResource', ['$resource',
+    app.factory('appResource', ['$resource',
             function ($resource) {
-                var url = "/kickertunier-ver2/rest/request.php";
+                var url = "/requiretest2/rest/request.php";
                 var config = {
                     'getAll': {
                         method: 'GET',
@@ -33,4 +35,4 @@
                 }
             }]
         );
-})();
+});

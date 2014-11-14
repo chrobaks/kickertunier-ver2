@@ -1,7 +1,12 @@
-(function() {
+define(
+    [
+        'app'
+    ],
+    function (app) {
+        
     "use strict";
 
-    angular.module('mainApp').factory('teamFactory', teamFactory);
+    app.factory('teamFactory', teamFactory);
     
     function teamFactory () {
         var teams = {
@@ -19,13 +24,9 @@
         var returns = {
             get : get
         }
-        /**
-        * public function get
-        *
-        * @returns object
-        */
+        
         function get () { return teams; }
         
         return returns;
     }    
-})();
+});

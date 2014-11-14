@@ -1,10 +1,14 @@
-(function() {
+define(
+    [
+        'app',
+        'directive/scoreDisplayDirective',
+        'factory/gameFactory'
+    ],
+    function (app) {
     
     "use strict";
 
-    angular
-        .module('mainApp')
-        .controller('gameCtrl', gameCtrl);
+    app.controller('gameCtrl', gameCtrl);
 
     gameCtrl.$inject = [
         'gameFactory',
@@ -16,32 +20,32 @@
 
     function gameCtrl( gameFactory, notificationFactory, messageFactory, appResource, $stateParams) {
 
-        var gmctrl        = this;
-        gmctrl.startGame  = startGame;
-        gmctrl.deleteGame = deleteGame;
+        var vm        = this;
+        vm.startGame  = startGame;
+        vm.deleteGame = deleteGame;
 
         activate();
 
         function activate () {
 
-            gmctrl.games = gameFactory.get();
-            gmctrl.games.tournaments_id = $stateParams.tournaments_id;
+            vm.games = gameFactory.get();
+            vm.games.tournaments_id = $stateParams.tournaments_id;
 
-            appResource.game.getAll({"tournaments_id" : gmctrl.games.tournaments_id}).$promise.then(function(data) {
-                gmctrl.games.gameData = data;
-                notificationFactory.trigger('actualGameData',[gmctrl.games.actualGameData]);
-                notificationFactory.trigger('gameIsRunning',[gmctrl.games.gameIsRunning]);
+            appResource.game.getAll({"tournaments_id" : vm.games.tournaments_id}).$promise.then(function(data) {
+                vm.games.gameData = data;
+                notificationFactory.trigger('actualGameData',[vm.games.actualGameData]);
+                notificationFactory.trigger('gameIsRunning',[vm.games.gameIsRunning]);
             });
 
-            appResource.scorelist.getAll({"tournaments_id" : gmctrl.games.tournaments_id}).$promise.then(function(data) {
-                gmctrl.games.scoreData = data;
+            appResource.scorelist.getAll({"tournaments_id" : vm.games.tournaments_id}).$promise.then(function(data) {
+                vm.games.scoreData = data;
             });
 
             notificationFactory.on('teamData',function(data){
-                gmctrl.games.teamData = data;
+                vm.games.teamData = data;
             });
             notificationFactory.on('deleteTeamData',function(data){
-                gmctrl.games.teamData = data;
+                vm.games.teamData = data;
                 gameFactory.updateGameData();
             });
             notificationFactory.on('scoreConfig',function(data){
@@ -57,4 +61,4 @@
             gameFactory.deleteGame(id);
         }
     }
-})();
+});

@@ -1,7 +1,12 @@
-(function() {
+define(
+    [
+        'app'
+    ],
+    function (app) {
+        
     "use strict";
 
-    angular.module('mainApp').factory('userFactory', userFactory);
+    app.factory('userFactory', userFactory);
     
     function userFactory () {
         var users = {
@@ -16,15 +21,11 @@
             formmsg     : 'Neuen Spieler speichern',
             userAutoId  : null
         };
-        /**
-        * public function get
-        *
-        * @returns object
-        */
+        
         function get () { return users; }
 
         return {
             get : get
         };
     }    
-})();
+});

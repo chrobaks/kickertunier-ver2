@@ -1,10 +1,12 @@
-(function() {
+define(
+    [
+        'app'
+    ],
+    function (app) {
     
     "use strict";
 
-    angular
-        .module('mainApp')
-        .factory('notificationFactory', notificationFactory);
+    app.factory('notificationFactory', notificationFactory);
 
     function notificationFactory() {
 
@@ -47,5 +49,5 @@
         }
 
     }
-})();
+});
 

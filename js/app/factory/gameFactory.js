@@ -1,10 +1,12 @@
-(function() {
-    
+define(
+    [
+        'app'
+    ],
+    function (app) {
+        
     "use strict";
 
-    angular
-        .module('mainApp')
-        .factory('gameFactory', gameFactory);
+    app.factory('gameFactory', gameFactory);
 
     gameFactory.$inject = [
         'notificationFactory',
@@ -18,13 +20,8 @@
                 team_1 : null,
                 team_2 : null
             },
-            gameData   : [],
-            scoreData  : [],
-            scoreColumns : [
-                { label: 'Teamname', map: 'teamname'},
-                { label: 'Spiele', map: 'gamecounts'},
-                { label: 'Punkte', map: 'totalpoints'}
-            ],
+            gameData     : [],
+            scoreData    : [],
             actualGameData : {
                 team_1        : 'Kein Team',
                 team_2        : 'Kein Team',
@@ -185,4 +182,4 @@
         }
         return returns;
     }    
-})();
+});

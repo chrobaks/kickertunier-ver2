@@ -1,25 +1,29 @@
-(function() {
+define(
+    [
+        'app',
+        'filter/appFilter'
+    ],
+    function (app) {
     
     "use strict";
 
-    angular
-        .module('mainApp')
-        .controller('mainAppCtrl', mainAppCtrl);
+    app.controller('mainAppCtrl', mainAppCtrl);
 
     mainAppCtrl.$inject = [
-        'notificationFactory',
         '$stateParams'
     ];
     
-    function mainAppCtrl( notificationFactory, $stateParams) {
+    function mainAppCtrl( $stateParams) {
 
-        var mctrl = this;
-        mctrl.tournaments_id = (typeof $stateParams.tournaments_id != 'undefined') ? $stateParams.tournaments_id: "";
-        mctrl.show           = {};
-        mctrl.toggleTab      = toggleTab;
+        var vm = this;
+        vm.tournaments_id = (typeof $stateParams.tournaments_id != 'undefined') ? $stateParams.tournaments_id: "";
+        vm.show           = {};
+        vm.toggleTab      = toggleTab;
+        
+        vm.title = 'Hello mainAppCtrl!';
         
         function toggleTab (tab) {
-            mctrl.show[tab] = !mctrl.show[tab];
+            vm.show[tab] = !vm.show[tab];
         }
     }
-})();
+});
