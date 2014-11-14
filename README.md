@@ -3,10 +3,11 @@ Kickertunier-UI with Angular.js
 
 LearningByDoing-Application with Angular for Beginners
 
-Update : 06.11.2014
+Update : 14.11.2014
 
 used libarys
 
+- require.js
 - angular.js
 - angular-resource.js
 - angular-ui-router.js
