@@ -8,7 +8,7 @@ define(
 
     app.factory('appResource', ['$resource',
             function ($resource) {
-                var url = "/requiretest2/rest/request.php";
+                var url = "/kickertunier-ver2/rest/request.php";
                 var config = {
                     'getAll': {
                         method: 'GET',
